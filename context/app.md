@@ -1,7 +1,9 @@
-# Joe's Deli
+# Exit Strategy Echo (Modular Framework)
 
-Joe's Deli is a small cafe that sells New York style deli sandwiches.
+Our mission: Provide a system for capturing knowledge of employees exiting an organization by replicating the employee as a digital assistant known as an "Echo".
 
-You order at the counter and can take your food to go or sit down in the dinning room.
+The exiting employees knowledge will be used for the following:
+- Echo: An AI assistant that will mirror the exiting employee and can be used by other employees after the exiting employee leaves
+- Onboarding Playbook: A markdown document that will help new employees during onboarding to learn the exiting employee's job.
 
-Joe's Deli has old school vibes and makes you feel like your in the mob.
+This site is just the marketing main page.

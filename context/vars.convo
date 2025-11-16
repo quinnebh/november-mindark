@@ -1,5 +1,5 @@
 > define
-appName='ExampleLandingPage'
+appName='MindArk.AI'
 appPort=3000
 appDir='.'
 appHttpRoot='pages'

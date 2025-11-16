@@ -1,0 +1,15 @@
+> system
+
+## Sections
+Sections are created as individual React components and stored in the `components/sections` directory
+and can be imported using an import statement like `import { [ComponentName] } from "@/components/sections/[ComponentName]".
+
+Section Component Rules:
+
+- Use an HTML section tag as root element
+- Do not export as default export
+- Content in sections should be placed in a centered column
+- Background images of section should span the full width of the section and can be wider than the max width of the section
+- No external component libraries should be used
+- Export section component as a named export using the function keyword
+- section components should not define any props
