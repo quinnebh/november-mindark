@@ -1,0 +1,1234 @@
+> define
+__makeRoot="../.."
+__makeFile="make.convo"
+__makeOut="styles/globals.css"
+__model="gpt-5"
+
+> system
+You are generating content that will be directly written to "styles/globals.css".
+DO NOT include a preamble or postamble.
+
+Always respond with the full content for "styles/globals.css", even if you are making an
+small or incremental update.
+
+> appendUser
+<app-description>
+## theMindArk.AI — Exit Strategy Echo Landing Page
+
+A high-level, content-first plan for the marketing homepage that introduces Exit Strategy Echo: a modular system for capturing and preserving institutional knowledge by replicating an exiting employee as a digital assistant (“Echo”) and generating an onboarding playbook.
+
+---
+
+## Mission
+
+Capture and preserve departing employees’ knowledge, then make it accessible:
+- Echo: An AI assistant mirroring the exiting employee, available for teammates after the employee leaves.
+- Onboarding Playbook: A clear, structured markdown document new hires can follow to learn the role quickly.
+
+This page is the primary marketing landing and focuses on clarity, credibility, and conversion.
+
+---
+
+## Features
+
+- Echo (AI Replica of Exiting Employee)
+  - Mirrors the exiting employee’s knowledge and style.
+  - Provides answers to role-specific questions after the employee departs.
+  - Enables continuity across projects, processes, and tribal knowledge.
+
+- Onboarding Playbook (Markdown)
+  - A structured document capturing responsibilities, workflows, tools, and FAQs.
+  - Clear, skimmable sections designed for day-one usability.
+  - Becomes a living reference that complements the Echo.
+
+- Hero Video Showcase
+  - Immersive background/foreground interplay with text overlay.
+  - Video placed on the right two-thirds of the hero; text runs on top of it.
+  - Uses /videos/hero.mp4 and a modern, glassy dark theme presentation.
+
+- Animated Impact Metrics (SectionTwo)
+  - Graph values animate from 0 to their final values to illustrate impact.
+  - Updated graph background colors to align with the app’s dark, glassmorphism styling and brand accents.
+
+- Modern, Luxurious UI
+  - Dark mode by default, gradient backgrounds, and glassmorphism.
+  - Minimal, sharp rounding with subtle depth and motion.
+  - Brand color #752E4F used sparingly for emphasis and primary CTAs.
+
+- Static, Fast, Reliable
+  - Built with React + Next.js (pages directory), statically generated for reliability and speed.
+  - Tailwind v4 for consistent design system and responsive layout.
+
+- Clear Calls-to-Action
+  - Conversion-focused CTAs for “Get a Demo” and “See How It Works.”
+  - Scannable content and anchor navigation for a concise single-page flow.
+
+---
+
+## Sections and Routes
+
+- Hero
+  - Route: /#hero (visible at the top of /)
+  - Purpose: Immediate value proposition, aspirational visuals (video), and primary CTA.
+  - Content: Headline, subheadline, CTA, and the hero video on the right two-thirds with text overlay.
+
+- Features Overview
+  - Route: /#features
+  - Purpose: Summarize Echo and Playbook benefits in a quick, scannable layout.
+  - Content: Two-column or stacked cards describing Echo and Onboarding Playbook.
+
+- Echo (AI Assistant)
+  - Route: /#echo
+  - Purpose: Explain how the Echo mirrors the exiting employee.
+  - Content: Example use cases such as Q&A, context recall, and cross-team knowledge support.
+
+- Onboarding Playbook
+  - Route: /#playbook
+  - Purpose: Present the playbook as a structured, markdown-based companion to Echo.
+  - Content: Example table of contents and sample entries (responsibilities, SOPs, tools).
+
+- Metrics & Impact (SectionTwo)
+  - Route: /#metrics
+  - Purpose: Quantify benefits through animated graphs that grow from 0 to final values.
+  - Content: Graphs with branded backgrounds consistent with the dark glass theme. Example metrics:
+    - Knowledge Retained (coverage over time)
+    - Onboarding Time Reduction
+    - Response Accuracy/Confidence
+    - Time-to-Competency
+
+- How It Works
+  - Route: /#how-it-works
+  - Purpose: A simple three-step explanation:
+    1) Knowledge capture from exiting employee,
+    2) Echo replication and playbook generation,
+    3) Rollout to team with continuous access.
+  - Content: Minimal, icon-driven steps with short explanations.
+
+- Call to Action
+  - Route: /#cta
+  - Purpose: Encourage visitors to request a demo or learn more.
+  - Content: Primary CTA using the brand color as a background for emphasis; secondary link for more details.
+
+- FAQ
+  - Route: /#faq
+  - Purpose: Address common questions about security, setup time, and maintenance.
+  - Content: Short, direct answers.
+
+- Footer
+  - Route: /#footer
+  - Purpose: Provide legal links, contact, and brand attribution.
+  - Content: Links to privacy/terms, company info, and social profiles.
+
+Note: All sections are part of a single, statically generated marketing page at /. Anchors enable smooth in-page navigation without additional routes.
+
+---
+
+## Content Details
+
+### Hero
+
+- Layout
+  - Video on the right two-thirds of the screen.
+  - Headline and subheadline flow over the video (text overlays), ensuring legibility through a subtle dark gradient overlay and backdrop blur where needed.
+  - The initial motif “Square with a circle inside of it” is represented as a framed, minimal geometric container for the video to hint at structure + human knowledge (“Echo”).
+- Media
+  - Video URL: /videos/hero.mp4
+- Copy Direction
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - Primary CTA: “Get a Demo”
+  - Secondary CTA: “See How It Works”
+
+### Features Overview
+
+- Two stacked focus areas:
+  - Echo — the AI replica available post-departure.
+  - Onboarding Playbook — a structured, markdown-based guide for new hires.
+- Each block includes a concise description and one supporting benefit.
+
+### Echo (AI Assistant)
+
+- Emphasis on mirroring knowledge, tone, and decision context of the exiting employee.
+- Scenarios:
+  - “What’s the escalation path for Vendor X?”
+  - “How do we deploy the Q3 reporting pipeline?”
+  - “Which stakeholders must approve this contract?”
+
+### Onboarding Playbook
+
+- Organized as markdown for portability and clarity.
+- Example outline:
+  - Role Overview
+  - Core Responsibilities
+  - Daily/Weekly/Monthly Routines
+  - Key Systems and Access
+  - Processes and SOPs
+  - Stakeholders and Communication
+  - FAQs and Troubleshooting
+
+### Metrics & Impact (SectionTwo)
+
+- Animation
+  - All numeric values animate from 0 to their target to showcase momentum and impact.
+  - Duration and easing tuned for legibility (e.g., 1.2–1.6s with smooth ease-out).
+- Visual Style
+  - Graph backgrounds updated to match the dark, glassmorphic palette.
+  - Use brand color #752E4F sparingly for highlights, tick accents, or a thin border to call attention—not as a full graph fill except for a primary CTA chart.
+- Sample Graphs
+  - Knowledge Retained (% coverage)
+  - Onboarding Time Reduction (days)
+  - Time-to-Competency (weeks)
+  - Answer Confidence (score)
+
+### How It Works
+
+- Step 1: Capture Knowledge
+  - Interview prompts, document imports, and structured Q&A sessions with the exiting employee.
+- Step 2: Create Echo + Playbook
+  - Echo becomes the AI assistant; Playbook generates a clear reference for new hires.
+- Step 3: Deploy to Team
+  - Share Echo access and onboard new hires with the Playbook.
+
+### CTA
+
+- Strong, primary CTA using the brand color as a background.
+- Secondary CTA link styled with a thin brand-colored border to indicate alternative action without competing.
+
+### FAQ
+
+- Example questions:
+  - “What happens when the exiting employee is unavailable for clarifications?”
+  - “Is the Echo limited to predefined topics?”
+  - “How is the Playbook maintained over time?”
+
+---
+
+## Visual and Interaction Design
+
+- Theme: Dark, modern, minimal, luxurious.
+- Style: Glassmorphism with backdrop blur, subtle gradients, thin borders, and sharp corners.
+- Color: Brand #752E4F reserved mainly for primary CTAs and tasteful borders.
+- Motion: Gentle float animations for geometric accents and shimmer for interactive elements (e.g., CTA hover).
+- Typography:
+  - Hero headline: large, responsive (72px desktop, 48px mobile), with a gradient text treatment.
+  - Subtitles and captions use semantic classes for hierarchy and readability.
+
+---
+
+## Technical and Implementation Notes
+
+- Tech Stack
+  - React, Next.js (pages directory), Tailwind v4, lucide-react.
+  - Static Site Generation only; no server-side rendering.
+- Layout Preferences
+  - Stacking layouts with flex columns to avoid horizontal overflow.
+  - Avoid long button labels; use icons when possible.
+  - If buttons need text, do not enforce fixed widths.
+- Structure
+  - Single landing page at / with anchor-based sections for navigation.
+  - No usage of the App Router; strictly the pages directory.
+  - Named exports by default for components; Next.js pages export default as the page component.
+- Styling
+  - Apply gradient backgrounds and glass overlays with Tailwind utilities.
+  - Maintain consistent dark scales, border opacities, and semantic text colors.
+- Motion and Interaction
+  - Animate metrics from 0 to final values on viewport intersection.
+  - Update graph backgrounds to match dark/glass theme with subtle depth and contrast.
+
+---
+
+## Copy Outline
+
+- Hero
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - CTA: “Get a Demo” (primary), “See How It Works” (secondary)
+- Features
+  - Echo: “A digital extension of your departing expert—available on demand.”
+  - Playbook: “A clear, portable, markdown guide for new hires.”
+- Metrics
+  - “Make continuity measurable.” Short hooks paired with animated numbers.
+- How It Works
+  - “From exit to enablement in three steps.”
+- CTA
+  - “Ready to preserve what matters? Get a Demo.”
+
+---
+
+## Summary
+
+A focused, single-page marketing experience that clearly communicates the mission of Exit Strategy Echo:
+- Preserve knowledge via an AI “Echo” of the exiting employee.
+- Empower new hires with a concise, markdown-based onboarding playbook.
+- Demonstrate value visually with a compelling hero video and animated impact metrics.
+- Deliver a refined, modern, glassy dark theme aligned with the brand.
+</app-description>
+
+> appendUser
+<coding-rules>
+## Tech Stack
+- ReactJS
+- NextJS - pages directory and static site generation
+- Tailwinds v4
+- lucide-react - icons
+
+## Layout
+It is preferred to use stacking layouts using flex-box columns to avoid running out of horizontal
+room. Avoid long names in buttons and prefer to use icons for buttons.
+
+If buttons display text DO NOT give the button a static width.
+
+## Static site generation
+The frontend of the app uses static site generation so no server side rendering should be used. All
+pages are stored in the pages directory and the NextJS app router is NOT used.
+
+## Exports
+Always use named exports unless explicitly told otherwise or required such as when creating NextJS
+pages.
+
+
+## Full screen screens
+The `useFullPage` hook can be used to display a full screen page without the main navigation bar.
+
+example:
+``` tsx
+import { useFullPage } from "@/lib/hooks";
+
+function ExampleComponent(){
+
+    useFullPage();
+
+    return (
+        <div></div>
+    )
+}
+```
+
+## Form Data
+When creating forms store form data in a typed useState variable.
+
+Zod schemas can be imported from `@/lib/schema` to validate types stored in the database.
+
+Form state example:
+``` tsx
+
+interface NewsletterForm
+{
+    name:string
+    email:string;
+}
+function ExampleComponent()
+{
+    const [newsletterData,setNewsletterData]=useState<NewsletterForm>({
+        name:'',
+        email:'',
+    });
+
+    return (
+        <form>
+            <input
+                placeholder="Enter name"
+                value={newsletterData.name}
+                onChange={e=>setNewsletterData({...newsletterData,name:e.target.value})}
+            />
+            <input
+                placeholder="Enter email"
+                value={newsletterData.email}
+                onChange={e=>setNewsletterData({...newsletterData,email:e.target.value})}
+            />
+        </form>
+    )
+}
+```
+
+## Pages
+When creating NextJS pages export the page component as a default function with the function
+name reflecting the name of the page.
+
+Do not use the MainLayout component when creating a page. The Main Layout component will be
+used by the top level App component.
+
+Include the name of the page in the className of the root element of the page component using the
+format of: "page--{PageComponentName}"
+
+Example Page with a route of "/example":
+``` tsx
+
+export default function ExamplePage(){
+
+    return (
+        <div className="page--ExamplePage">
+            Example page content
+        <div>
+    )
+}
+```
+
+## Main Layout
+The `MainLayout` component is used by the top level `App` component to render the main layout of the
+app. By default the MainLayout should render pages in a centered column with a navigation bar.
+
+### Main Layout Display modes
+Pages can use the `useFullPage` and `useNoMargins` hooks to alter the way the page is displayed.
+Implement display modes using css or class names, DO NOT change the render order or do anything
+that would cause the page to be unmounted.
+
+### Main Layout Fullscreen Mode
+Pages can request to enter into fullscreen. Use the `useIsInFullPageMode` hook imported from 
+`@/lib/hooks` to check if the page should be displayed in fullscreen mode. If useIsInFullPageMode
+returns true hide the main navigation and any other UI other than the page content.
+
+### Main Layout No Margins Mode
+Pages can request to remove all page margins so that they can display content edge to edge. Use
+the `useIsNoMarginMode` hook imported from `@/lib/hooks` to check if the page should be displayed
+in no margins mode.
+
+
+## Packages
+This is the package.json file for the project. You can only use libraries based on the dependencies
+of the package.json file.
+
+``` json
+{
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "markdown-it": "^14.1.0",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "rxjs": "^7.8.2",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+```
+
+## Standard Components
+The following components can be used
+
+### Logo
+Displays the apps logo using an SVG
+
+Import: `import { Logo } from "@/components/Logo";`
+Props:
+``` ts
+interface LogoProps
+{
+    color?:string;
+    /**
+     * @default "w-8 h-8"
+     */ 
+    className?:string;
+    size?:string|number;
+}
+```
+
+## Utility Functions
+The following utility functions can be imported from `@/lib/util`
+
+``` ts
+export type ClassNameValue = string | false | number | null | undefined | {
+    [className: string]: any;
+} | ClassNameValue[];
+
+/**
+ * Combines class names and ignores falsy values.
+ */
+export const cn=(...classNames:ClassNameValue[]):string=>;
+```
+
+
+## Hooks
+React components can use the following hooks imported from `@/lib/hooks`
+
+``` ts
+/**
+ * Hides common UI controls such as the main nav bar.
+ * @param enabled If false the hook is disabled
+ */
+export const useFullPage=(enabled=true)=>;
+
+/**
+ * Removes all margins and paddings from the main layout while keeping the main navigation and
+ * other shared UI elements
+ * @param enabled If false the hook is disabled
+ */
+export const useNoMargins=(enabled=true)=>;
+
+/**
+ * Returns true if the page should be displayed in full screen
+ */
+export const useIsInFullPageMode=():boolean=>{
+    const count=useSubject(fullPageSubject);
+    return count>0;
+}
+
+/**
+ * Returns true if the page should remove all margins
+ */
+export const useIsNoMarginMode=():boolean=>;
+```
+</coding-rules>
+
+> appendUser
+<styling>
+## Styling Framework
+Use Tailwinds for styling
+
+## Look and Feel
+- modern luxurious
+- glassmorphism
+- minimalistic
+- dark theme
+- dark mode by default
+- gradient backgrounds
+- sharp, minimal rounding
+
+## Custom Color Palette
+- Brand color: #752E4F
+- Dark scales: (50-900) for consistent theming
+- Glass colors for translucent overlays
+- Border colors with varying opacity levels
+- Semantic text colors (primary, secondary, muted, etc.)
+
+## Typography System
+- Hero text styles with gradient effects
+- Responsive sizing (72px desktop, 48px mobile)
+- Letter spacing and weight variations
+- Subtitle and caption utility classes
+
+## Advanced Features
+- Backdrop blur utilities (xs through xl)
+- Float animations for geometric accents
+- Shimmer effects for interactive elements
+
+## Rules
+Use the brand color sparingly. The brand color should only use as a background for the most important elements.
+The brand color can be used as a thin border color in situations where an element should be highlighted
+but is not a main CTA.
+</styling>
+
+> appendUser
+<tailwind-rules>
+# Tailwind
+Always be sure to use Tailwind v4 syntax
+
+## Top level imports
+The top of the globals.css file should be formatted as the following:
+``` css
+@import url("https://fonts.googleapis.com/css2?{QUEREY_PARAMS_HERE}");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+```
+
+Additional plugins may be added after the `@tailwindcss/typography` plugin.
+
+## Utility classes
+Tailwind utility classes must be defined using `@utility` directive instead of the older v3 method
+of using `@layer utility`. Any class used in an `@apply` directive must be defined as a utility
+class, classed defined in `@layer components` can not be used in the `@apply` directive.
+
+Utility classes can not use Pseudo-class or Pseudo-element selectors. Pseudo selectors should be
+apply in the class name of the element using the utility class or in the components applying the
+utility
+
+Example of how NOT to use pseudo classes and pseudo elements with utility classes selectors:
+<bad-examples>
+@utility input-base:hover{
+    outline:1px solid var(--color-brand);
+}
+@utility input-base::placeholder{
+    color:var(--muted);
+}
+</bad-examples>
+
+Example of how to use pseudo classes and pseudo elements with utility classes selectors:
+<good-examples>
+@utility input-base-hover{
+    outline:1px solid var(--color-brand);
+}
+@utility input-base-placeholder{
+    color:var(--muted);
+}
+
+@layer components{
+    .input:hover{
+        @apply input-base-hover;
+    }
+    .input::placeholder{
+        @apply input-base-placeholder;
+    }
+}
+</good-examples>
+
+## Utility class values with spaces
+When using utility classes that define arbitrary values and the values contain a space remember to
+replace the spaces with underscores.
+
+Utility class value with space example:
+``` css
+.example{
+    @apply bg-[url("data:image/svg+xml,%3Csvg_width='12'_height='8'_viewBox='0_0_12_8'_xmlns='http://www.w3.org/2000/svg'%3E%3Cpath_d='M1_1.5L6_6.5L11_1.5'_stroke='%236b7280'_stroke-width='1.5'_stroke-linecap='round'_stroke-linejoin='round'/%3E%3C/svg%3E")];
+}
+```
+
+## Components
+If a component has multiple variants with shared styles define a "base" utility class to apply to
+the variants.
+
+Utility and component class example:
+``` css
+@utility btn-base{
+    border:1px solid var(--border-color);
+}
+
+@layer components{
+    .btn{
+        @apply btn-base;
+    }
+}
+```
+</tailwind-rules>
+
+> appendUser
+<editor-config>
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+</editor-config>
+
+> appendUser
+Generate a Tailwinds v4 theme.
+
+> nop
+//_END_MAKE_TARGET_INPUT_
+
+
+@time 2025-11-16T15:16:10+01:00
+@tokenUsage 4481 / 11136 / $0.019521250000000004
+@model gpt-5-2025-08-07
+> assistant
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400..700&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Tailwind v4 Theme Tokens */
+@theme {
+    /* Fonts */
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    /* Brand */
+    --color-brand: 117 46 79; /* #752E4F */
+    --color-brand-50: 252 245 248;
+    --color-brand-100: 248 234 240;
+    --color-brand-200: 240 209 221;
+    --color-brand-300: 226 172 197;
+    --color-brand-400: 206 126 165;
+    --color-brand-500: 179 83 130;
+    --color-brand-600: 147 62 106;
+    --color-brand-700: 117 46 79;
+    --color-brand-800: 92 34 61;
+    --color-brand-900: 66 24 44;
+
+    /* Dark neutral scale (ink) */
+    --color-ink-50: 214 218 226;  /* text subtle on light cards */
+    --color-ink-100: 166 172 184;
+    --color-ink-200: 120 128 144;
+    --color-ink-300: 90 96 112;
+    --color-ink-400: 62 68 84;
+    --color-ink-500: 42 46 60;
+    --color-ink-600: 32 35 46;
+    --color-ink-700: 24 26 34;
+    --color-ink-800: 16 18 24;
+    --color-ink-900: 10 11 15;
+    --color-ink-950: 6 6 10;
+
+    /* Semantic surface and text */
+    --color-bg: var(--color-ink-900);
+    --color-bg-elev-1: var(--color-ink-800);
+    --color-bg-elev-2: 20 22 30;
+    --color-surface: var(--color-ink-800);
+    --color-surface-2: 22 24 32;
+
+    --color-text-primary: 236 240 244;
+    --color-text-secondary: 198 205 216;
+    --color-text-muted: 156 166 184;
+
+    --color-border: 255 255 255; /* used with opacity */
+    --color-border-strong: 255 255 255;
+
+    /* Radii - sharp, minimal */
+    --radius-xs: 6px;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+
+    /* Blurs for glassmorphism */
+    --blur-xs: 2px;
+    --blur-sm: 4px;
+    --blur-md: 8px;
+    --blur-lg: 12px;
+    --blur-xl: 20px;
+
+    /* Shadows */
+    --shadow-glass: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 8px 24px rgb(0 0 0 / 0.45);
+    --shadow-soft: 0 10px 30px -10px rgb(0 0 0 / 0.45);
+
+    /* Timing + Easing */
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    --duration-quick: 140ms;
+    --duration-smooth: 220ms;
+
+    /* Sizing for hero typography */
+    --text-hero-min: 3rem;   /* 48px */
+    --text-hero-max: 4.5rem; /* 72px */
+}
+
+/* Base setup */
+:root {
+    color-scheme: dark;
+}
+
+html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+    background-color: rgb(var(--color-ink-900));
+}
+
+body {
+    font-family: var(--font-sans);
+    color: rgb(var(--color-text-primary));
+    background:
+        radial-gradient(1200px 600px at 85% 10%, rgb(var(--color-brand) / 0.08), transparent 60%),
+        radial-gradient(800px 400px at 10% 10%, rgb(168 85 247 / 0.06), transparent 60%),
+        linear-gradient(180deg, rgb(var(--color-ink-900)), rgb(var(--color-ink-950)));
+    min-height: 100vh;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background-color: rgb(var(--color-brand) / 0.35);
+    color: rgb(255 255 255);
+}
+
+/* Scrollbar (WebKit) */
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+*::-webkit-scrollbar-track {
+    background: rgb(var(--color-ink-900));
+}
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgb(var(--color-ink-600)), rgb(var(--color-ink-700)));
+    border: 2px solid rgb(var(--color-ink-900));
+    border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgb(var(--color-ink-500)), rgb(var(--color-ink-600)));
+}
+
+/* Typography plugin tweaks */
+@layer components {
+    .prose {
+        color: rgb(var(--color-text-secondary));
+        max-width: 75ch;
+    }
+    .prose :where(h1, h2, h3, h4) {
+        color: rgb(var(--color-text-primary));
+        letter-spacing: -0.015em;
+    }
+    .prose :where(code) {
+        background: rgb(255 255 255 / 0.06);
+        border: 1px solid rgb(255 255 255 / 0.08);
+        border-radius: var(--radius-xs);
+        padding: 0.125rem 0.375rem;
+    }
+    .prose :where(a) {
+        color: rgb(var(--color-brand));
+        text-decoration: none;
+        border-bottom: 1px solid rgb(var(--color-brand) / 0.4);
+        transition: color var(--duration-quick) var(--ease-smooth), border-color var(--duration-quick) var(--ease-smooth);
+    }
+    .prose :where(a:hover) {
+        color: rgb(var(--color-brand-400));
+        border-color: rgb(var(--color-brand-400));
+    }
+}
+
+/* Utilities */
+
+/* Backdrop blur granular utilities */
+@utility backdrop-blur-xs {
+    -webkit-backdrop-filter: blur(var(--blur-xs));
+    backdrop-filter: blur(var(--blur-xs));
+}
+
+/* Hairline border */
+@utility hairline {
+    border-width: 1px;
+    border-color: rgb(var(--color-border) / 0.08);
+    border-style: solid;
+}
+
+/* Stronger border (for focused elements) */
+@utility border-strong {
+    border-width: 1px;
+    border-color: rgb(var(--color-border-strong) / 0.16);
+    border-style: solid;
+}
+
+/* Brand border accent (thin, non-CTA highlight) */
+@utility brand-border {
+    border-width: 1px;
+    border-color: rgb(var(--color-brand) / 0.45);
+    border-style: solid;
+}
+
+/* Glass surfaces */
+@utility glass {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.03));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    backdrop-filter: blur(var(--blur-md));
+    border: 1px solid rgb(255 255 255 / 0.08);
+    box-shadow: var(--shadow-glass);
+    border-radius: var(--radius-sm);
+}
+
+@utility glass-strong {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.10), rgb(255 255 255 / 0.04));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-md);
+}
+
+/* App gradient backgrounds */
+@utility bg-page {
+    background:
+        radial-gradient(1200px 600px at 85% 10%, rgb(var(--color-brand) / 0.08), transparent 60%),
+        radial-gradient(800px 400px at 10% 10%, rgb(168 85 247 / 0.06), transparent 60%),
+        linear-gradient(180deg, rgb(var(--color-ink-900)), rgb(var(--color-ink-950)));
+}
+
+@utility bg-section {
+    background:
+        linear-gradient(180deg, rgb(var(--color-ink-900)), transparent 40%),
+        linear-gradient(180deg, rgb(var(--color-ink-900)), rgb(var(--color-ink-950)));
+}
+
+/* Headline gradient text */
+@utility headline-gradient {
+    background-image: linear-gradient(90deg,
+        rgb(var(--color-brand)) 0%,
+        rgb(192 94 138) 50%,
+        rgb(236 72 153) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Hero typography */
+@utility text-hero {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(var(--text-hero-min), 7vw, var(--text-hero-max));
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+}
+
+@utility text-subtitle {
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    line-height: 1.4;
+    color: rgb(var(--color-text-secondary));
+}
+
+@utility text-caption {
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: rgb(var(--color-text-muted));
+}
+
+@utility text-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    color: rgb(var(--color-text-muted));
+}
+
+/* Focus ring */
+@utility focus-ring {
+    outline: none;
+    box-shadow: 0 0 0 0.5px rgb(255 255 255 / 0.18), 0 0 0 6px rgb(var(--color-brand) / 0.22);
+}
+
+/* CTA background (brand used sparingly) */
+@utility cta-bg {
+    background: linear-gradient(180deg, rgb(var(--color-brand) / 0.98), rgb(var(--color-brand-700)));
+    color: rgb(255 255 255);
+}
+
+/* Graph surfaces (dark glass) */
+@utility graph-surface {
+    background:
+        linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: var(--radius-sm);
+}
+
+@utility graph-accent {
+    background:
+        radial-gradient(600px 200px at 20% 10%, rgb(var(--color-brand) / 0.10), transparent 60%),
+        linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+    border: 1px solid rgb(var(--color-brand) / 0.35);
+}
+
+/* Video frame motif: square with a circle inside */
+@utility hero-frame {
+    position: relative;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgb(255 255 255 / 0.10);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.04), rgb(255 255 255 / 0.02));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    backdrop-filter: blur(var(--blur-sm));
+    overflow: hidden;
+}
+
+/* Apply a soft circular motif via mask (component adds the pseudo) */
+@layer components {
+    .hero-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(400px 400px at 70% 50%, rgb(255 255 255 / 0.07), transparent 60%);
+        mix-blend-mode: overlay;
+    }
+}
+
+/* Hero overlay gradient for text legibility */
+@utility hero-overlay {
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.65), rgb(0 0 0 / 0.25) 35%, transparent 65%);
+}
+
+/* Buttons */
+@utility btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+    padding-block: 0.625rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    line-height: 1.1;
+    transition: transform var(--duration-quick) var(--ease-smooth), box-shadow var(--duration-quick) var(--ease-smooth), background var(--duration-quick) var(--ease-smooth), border-color var(--duration-quick) var(--ease-smooth), color var(--duration-quick) var(--ease-smooth);
+    border: 1px solid transparent;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+@utility btn-ghost {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+    border-color: rgb(var(--color-brand) / 0.45);
+    color: rgb(var(--color-text-primary));
+}
+
+@utility btn-primary {
+    background: linear-gradient(180deg, rgb(var(--color-brand)), rgb(var(--color-brand-700)));
+    color: rgb(255 255 255);
+    border-color: rgb(var(--color-brand) / 0.6);
+    box-shadow: 0 6px 20px -6px rgb(var(--color-brand) / 0.55);
+}
+
+@utility btn-muted {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+    color: rgb(var(--color-text-primary));
+    border-color: rgb(255 255 255 / 0.10);
+}
+
+@utility btn-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Button components with hover/active/focus behaviors */
+@layer components {
+    .btn { @apply btn-base; }
+    .btn--primary { @apply btn-primary; }
+    .btn--secondary { @apply btn-ghost; }
+    .btn--muted { @apply btn-muted; }
+    .btn:focus-visible { @apply focus-ring; }
+    .btn--primary:hover { filter: brightness(1.04); transform: translateY(-1px); }
+    .btn--primary:active { transform: translateY(0); filter: brightness(0.98); }
+    .btn--secondary:hover { border-color: rgb(var(--color-brand) / 0.7); transform: translateY(-1px); }
+    .btn--secondary:active { transform: translateY(0); }
+    .btn--muted:hover { border-color: rgb(255 255 255 / 0.16); transform: translateY(-1px); }
+    .btn--muted:active { transform: translateY(0); }
+    .btn:disabled, .btn[aria-disabled="true"] { @apply btn-disabled; }
+
+    /* Shimmer overlay for primary CTA */
+    .btn--primary {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+    }
+    .btn--primary::after {
+        content: "";
+        position: absolute;
+        inset: -100% -30%;
+        background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.35) 45%, transparent 60%);
+        transform: translateX(-20%);
+        transition: transform 600ms var(--ease-smooth);
+        opacity: 0.75;
+        pointer-events: none;
+        mix-blend-mode: screen;
+    }
+    .btn--primary:hover::after {
+        transform: translateX(20%);
+    }
+}
+
+/* Cards & Surfaces */
+@utility card-base {
+    border-radius: var(--radius-sm);
+    border: 1px solid rgb(255 255 255 / 0.08);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.03));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    backdrop-filter: blur(var(--blur-sm));
+    box-shadow: var(--shadow-glass);
+}
+
+@layer components {
+    .card { @apply card-base; }
+    .card--accent { @apply card-base; border-color: rgb(var(--color-brand) / 0.35); }
+    .card--ghost { background: linear-gradient(180deg, rgb(255 255 255 / 0.03), transparent); }
+}
+
+/* Metrics and graph helpers */
+@layer components {
+    .metric {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.25rem;
+        color: rgb(var(--color-text-primary));
+        letter-spacing: -0.015em;
+    }
+    .metric .metric__value {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(1.5rem, 4vw, 2.25rem);
+        line-height: 1;
+    }
+    .metric .metric__label {
+        color: rgb(var(--color-text-muted));
+        font-size: 0.85rem;
+    }
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes float-lg {
+    0% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-10px) translateX(2px); }
+    100% { transform: translateY(0px) translateX(0px); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@utility animate-float {
+    animation: float 6s var(--ease-smooth) infinite;
+}
+
+@utility animate-float-lg {
+    animation: float-lg 8s var(--ease-smooth) infinite;
+}
+
+/* Shimmer background utility (for loading placeholders) */
+@utility shimmer {
+    background-image: linear-gradient(90deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.06));
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+}
+
+/* Section spacing */
+@utility section-y {
+    padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+/* Layout helpers for fullpage/no-margins modes */
+@layer components {
+    .layout--fullpage {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        min-height: 100dvh;
+    }
+    .layout--no-margins {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+}
+
+/* Hero video styles */
+@layer components {
+    .hero-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .hero-video__overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgb(0 0 0 / 0.68), rgb(0 0 0 / 0.32) 30%, transparent 65%);
+        pointer-events: none;
+    }
+    .hero-video__frame { @apply hero-frame; }
+}
+
+/* Links */
+@utility link-underline {
+    position: relative;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(255 255 255 / 0.14);
+}
+
+@layer components {
+    .link {
+        color: rgb(var(--color-text-primary));
+        transition: color var(--duration-quick) var(--ease-smooth), border-color var(--duration-quick) var(--ease-smooth);
+    }
+    .link:hover {
+        color: rgb(var(--color-brand));
+        border-color: rgb(var(--color-brand));
+    }
+}
+
+/* Inputs (minimal, glassy) */
+@utility input-base {
+    width: 100%;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02));
+    border: 1px solid rgb(255 255 255 / 0.10);
+    border-radius: var(--radius-sm);
+    padding: 0.625rem 0.75rem;
+    color: rgb(var(--color-text-primary));
+    transition: border-color var(--duration-quick) var(--ease-smooth), box-shadow var(--duration-quick) var(--ease-smooth), background var(--duration-quick) var(--ease-smooth);
+}
+
+@utility input-invalid {
+    border-color: rgb(244 63 94 / 0.6);
+}
+
+@layer components {
+    .input { @apply input-base; }
+    .input:focus { @apply border-strong; box-shadow: 0 0 0 6px rgb(var(--color-brand) / 0.18); outline: none; }
+    .input::placeholder { color: rgb(var(--color-text-muted)); }
+    .input--invalid { @apply input-invalid; }
+}
+
+/* Section dividers */
+@utility divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.10), transparent);
+}
+
+/* CTA section styles */
+@layer components {
+    .cta {
+        @apply glass-strong;
+        background:
+            linear-gradient(180deg, rgb(var(--color-brand) / 0.10), rgb(255 255 255 / 0.04)),
+            linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.03));
+        border-color: rgb(var(--color-brand) / 0.35);
+    }
+}
+
+/* Accent ticks/grid for charts (subtle) */
+@utility grid-ticks {
+    background-image:
+        linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 32px 32px, 32px 32px;
+}
+
+/* Subtle brand glow (thin border only, not fill) */
+@utility brand-glow {
+    box-shadow: 0 0 0 1px rgb(var(--color-brand) / 0.45), 0 0 40px -20px rgb(var(--color-brand) / 0.6);
+    border-radius: inherit;
+}
+
+/* Page-width container */
+@utility container-page {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+/* Accessibility helpers */
+@layer components {
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+}
+
+/* Specific section helpers for anchors */
+@utility section-anchor {
+    scroll-margin-top: 96px;
+}
+
+/* Footer tone */
+@layer components {
+    .footer {
+        background: linear-gradient(180deg, rgb(var(--color-ink-900)), rgb(var(--color-ink-950)));
+        border-top: 1px solid rgb(255 255 255 / 0.08);
+    }
+    .footer a {
+        color: rgb(var(--color-text-secondary));
+    }
+    .footer a:hover {
+        color: rgb(var(--color-brand));
+    }
+}
+
+
+
+> user

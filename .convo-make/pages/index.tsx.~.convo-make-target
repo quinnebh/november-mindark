@@ -1,0 +1,1603 @@
+> define
+__makeRoot="../.."
+__makeFile="make.convo"
+__makeOut="pages/index.tsx"
+__model="gpt-5"
+
+> system
+You are generating content that will be directly written to "pages/index.tsx".
+DO NOT include a preamble or postamble.
+
+Always respond with the full content for "pages/index.tsx", even if you are making an
+small or incremental update.
+
+> appendUser
+<app-description>
+## theMindArk.AI — Exit Strategy Echo Landing Page
+
+A high-level, content-first plan for the marketing homepage that introduces Exit Strategy Echo: a modular system for capturing and preserving institutional knowledge by replicating an exiting employee as a digital assistant (“Echo”) and generating an onboarding playbook.
+
+---
+
+## Mission
+
+Capture and preserve departing employees’ knowledge, then make it accessible:
+- Echo: An AI assistant mirroring the exiting employee, available for teammates after the employee leaves.
+- Onboarding Playbook: A clear, structured markdown document new hires can follow to learn the role quickly.
+
+This page is the primary marketing landing and focuses on clarity, credibility, and conversion.
+
+---
+
+## Features
+
+- Echo (AI Replica of Exiting Employee)
+  - Mirrors the exiting employee’s knowledge and style.
+  - Provides answers to role-specific questions after the employee departs.
+  - Enables continuity across projects, processes, and tribal knowledge.
+
+- Onboarding Playbook (Markdown)
+  - A structured document capturing responsibilities, workflows, tools, and FAQs.
+  - Clear, skimmable sections designed for day-one usability.
+  - Becomes a living reference that complements the Echo.
+
+- Hero Video Showcase
+  - Immersive background/foreground interplay with text overlay.
+  - Video placed on the right two-thirds of the hero; text runs on top of it.
+  - Uses /videos/hero.mp4 and a modern, glassy dark theme presentation.
+
+- Animated Impact Metrics (SectionTwo)
+  - Graph values animate from 0 to their final values to illustrate impact.
+  - Updated graph background colors to align with the app’s dark, glassmorphism styling and brand accents.
+
+- Modern, Luxurious UI
+  - Dark mode by default, gradient backgrounds, and glassmorphism.
+  - Minimal, sharp rounding with subtle depth and motion.
+  - Brand color #752E4F used sparingly for emphasis and primary CTAs.
+
+- Static, Fast, Reliable
+  - Built with React + Next.js (pages directory), statically generated for reliability and speed.
+  - Tailwind v4 for consistent design system and responsive layout.
+
+- Clear Calls-to-Action
+  - Conversion-focused CTAs for “Get a Demo” and “See How It Works.”
+  - Scannable content and anchor navigation for a concise single-page flow.
+
+---
+
+## Sections and Routes
+
+- Hero
+  - Route: /#hero (visible at the top of /)
+  - Purpose: Immediate value proposition, aspirational visuals (video), and primary CTA.
+  - Content: Headline, subheadline, CTA, and the hero video on the right two-thirds with text overlay.
+
+- Features Overview
+  - Route: /#features
+  - Purpose: Summarize Echo and Playbook benefits in a quick, scannable layout.
+  - Content: Two-column or stacked cards describing Echo and Onboarding Playbook.
+
+- Echo (AI Assistant)
+  - Route: /#echo
+  - Purpose: Explain how the Echo mirrors the exiting employee.
+  - Content: Example use cases such as Q&A, context recall, and cross-team knowledge support.
+
+- Onboarding Playbook
+  - Route: /#playbook
+  - Purpose: Present the playbook as a structured, markdown-based companion to Echo.
+  - Content: Example table of contents and sample entries (responsibilities, SOPs, tools).
+
+- Metrics & Impact (SectionTwo)
+  - Route: /#metrics
+  - Purpose: Quantify benefits through animated graphs that grow from 0 to final values.
+  - Content: Graphs with branded backgrounds consistent with the dark glass theme. Example metrics:
+    - Knowledge Retained (coverage over time)
+    - Onboarding Time Reduction
+    - Response Accuracy/Confidence
+    - Time-to-Competency
+
+- How It Works
+  - Route: /#how-it-works
+  - Purpose: A simple three-step explanation:
+    1) Knowledge capture from exiting employee,
+    2) Echo replication and playbook generation,
+    3) Rollout to team with continuous access.
+  - Content: Minimal, icon-driven steps with short explanations.
+
+- Call to Action
+  - Route: /#cta
+  - Purpose: Encourage visitors to request a demo or learn more.
+  - Content: Primary CTA using the brand color as a background for emphasis; secondary link for more details.
+
+- FAQ
+  - Route: /#faq
+  - Purpose: Address common questions about security, setup time, and maintenance.
+  - Content: Short, direct answers.
+
+- Footer
+  - Route: /#footer
+  - Purpose: Provide legal links, contact, and brand attribution.
+  - Content: Links to privacy/terms, company info, and social profiles.
+
+Note: All sections are part of a single, statically generated marketing page at /. Anchors enable smooth in-page navigation without additional routes.
+
+---
+
+## Content Details
+
+### Hero
+
+- Layout
+  - Video on the right two-thirds of the screen.
+  - Headline and subheadline flow over the video (text overlays), ensuring legibility through a subtle dark gradient overlay and backdrop blur where needed.
+  - The initial motif “Square with a circle inside of it” is represented as a framed, minimal geometric container for the video to hint at structure + human knowledge (“Echo”).
+- Media
+  - Video URL: /videos/hero.mp4
+- Copy Direction
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - Primary CTA: “Get a Demo”
+  - Secondary CTA: “See How It Works”
+
+### Features Overview
+
+- Two stacked focus areas:
+  - Echo — the AI replica available post-departure.
+  - Onboarding Playbook — a structured, markdown-based guide for new hires.
+- Each block includes a concise description and one supporting benefit.
+
+### Echo (AI Assistant)
+
+- Emphasis on mirroring knowledge, tone, and decision context of the exiting employee.
+- Scenarios:
+  - “What’s the escalation path for Vendor X?”
+  - “How do we deploy the Q3 reporting pipeline?”
+  - “Which stakeholders must approve this contract?”
+
+### Onboarding Playbook
+
+- Organized as markdown for portability and clarity.
+- Example outline:
+  - Role Overview
+  - Core Responsibilities
+  - Daily/Weekly/Monthly Routines
+  - Key Systems and Access
+  - Processes and SOPs
+  - Stakeholders and Communication
+  - FAQs and Troubleshooting
+
+### Metrics & Impact (SectionTwo)
+
+- Animation
+  - All numeric values animate from 0 to their target to showcase momentum and impact.
+  - Duration and easing tuned for legibility (e.g., 1.2–1.6s with smooth ease-out).
+- Visual Style
+  - Graph backgrounds updated to match the dark, glassmorphic palette.
+  - Use brand color #752E4F sparingly for highlights, tick accents, or a thin border to call attention—not as a full graph fill except for a primary CTA chart.
+- Sample Graphs
+  - Knowledge Retained (% coverage)
+  - Onboarding Time Reduction (days)
+  - Time-to-Competency (weeks)
+  - Answer Confidence (score)
+
+### How It Works
+
+- Step 1: Capture Knowledge
+  - Interview prompts, document imports, and structured Q&A sessions with the exiting employee.
+- Step 2: Create Echo + Playbook
+  - Echo becomes the AI assistant; Playbook generates a clear reference for new hires.
+- Step 3: Deploy to Team
+  - Share Echo access and onboard new hires with the Playbook.
+
+### CTA
+
+- Strong, primary CTA using the brand color as a background.
+- Secondary CTA link styled with a thin brand-colored border to indicate alternative action without competing.
+
+### FAQ
+
+- Example questions:
+  - “What happens when the exiting employee is unavailable for clarifications?”
+  - “Is the Echo limited to predefined topics?”
+  - “How is the Playbook maintained over time?”
+
+---
+
+## Visual and Interaction Design
+
+- Theme: Dark, modern, minimal, luxurious.
+- Style: Glassmorphism with backdrop blur, subtle gradients, thin borders, and sharp corners.
+- Color: Brand #752E4F reserved mainly for primary CTAs and tasteful borders.
+- Motion: Gentle float animations for geometric accents and shimmer for interactive elements (e.g., CTA hover).
+- Typography:
+  - Hero headline: large, responsive (72px desktop, 48px mobile), with a gradient text treatment.
+  - Subtitles and captions use semantic classes for hierarchy and readability.
+
+---
+
+## Technical and Implementation Notes
+
+- Tech Stack
+  - React, Next.js (pages directory), Tailwind v4, lucide-react.
+  - Static Site Generation only; no server-side rendering.
+- Layout Preferences
+  - Stacking layouts with flex columns to avoid horizontal overflow.
+  - Avoid long button labels; use icons when possible.
+  - If buttons need text, do not enforce fixed widths.
+- Structure
+  - Single landing page at / with anchor-based sections for navigation.
+  - No usage of the App Router; strictly the pages directory.
+  - Named exports by default for components; Next.js pages export default as the page component.
+- Styling
+  - Apply gradient backgrounds and glass overlays with Tailwind utilities.
+  - Maintain consistent dark scales, border opacities, and semantic text colors.
+- Motion and Interaction
+  - Animate metrics from 0 to final values on viewport intersection.
+  - Update graph backgrounds to match dark/glass theme with subtle depth and contrast.
+
+---
+
+## Copy Outline
+
+- Hero
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - CTA: “Get a Demo” (primary), “See How It Works” (secondary)
+- Features
+  - Echo: “A digital extension of your departing expert—available on demand.”
+  - Playbook: “A clear, portable, markdown guide for new hires.”
+- Metrics
+  - “Make continuity measurable.” Short hooks paired with animated numbers.
+- How It Works
+  - “From exit to enablement in three steps.”
+- CTA
+  - “Ready to preserve what matters? Get a Demo.”
+
+---
+
+## Summary
+
+A focused, single-page marketing experience that clearly communicates the mission of Exit Strategy Echo:
+- Preserve knowledge via an AI “Echo” of the exiting employee.
+- Empower new hires with a concise, markdown-based onboarding playbook.
+- Demonstrate value visually with a compelling hero video and animated impact metrics.
+- Deliver a refined, modern, glassy dark theme aligned with the brand.
+</app-description>
+
+> appendUser
+<coding-rules>
+## Tech Stack
+- ReactJS
+- NextJS - pages directory and static site generation
+- Tailwinds v4
+- lucide-react - icons
+
+## Layout
+It is preferred to use stacking layouts using flex-box columns to avoid running out of horizontal
+room. Avoid long names in buttons and prefer to use icons for buttons.
+
+If buttons display text DO NOT give the button a static width.
+
+## Static site generation
+The frontend of the app uses static site generation so no server side rendering should be used. All
+pages are stored in the pages directory and the NextJS app router is NOT used.
+
+## Exports
+Always use named exports unless explicitly told otherwise or required such as when creating NextJS
+pages.
+
+
+## Full screen screens
+The `useFullPage` hook can be used to display a full screen page without the main navigation bar.
+
+example:
+``` tsx
+import { useFullPage } from "@/lib/hooks";
+
+function ExampleComponent(){
+
+    useFullPage();
+
+    return (
+        <div></div>
+    )
+}
+```
+
+## Form Data
+When creating forms store form data in a typed useState variable.
+
+Zod schemas can be imported from `@/lib/schema` to validate types stored in the database.
+
+Form state example:
+``` tsx
+
+interface NewsletterForm
+{
+    name:string
+    email:string;
+}
+function ExampleComponent()
+{
+    const [newsletterData,setNewsletterData]=useState<NewsletterForm>({
+        name:'',
+        email:'',
+    });
+
+    return (
+        <form>
+            <input
+                placeholder="Enter name"
+                value={newsletterData.name}
+                onChange={e=>setNewsletterData({...newsletterData,name:e.target.value})}
+            />
+            <input
+                placeholder="Enter email"
+                value={newsletterData.email}
+                onChange={e=>setNewsletterData({...newsletterData,email:e.target.value})}
+            />
+        </form>
+    )
+}
+```
+
+## Pages
+When creating NextJS pages export the page component as a default function with the function
+name reflecting the name of the page.
+
+Do not use the MainLayout component when creating a page. The Main Layout component will be
+used by the top level App component.
+
+Include the name of the page in the className of the root element of the page component using the
+format of: "page--{PageComponentName}"
+
+Example Page with a route of "/example":
+``` tsx
+
+export default function ExamplePage(){
+
+    return (
+        <div className="page--ExamplePage">
+            Example page content
+        <div>
+    )
+}
+```
+
+## Main Layout
+The `MainLayout` component is used by the top level `App` component to render the main layout of the
+app. By default the MainLayout should render pages in a centered column with a navigation bar.
+
+### Main Layout Display modes
+Pages can use the `useFullPage` and `useNoMargins` hooks to alter the way the page is displayed.
+Implement display modes using css or class names, DO NOT change the render order or do anything
+that would cause the page to be unmounted.
+
+### Main Layout Fullscreen Mode
+Pages can request to enter into fullscreen. Use the `useIsInFullPageMode` hook imported from 
+`@/lib/hooks` to check if the page should be displayed in fullscreen mode. If useIsInFullPageMode
+returns true hide the main navigation and any other UI other than the page content.
+
+### Main Layout No Margins Mode
+Pages can request to remove all page margins so that they can display content edge to edge. Use
+the `useIsNoMarginMode` hook imported from `@/lib/hooks` to check if the page should be displayed
+in no margins mode.
+
+
+## Packages
+This is the package.json file for the project. You can only use libraries based on the dependencies
+of the package.json file.
+
+``` json
+{
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "markdown-it": "^14.1.0",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "rxjs": "^7.8.2",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+```
+
+## Standard Components
+The following components can be used
+
+### Logo
+Displays the apps logo using an SVG
+
+Import: `import { Logo } from "@/components/Logo";`
+Props:
+``` ts
+interface LogoProps
+{
+    color?:string;
+    /**
+     * @default "w-8 h-8"
+     */ 
+    className?:string;
+    size?:string|number;
+}
+```
+
+## Utility Functions
+The following utility functions can be imported from `@/lib/util`
+
+``` ts
+export type ClassNameValue = string | false | number | null | undefined | {
+    [className: string]: any;
+} | ClassNameValue[];
+
+/**
+ * Combines class names and ignores falsy values.
+ */
+export const cn=(...classNames:ClassNameValue[]):string=>;
+```
+
+
+## Hooks
+React components can use the following hooks imported from `@/lib/hooks`
+
+``` ts
+/**
+ * Hides common UI controls such as the main nav bar.
+ * @param enabled If false the hook is disabled
+ */
+export const useFullPage=(enabled=true)=>;
+
+/**
+ * Removes all margins and paddings from the main layout while keeping the main navigation and
+ * other shared UI elements
+ * @param enabled If false the hook is disabled
+ */
+export const useNoMargins=(enabled=true)=>;
+
+/**
+ * Returns true if the page should be displayed in full screen
+ */
+export const useIsInFullPageMode=():boolean=>{
+    const count=useSubject(fullPageSubject);
+    return count>0;
+}
+
+/**
+ * Returns true if the page should remove all margins
+ */
+export const useIsNoMarginMode=():boolean=>;
+```
+</coding-rules>
+
+> appendUser
+<styling>
+## Styling Framework
+Use Tailwinds for styling
+
+## Look and Feel
+- modern luxurious
+- glassmorphism
+- minimalistic
+- dark theme
+- dark mode by default
+- gradient backgrounds
+- sharp, minimal rounding
+
+## Custom Color Palette
+- Brand color: #752E4F
+- Dark scales: (50-900) for consistent theming
+- Glass colors for translucent overlays
+- Border colors with varying opacity levels
+- Semantic text colors (primary, secondary, muted, etc.)
+
+## Typography System
+- Hero text styles with gradient effects
+- Responsive sizing (72px desktop, 48px mobile)
+- Letter spacing and weight variations
+- Subtitle and caption utility classes
+
+## Advanced Features
+- Backdrop blur utilities (xs through xl)
+- Float animations for geometric accents
+- Shimmer effects for interactive elements
+
+## Rules
+Use the brand color sparingly. The brand color should only use as a background for the most important elements.
+The brand color can be used as a thin border color in situations where an element should be highlighted
+but is not a main CTA.
+</styling>
+
+> appendUser
+<style-guide>
+theMindArk.AI Tailwind Theme — Style Guide
+
+Overview
+- Purpose: Guide engineers and designers to build the Exit Strategy Echo landing page using the provided Tailwind v4 theme and custom utilities/components.
+- Principles: Dark, modern, luxurious; glassmorphism; minimal; gradient backgrounds; sharp rounding; brand used sparingly (mostly for CTAs and thin borders).
+
+Setup
+- Ensure globals.css (or equivalent global stylesheet) uses Tailwind v4 top-level imports and includes the provided theme and utilities (as in tailwind-theme).
+- Typography plugin is already enabled in the theme; use the .prose class for long-form content.
+
+File header (globals.css)
+- Confirm this header is at the top of your global stylesheet:
+```css
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400..700&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+```
+
+Design tokens and usage
+- Brand: rgb(var(--color-brand)) => #752E4F; use for primary CTAs/backgrounds and subtle borders.
+- Dark scales and surfaces: --color-ink-900 for backgrounds; glass surfaces via .glass, .glass-strong.
+- Typography: Display font for hero via .text-hero and .headline-gradient; body via Inter.
+- Motion: .animate-float / .animate-float-lg; shimmer for loading placeholders.
+
+Core custom utilities/components (use directly in className)
+- Layout and background: container-page, section-y, bg-page, bg-section, section-anchor
+- Surfaces: glass, glass-strong, card (card--accent, card--ghost), hairline, border-strong, brand-border
+- Typography: text-hero, headline-gradient, text-subtitle, text-caption, text-eyebrow, prose
+- Buttons: btn, btn--primary, btn--secondary, btn--muted
+- Inputs: input (input--invalid)
+- Hero video: hero-frame, hero-video, hero-video__overlay
+- Graphs: graph-surface, graph-accent, grid-ticks, brand-glow
+- Helpers: focus-ring, divider, sr-only, container-page
+- Layout modes (applied by layout when hooks are active): layout--fullpage, layout--no-margins
+
+Rules and tips
+- Use stacking layouts (flex-col) to avoid width overflow; prefer responsive blocks over wide grids.
+- Brand color is reserved for primary CTAs and thin border accents; avoid large solid brand fills except CTA.
+- For arbitrary values with spaces, replace spaces with underscores per Tailwind v4 rule.
+- Utilities cannot contain pseudo-selectors; apply hover/focus/active at element level or rely on component styles.
+
+Example: Page shell with anchors
+```html
+<!-- Home page wrapper (Next.js page root div should include page--{PageName}) -->
+<div class="page--HomePage bg-page">
+    <!-- Top-level container for content width -->
+    <main class="container-page flex flex-col gap-16">
+        <!-- Sections go here -->
+    </main>
+</div>
+```
+
+Hero section (video right two-thirds, text overlay on top)
+```html
+<section id="hero" class="section-anchor section-y">
+    <div class="relative hero-frame grid grid-cols-1 lg:grid-cols-3 min-h-[520px]">
+        <!-- Video spans right two-thirds on large screens -->
+        <div class="col-span-1 lg:col-span-2 relative order-2 lg:order-2">
+            <video class="hero-video" autoplay muted loop playsinline src="/videos/hero.mp4"></video>
+            <div class="hero-video__overlay"></div>
+        </div>
+
+        <!-- Text overlay panel spans left third; overlay across video via absolute on small screens -->
+        <div class="absolute inset-0 lg:static lg:col-span-1 order-1 lg:order-1 flex">
+            <div class="flex flex-col justify-center gap-6 px-6 py-10 lg:px-8 lg:py-12 bg-[linear-gradient(90deg,rgba(0,0,0,0.65),rgba(0,0,0,0.25)_35%,transparent_65%)] lg:bg-transparent">
+                <p class="text-eyebrow">Exit Strategy Echo</p>
+                <h1 class="text-hero headline-gradient">Capture what they know. Keep it working.</h1>
+                <p class="text-subtitle max-w-prose">Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.</p>
+
+                <div class="flex items-center gap-4">
+                    <a href="#cta" class="btn btn--primary">Get a Demo</a>
+                    <a href="#how-it-works" class="btn btn--secondary">See How It Works</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+Features overview (Echo + Playbook)
+```html
+<section id="features" class="section-anchor section-y">
+    <div class="container-page">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <article class="card p-6">
+                <h3 class="font-semibold text-xl mb-2">Echo</h3>
+                <p class="text-caption mb-4">A digital extension of your departing expert—available on demand.</p>
+                <ul class="list-disc list-inside text-sm text-[rgb(var(--color-text-secondary))]">
+                    <li>Mirrors knowledge, tone, and decision context</li>
+                    <li>Answers role-specific questions after departure</li>
+                </ul>
+            </article>
+
+            <article class="card p-6">
+                <h3 class="font-semibold text-xl mb-2">Onboarding Playbook</h3>
+                <p class="text-caption mb-4">A clear, portable, markdown guide for new hires.</p>
+                <ul class="list-disc list-inside text-sm text-[rgb(var(--color-text-secondary))]">
+                    <li>Responsibilities, SOPs, tools, FAQs</li>
+                    <li>Day-one actionable; complements the Echo</li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+```
+
+Echo (AI assistant) examples
+```html
+<section id="echo" class="section-anchor section-y">
+    <div class="container-page grid gap-6">
+        <header class="flex flex-col gap-2">
+            <p class="text-eyebrow">Echo</p>
+            <h2 class="text-2xl font-bold">Your exiting employee, as an assistant</h2>
+            <p class="text-caption">Continuity across projects, processes, and tribal knowledge.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card p-5">
+                <p class="text-sm text-[rgb(var(--color-text-secondary))]">“What’s the escalation path for Vendor X?”</p>
+            </div>
+            <div class="card p-5">
+                <p class="text-sm text-[rgb(var(--color-text-secondary))]">“How do we deploy the Q3 reporting pipeline?”</p>
+            </div>
+            <div class="card p-5">
+                <p class="text-sm text-[rgb(var(--color-text-secondary))]">“Which stakeholders must approve this contract?”</p>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+Onboarding Playbook outline
+```html
+<section id="playbook" class="section-anchor section-y">
+    <div class="container-page grid gap-6">
+        <header class="flex flex-col gap-2">
+            <p class="text-eyebrow">Playbook</p>
+            <h2 class="text-2xl font-bold">Markdown, structured for speed</h2>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card p-6">
+                <ol class="list-decimal list-inside text-sm leading-7 text-[rgb(var(--color-text-secondary))]">
+                    <li>Role Overview</li>
+                    <li>Core Responsibilities</li>
+                    <li>Daily/Weekly/Monthly Routines</li>
+                    <li>Key Systems and Access</li>
+                    <li>Processes and SOPs</li>
+                    <li>Stakeholders and Communication</li>
+                    <li>FAQs and Troubleshooting</li>
+                </ol>
+            </div>
+            <div class="card p-6 prose">
+                <h4>Example Entry: Q3 Reporting</h4>
+                <p>Deploy via <code>scripts/deploy-q3.sh</code> after approvals from Ops and Finance.</p>
+                <ul>
+                    <li>Owner: Data Engineering</li>
+                    <li>Access: Snowflake, GitHub, Metabase</li>
+                    <li>Escalation: VP Analytics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+Metrics and impact (graphs with dark glass surfaces)
+```html
+<section id="metrics" class="section-anchor section-y">
+    <div class="container-page grid gap-8">
+        <header class="flex flex-col gap-2">
+            <p class="text-eyebrow">Metrics</p>
+            <h2 class="text-2xl font-bold">Make continuity measurable</h2>
+            <p class="text-caption">Animated values from 0 to target (implement via IntersectionObserver).</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Metric cards -->
+            <div class="card p-5">
+                <div class="metric">
+                    <span class="metric__value" data-animate="count" data-target="92">0</span>
+                    <span class="metric__label">% Knowledge Retained</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="metric">
+                    <span class="metric__value" data-animate="count" data-target="45">0</span>
+                    <span class="metric__label">Days Faster Onboarding</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="metric">
+                    <span class="metric__value" data-animate="count" data-target="3">0</span>
+                    <span class="metric__label">Weeks to Competency</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="metric">
+                    <span class="metric__value" data-animate="count" data-target="96">0</span>
+                    <span class="metric__label">% Answer Confidence</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graph surfaces -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="graph-surface grid-ticks p-4 rounded-[var(--radius-sm)] min-h-[220px]">
+                <h3 class="text-sm font-semibold mb-3">Knowledge Retained</h3>
+                <div class="flex-1 relative rounded-[var(--radius-sm)] overflow-hidden">
+                    <div class="absolute inset-0 opacity-70"></div>
+                    <div class="absolute left-0 bottom-0 h-[60%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                    <div class="absolute left-[14%] bottom-0 h-[76%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                    <div class="absolute left-[28%] bottom-0 h-[84%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                    <div class="absolute left-[42%] bottom-0 h-[88%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                    <div class="absolute left-[56%] bottom-0 h-[92%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                    <div class="absolute left-[70%] bottom-0 h-[96%] w-[12%] bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.06))]"></div>
+                </div>
+            </div>
+
+            <div class="graph-surface p-4 rounded-[var(--radius-sm)] min-h-[220px] brand-glow">
+                <h3 class="text-sm font-semibold mb-3">Onboarding Time Reduction</h3>
+                <div class="relative h-[160px] grid-ticks rounded-[var(--radius-sm)] overflow-hidden">
+                    <div class="absolute inset-0">
+                        <svg viewBox="0 0 400 160" class="w-full h-full">
+                            <defs>
+                                <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stop-color="rgb(var(--color-brand))" stop-opacity="0.65"></stop>
+                                    <stop offset="100%" stop-color="rgb(var(--color-brand-700))" stop-opacity="0.1"></stop>
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,140 C60,120 120,110 180,90 C240,70 300,40 360,30 L400,160 L0,160 Z" fill="url(#g)"></path>
+                            <path d="M0,140 C60,120 120,110 180,90 C240,70 300,40 360,30" stroke="rgb(var(--color-brand))" stroke-opacity="0.8" fill="none" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+How it works (three-steps, minimal, icon-friendly)
+```html
+<section id="how-it-works" class="section-anchor section-y">
+    <div class="container-page grid gap-8">
+        <header class="flex flex-col gap-2">
+            <p class="text-eyebrow">Process</p>
+            <h2 class="text-2xl font-bold">From exit to enablement in three steps</h2>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card p-6">
+                <div class="mb-3 text-caption">Step 1</div>
+                <h3 class="font-semibold mb-2">Capture Knowledge</h3>
+                <p class="text-caption">Interviews, document imports, structured Q&A with the exiting employee.</p>
+            </div>
+            <div class="card p-6">
+                <div class="mb-3 text-caption">Step 2</div>
+                <h3 class="font-semibold mb-2">Create Echo + Playbook</h3>
+                <p class="text-caption">Echo becomes the assistant; Playbook generates a day-one reference.</p>
+            </div>
+            <div class="card p-6">
+                <div class="mb-3 text-caption">Step 3</div>
+                <h3 class="font-semibold mb-2">Deploy to Team</h3>
+                <p class="text-caption">Share Echo access and onboard new hires with the Playbook.</p>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+CTA (brand-forward, strong emphasis)
+```html
+<section id="cta" class="section-anchor section-y">
+    <div class="container-page">
+        <div class="cta p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="max-w-prose">
+                <h3 class="text-xl font-bold mb-2">Ready to preserve what matters?</h3>
+                <p class="text-caption">Get a Demo and see how Echo + Playbook reduces onboarding time and retains knowledge.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#footer" class="btn btn--primary">Get a Demo</a>
+                <a href="#how-it-works" class="btn btn--secondary">See How It Works</a>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+FAQ (simple accordion-ready structure)
+```html
+<section id="faq" class="section-anchor section-y">
+    <div class="container-page grid gap-6">
+        <header class="flex flex-col gap-2">
+            <p class="text-eyebrow">FAQ</p>
+            <h2 class="text-2xl font-bold">Answers at a glance</h2>
+        </header>
+
+        <div class="grid grid-cols-1 gap-4">
+            <details class="card p-5">
+                <summary class="cursor-pointer font-medium">What happens when the exiting employee is unavailable for clarifications?</summary>
+                <p class="mt-3 text-caption">The Echo is built from captured interviews, documents, and Q&A sessions, so it remains available post-departure.</p>
+            </details>
+            <details class="card p-5">
+                <summary class="cursor-pointer font-medium">Is the Echo limited to predefined topics?</summary>
+                <p class="mt-3 text-caption">Echo generalizes within the captured domain and references the Playbook to answer evolving questions.</p>
+            </details>
+            <details class="card p-5">
+                <summary class="cursor-pointer font-medium">How is the Playbook maintained over time?</summary>
+                <p class="mt-3 text-caption">Teams can update the markdown source as workflows evolve; Echo and Playbook complement each other.</p>
+            </details>
+        </div>
+    </div>
+</section>
+```
+
+Footer
+```html
+<footer id="footer" class="footer section-y">
+    <div class="container-page flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-caption">© theMindArk.AI — Exit Strategy Echo</div>
+        <nav class="flex items-center gap-4">
+            <a href="/privacy" class="link link-underline">Privacy</a>
+            <a href="/terms" class="link link-underline">Terms</a>
+            <a href="https://x.com" class="link link-underline">X</a>
+            <a href="https://www.linkedin.com" class="link link-underline">LinkedIn</a>
+        </nav>
+    </div>
+</footer>
+```
+
+Cards and glass surfaces
+```html
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="card p-6">
+        <h4 class="font-semibold mb-1">Default Card</h4>
+        <p class="text-caption">Use for standard content blocks.</p>
+    </div>
+    <div class="card card--accent p-6">
+        <h4 class="font-semibold mb-1">Accent Card</h4>
+        <p class="text-caption">Uses brand border for subtle emphasis.</p>
+    </div>
+    <div class="card card--ghost p-6">
+        <h4 class="font-semibold mb-1">Ghost Card</h4>
+        <p class="text-caption">Ultra-subtle background; low visual weight.</p>
+    </div>
+</div>
+```
+
+Buttons and interactions
+```html
+<div class="flex items-center gap-4">
+    <button class="btn btn--primary">Primary CTA</button>
+    <button class="btn btn--secondary">Secondary</button>
+    <button class="btn btn--muted">Muted</button>
+    <button class="btn btn--primary" disabled aria-disabled="true">Disabled</button>
+</div>
+```
+
+Inputs (glass, focused ring, invalid state)
+```html
+<form class="grid gap-3 w-full max-w-md">
+    <label class="text-caption">Email</label>
+    <input type="email" class="input" placeholder="you@company.com" />
+    <p class="text-caption">We’ll never share your email.</p>
+
+    <label class="text-caption mt-4">Promo Code (invalid)</label>
+    <input type="text" class="input input--invalid" placeholder="ECHO-2025" />
+</form>
+```
+
+Dividers and spacing
+```html
+<div class="grid gap-6">
+    <p class="text-caption">Above</p>
+    <div class="divider"></div>
+    <p class="text-caption">Below</p>
+</div>
+```
+
+Graph accents and brand glow
+```html
+<div class="graph-surface grid-ticks p-4 rounded-[var(--radius-sm)]">
+    <div class="graph-accent p-3 rounded-[var(--radius-sm)] brand-glow">
+        <p class="text-caption">Subtle brand-tinted surface inside graph</p>
+    </div>
+</div>
+```
+
+Headline and typography helpers
+```html
+<header class="grid gap-3">
+    <p class="text-eyebrow">Case Study</p>
+    <h2 class="text-hero headline-gradient">A luxurious, legible hero headline</h2>
+    <p class="text-subtitle">Subtitle optimized for scanning on all devices.</p>
+    <p class="text-caption">Caption for extra context or metadata.</p>
+</header>
+```
+
+Anchors and smooth scrolling
+```html
+<nav class="sticky top-0 z-40 glass p-3">
+    <ul class="flex gap-4">
+        <li><a href="#hero" class="link link-underline">Hero</a></li>
+        <li><a href="#features" class="link link-underline">Features</a></li>
+        <li><a href="#metrics" class="link link-underline">Metrics</a></li>
+        <li><a href="#how-it-works" class="link link-underline">How It Works</a></li>
+        <li><a href="#faq" class="link link-underline">FAQ</a></li>
+    </ul>
+</nav>
+
+<section id="hero" class="section-anchor">...</section>
+<section id="features" class="section-anchor">...</section>
+<section id="metrics" class="section-anchor">...</section>
+<section id="how-it-works" class="section-anchor">...</section>
+<section id="faq" class="section-anchor">...</section>
+```
+
+Brand usage guidance
+- Use brand color primarily for:
+  - btn--primary backgrounds
+  - CTA surfaces (cta component)
+  - Thin borders or highlights (brand-border, brand-glow) in non-CTA elements
+- Avoid full brand fills on large areas except in primary CTA contexts (e.g., CTA card chart fill).
+
+Arbitrary values with Tailwind v4
+- Replace spaces with underscores. Example background image class:
+```html
+<div class='bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))]'></div>
+```
+- Use CSS variable color tokens where appropriate:
+```html
+<div class="border-[rgb(var(--color-brand)/0.35)]"></div>
+<p class="text-[rgb(var(--color-text-secondary))]">Secondary text via theme token.</p>
+```
+
+Motion and micro-interactions
+- Buttons already include hover/active behaviors and a shimmer on btn--primary.
+- Use animate-float or animate-float-lg for small floating accents.
+```html
+<div class="card p-6 animate-float">
+    <p class="text-caption">Subtle floating accent</p>
+</div>
+```
+
+Hero motif (square with a circle inside)
+- Use hero-frame and the overlay for legibility over video:
+```html
+<div class="hero-frame relative min-h-[360px]">
+    <video class="hero-video" autoplay muted loop playsinline src="/videos/hero.mp4"></video>
+    <div class="hero-video__overlay"></div>
+    <!-- Place overlayed text in an absolutely positioned child if needed -->
+</div>
+```
+
+Accessibility helpers
+```html
+<button class="btn btn--primary">
+    <span class="sr-only">Open demo request form</span>
+    Get a Demo
+</button>
+```
+
+Composing sections with glass and gradients
+```html
+<section class="section-y bg-section">
+    <div class="container-page">
+        <div class="glass p-6 rounded-[var(--radius-sm)]">
+            <h3 class="font-semibold mb-2">Glassy Section</h3>
+            <p class="text-caption">Use glass to elevate content without heavy contrast.</p>
+        </div>
+    </div>
+</section>
+```
+
+Do and don’t
+- Do: Keep layouts vertically stacked and responsive.
+- Do: Use brand color sparingly; prefer borders and CTA backgrounds.
+- Do: Rely on glass/gradients for depth and separation instead of heavy shadows.
+- Don’t: Hardcode fixed button widths when using text.
+- Don’t: Overuse brand fills or saturated gradients in non-CTA elements.
+
+Implementation notes for this theme
+- All classes in examples are ready to use with Tailwind v4 and the provided theme.
+- Pseudo-classes should be applied on elements (e.g., hover:) or rely on component rules defined in the theme.
+- For animated metrics, use a small client-side script to count from 0 to target when elements intersect the viewport; keep durations around 1.2–1.6s with smooth ease-out for legibility.
+
+Reference checklist per landing sections
+- Hero: hero-frame, hero-video, hero-video__overlay, text-hero, headline-gradient, btn--primary
+- Features: card, text-caption, container-page
+- Echo: card, text-eyebrow, section-anchor
+- Playbook: prose, card, list styles
+- Metrics: metric component, graph-surface, grid-ticks, brand-glow sparingly
+- How It Works: card, text-caption
+- CTA: cta component, btn--primary, btn--secondary
+- FAQ: card, details/summary structure
+- Footer: footer component, link classes
+
+By following the utilities and components above, you can implement the full Exit Strategy Echo landing page with a cohesive dark, glassy, luxurious visual language that’s consistent, accessible, and fast.
+</style-guide>
+
+> appendUser
+<main-layout>
+# MainLayout — Application Shell and Navigation
+
+The MainLayout component provides the shared application frame for the Exit Strategy Echo landing site. It renders:
+- A glass, sticky top navigation bar with brand logo, anchor links, an account switcher, and responsive collapse behavior.
+- A centered content column for page content (children), respecting full-page and no-margins display modes via hooks.
+- A dark, luxurious visual language using the Tailwind v4 theme and custom utilities.
+
+This layout is used by the top-level App component to wrap all pages and should only accept a single `children` prop that renders the current screen/page.
+
+---
+
+## Responsibilities
+
+- Render a consistent dark, glassy page shell with a sticky top nav.
+- Provide anchor-based navigation for the single-page landing layout.
+- Collapse navigation into a mobile panel with an “expand” button.
+- Include an account switcher in the main nav.
+- Honor layout modes:
+  - Fullscreen (hide nav and shared UI) using `useIsInFullPageMode`.
+  - No margins (edge-to-edge content) using `useIsNoMarginMode`.
+
+---
+
+## Navigation links
+
+Primary anchor navigation (in-header)
+- Hero — /#hero
+- Features — /#features
+- Echo — /#echo
+- Playbook — /#playbook
+- Metrics — /#metrics
+- How It Works — /#how-it-works
+- FAQ — /#faq
+- Get a Demo — /#cta (primary CTA button)
+
+Secondary links (typically in footer, not in-header)
+- Privacy — /privacy
+- Terms — /terms
+- X — https://x.com
+- LinkedIn — https://www.linkedin.com
+
+Note: The landing is a single statically generated page at /. All primary navigation items are in-page anchors for smooth scrolling.
+
+---
+
+## Component API
+
+Props
+- children: React.ReactNode — Required. Renders the current page inside the layout’s content region.
+
+Exports
+- Named export: `MainLayout`
+- Supporting named exports: `MainNav`, `AccountSwitcher`
+
+---
+
+## Implementation (reference)
+
+Place this file at: src/components/layout/MainLayout.tsx
+
+```tsx
+import React, { useEffect, useRef, useState } from "react";
+import { Logo } from "@/components/Logo";
+import { cn } from "@/lib/util";
+import {
+    useIsInFullPageMode,
+    useIsNoMarginMode,
+} from "@/lib/hooks";
+import {
+    Menu,
+    X,
+    ChevronDown,
+    Building2,
+    LogOut,
+    Plus,
+} from "lucide-react";
+
+export interface MainLayoutProps {
+    children: React.ReactNode;
+}
+
+/**
+ * Primary navigation items (anchor-based)
+ */
+const NAV_ITEMS: { label: string; href: `/#${string}` }[] = [
+    { label: "Hero", href: "/#hero" },
+    { label: "Features", href: "/#features" },
+    { label: "Echo", href: "/#echo" },
+    { label: "Playbook", href: "/#playbook" },
+    { label: "Metrics", href: "/#metrics" },
+    { label: "How It Works", href: "/#how-it-works" },
+    { label: "FAQ", href: "/#faq" },
+];
+
+/**
+ * Account options for the account/workspace switcher
+ * Replace with real data when available.
+ */
+const ACCOUNT_OPTIONS = [
+    { id: "acme", name: "Acme Corp" },
+    { id: "northwind", name: "Northwind" },
+    { id: "personal", name: "Personal" },
+];
+
+export function MainLayout({ children }: MainLayoutProps) {
+    const isFull = useIsInFullPageMode();
+    const noMargins = useIsNoMarginMode();
+
+    return (
+        <div
+            className={cn(
+                "min-h-dvh bg-page text-[rgb(var(--color-text))] antialiased",
+                isFull && "layout--fullpage",
+                noMargins && "layout--no-margins"
+            )}
+        \>
+            {!isFull && <MainNav />}
+
+            <main
+                className={cn(
+                    "w-full",
+                    noMargins ? "flex flex-col" : "container-page flex flex-col"
+                )}
+            \>
+                {children}
+            </main>
+        </div>
+    );
+}
+
+/**
+ * MainNav — Sticky, glassy top navigation with:
+ * - Logo
+ * - Anchor links
+ * - Get a Demo CTA
+ * - Account switcher
+ * - Mobile collapse with expand button
+ */
+export function MainNav() {
+    const [open, setOpen] = useState(false);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        const onClick = (e: MouseEvent) => {
+            if (!panelRef.current) return;
+            if (open && !panelRef.current.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
+        window.addEventListener("keydown", onKey);
+        window.addEventListener("click", onClick);
+        return () => {
+            window.removeEventListener("keydown", onKey);
+            window.removeEventListener("click", onClick);
+        };
+    }, [open]);
+
+    return (
+        <header className="sticky top-0 z-40">
+            <div className="glass hairline backdrop-blur-md">
+                <div className="container-page flex items-center justify-between py-3 gap-3">
+                    {/* Left: Logo + brand */}
+                    <a href="/" className="flex items-center gap-2 focus-ring">
+                        <Logo className="w-7 h-7" />
+                        <span className="font-semibold tracking-tight">
+                            theMindArk.AI
+                        </span>
+                    </a>
+
+                    {/* Center: Desktop nav */}
+                    <nav className="hidden md:flex items-center gap-2">
+                        <ul className="flex items-center gap-1">
+                            {NAV_ITEMS.map((item) => (
+                                <li key={item.href}>
+                                    <a
+                                        href={item.href}
+                                        className="px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.04)] focus-ring"
+                                    \>
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    {/* Right: CTA + Account switcher + Mobile toggle */}
+                    <div className="flex items-center gap-2">
+                        <a
+                            href="/#cta"
+                            className="hidden sm:inline-flex btn btn--primary"
+                        \>
+                            Get a Demo
+                        </a>
+
+                        <AccountSwitcher />
+
+                        <button
+                            type="button"
+                            className="md:hidden inline-flex items-center justify-center p-2 rounded-[var(--radius-xs)] hover:bg-[rgb(255_255_255/0.06)] focus-ring"
+                            aria-label="Open navigation"
+                            aria-controls="mobile-nav"
+                            aria-expanded={open}
+                            onClick={() => setOpen((v) => !v)}
+                        \>
+                            {open ? (
+                                <X className="w-5 h-5" />
+                            ) : (
+                                <Menu className="w-5 h-5" />
+                            )}
+                        </button>
+                    </div>
+                </div>
+
+                {/* Mobile panel */}
+                <div
+                    id="mobile-nav"
+                    ref={panelRef}
+                    className={cn(
+                        "md:hidden border-t border-[rgb(255_255_255/0.06)]",
+                        open ? "block" : "hidden"
+                    )}
+                \>
+                    <div className="container-page py-3">
+                        <nav className="flex flex-col gap-1">
+                            {NAV_ITEMS.map((item) => (
+                                <a
+                                    key={item.href}
+                                    href={item.href}
+                                    className="px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                                    onClick={() => (open ? setOpen(false) : null)}
+                                \>
+                                    {item.label}
+                                </a>
+                            ))}
+
+                            <a
+                                href="/#cta"
+                                className="mt-2 btn btn--primary"
+                                onClick={() => (open ? setOpen(false) : null)}
+                            \>
+                                Get a Demo
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
+
+/**
+ * AccountSwitcher — Minimal account/workspace switcher for the main nav.
+ * Uses a glass dropdown with focus management and keyboard escape.
+ */
+export function AccountSwitcher() {
+    const [open, setOpen] = useState(false);
+    const [active, setActive] = useState(ACCOUNT_OPTIONS[0]);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        const onClick = (e: MouseEvent) => {
+            if (!panelRef.current) return;
+            if (open && !panelRef.current.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
+        window.addEventListener("keydown", onKey);
+        window.addEventListener("click", onClick);
+        return () => {
+            window.removeEventListener("keydown", onKey);
+            window.removeEventListener("click", onClick);
+        };
+    }, [open]);
+
+    return (
+        <div className="relative" ref={panelRef}>
+            <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={open}
+                className={cn(
+                    "inline-flex items-center gap-2 px-2.5 py-2 rounded-[var(--radius-xs)]",
+                    "text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))]",
+                    "hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                )}
+                onClick={() => setOpen((v) => !v)}
+            \>
+                <Building2 className="w-4 h-4" />
+                <span className="max-w-[12ch] truncate">{active.name}</span>
+                <ChevronDown className="w-4 h-4 opacity-80" />
+            </button>
+
+            {open && (
+                <div
+                    role="menu"
+                    className="absolute right-0 mt-2 w-[220px] glass card p-2 rounded-[var(--radius-sm)] shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+                \>
+                    <div className="grid gap-1">
+                        {ACCOUNT_OPTIONS.map((acc) => {
+                            const isActive = acc.id === active.id;
+                            return (
+                                <button
+                                    key={acc.id}
+                                    role="menuitemradio"
+                                    aria-checked={isActive}
+                                    className={cn(
+                                        "w-full text-left px-3 py-2 rounded-[var(--radius-xs)] text-sm",
+                                        isActive
+                                            ? "bg-[rgb(255_255_255/0.06)]"
+                                            : "hover:bg-[rgb(255_255_255/0.05)]"
+                                    )}
+                                    onClick={() => {
+                                        setActive(acc);
+                                        setOpen(false);
+                                    }}
+                                \>
+                                    {acc.name}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="divider my-2" />
+
+                    <div className="grid gap-1">
+                        <a
+                            role="menuitem"
+                            href="/accounts/new"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <Plus className="w-4 h-4" />
+                            Create new workspace
+                        </a>
+                        <a
+                            role="menuitem"
+                            href="/logout"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <LogOut className="w-4 h-4" />
+                            Sign out
+                        </a>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+```
+
+---
+
+## Display modes and layout behavior
+
+- Fullscreen mode
+  - When `useIsInFullPageMode()` returns true:
+    - Hide the main navigation and any shared UI.
+    - Keep the page content mounted; do not change render order.
+
+- No margins mode
+  - When `useIsNoMarginMode()` returns true:
+    - Remove default content margins and paddings.
+    - Allow pages to span edge-to-edge (useful for full-bleed sections, e.g., hero video).
+
+- Default mode
+  - Pages render within a centered column using `container-page` and vertical stacking (`flex flex-col`) to avoid overflow.
+
+- The layout applies theme utilities:
+  - Root: `bg-page` for background, dark theme, and global typography.
+  - Navbar: `glass`, `hairline` for glassmorphism and a subtle top divider.
+  - Buttons: `btn`, `btn--primary` for CTAs, respecting the brand rule (brand color used sparingly).
+
+---
+
+## Accessibility
+
+- The mobile expand button uses:
+  - aria-controls and aria-expanded
+  - sr-friendly labels via button aria-label
+- The account switcher uses:
+  - role="menu" and role="menuitem" semantics
+  - Esc to close the dropdown
+  - Click outside to dismiss
+- Links and interactive elements have `focus-ring` for keyboard navigation.
+
+---
+
+## Usage in the Next.js App component
+
+Place this file at: pages/_app.tsx
+
+```tsx
+import type { AppProps } from "next/app";
+import { MainLayout } from "@/components/layout/MainLayout";
+import "@/styles/globals.css";
+
+export default function App({ Component, pageProps }: AppProps) {
+    return (
+        <MainLayout>
+            <Component {...pageProps} />
+        </MainLayout>
+    );
+}
+```
+
+---
+
+## Visual and theming notes
+
+- Use brand color (#752E4F) sparingly. It is applied mainly to:
+  - Primary CTA backgrounds (Get a Demo button).
+  - Thin borders or subtle accents (brand-border) where needed.
+- Prefer stacking layouts (`flex-col`) and responsive blocks over wide grids to prevent overflow.
+- The navbar is glassy and minimal with sharp rounding and thin borders, aligning to the style guide.
+- Smooth scrolling and anchor linking are supported by the in-page anchors
+  - /#hero, /#features, /#echo, /#playbook, /#metrics, /#how-it-works, /#faq, /#cta.
+
+---
+
+## Checklist
+
+- Named exports for layout components (MainLayout, MainNav, AccountSwitcher).
+- Single `children` prop renders current page.
+- Sticky, glass, responsive nav with:
+  - Logo
+  - Anchor links
+  - Primary “Get a Demo” CTA
+  - Account switcher
+  - Mobile expand/collapse
+- Honors layout modes via hooks:
+  - Fullscreen hides nav.
+  - No-margins removes container spacing.
+- Compliant with Tailwind v4 theme utilities and dark, glassy, luxurious visual language.
+</main-layout>
+
+> appendUser
+<editor-config>
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+</editor-config>
+
+> system
+
+## Sections
+Sections are created as individual React components and stored in the `components/sections` directory
+and can be imported using an import statement like `import { [ComponentName] } from "@/components/sections/[ComponentName]".
+
+Section Component Rules:
+
+- Use an HTML section tag as root element
+- Do not export as default export
+- Content in sections should be placed in a centered column
+- Background images of section should span the full width of the section and can be wider than the max width of the section
+- No external component libraries should be used
+- Export section component as a named export using the function keyword
+- section components should not define any props
+
+> appendUser
+Hero — Section Component
+- Description: Marketing hero section introducing Exit Strategy Echo with a right-aligned background video and overlayed headline, subheadline, and CTAs. Emphasizes “square with a circle inside” motif via a floating SVG accent. Optimized for dark, glassy, luxurious aesthetic with gradient text treatments and legible overlays.
+- Anchor/Route: #hero
+- Structure:
+  - Root element is a section with id="hero".
+  - Responsive grid: 1 column on small screens; 3 columns on large with the video spanning the right two-thirds.
+  - Text content overlays the video on small screens via absolute positioning and gradient overlay; becomes static in the left column on large screens.
+  - Includes a geometric SVG accent (square with inner circle) floating over the video on large screens.
+- Content:
+  - Eyebrow: “Exit Strategy Echo”
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: Positioning statement for Echo + Playbook.
+  - CTAs:
+    - Primary: “Get a Demo” linking to #cta with an icon.
+    - Secondary: “See How It Works” linking to #how-it-works with an icon.
+- Behavior/Interactions:
+  - Video: autoplay, muted, loop, playsInline; overlay for legibility using hero-video__overlay.
+  - Uses lucide-react icons Mail and ChevronRight.
+  - Maintains stacking layout to avoid horizontal overflow on narrow screens.
+- Styling:
+  - Dark theme, glassmorphism, gradient headline (text-hero, headline-gradient).
+  - Classes: hero-frame, hero-video, hero-video__overlay, container-page, text-eyebrow, text-subtitle, btn btn--primary, btn btn--secondary.
+  - Brand color (#752E4F) used sparingly for accents and the primary CTA background.
+- Accessibility:
+  - Clear text overlays with contrast-preserving gradient background on smaller screens.
+  - Buttons support keyboard focus via theme focus-ring utility.
+- Assets:
+  - Hero video: /videos/hero.mp4
+- Import:
+  - import { Hero } from "@/components/sections/Hero";
+- Props:
+  - None (section components do not accept props).
+
+
+
+SectionTwo — Metrics & Impact
+- Description: Animated, glassy metrics section showing count-up tiles, a semi-circle gauge, and branded graph surfaces. Communicates measurable continuity benefits with motion and clarity.
+- Anchor/Route: #metrics
+- Structure:
+  - Root element is a section with id="metrics".
+  - Centered content via container-page with stacked, responsive grids:
+    - Header with eyebrow, title, and caption.
+    - Top row: semi-circle gauge card + 4 metric tiles (count-up).
+    - Bottom row: knowledge-retained bars + onboarding-time reduction area chart.
+- Behavior/Animations:
+  - IntersectionObserver triggers once at 25% visibility to activate animations.
+  - Count-up values animate 0 → target with ease-out cubic over ~1.3–1.5s.
+  - Gauge uses an SVG semi-arc with stroke-dashoffset animation and brand gradient.
+  - Bars animate heights in sequence with small delays; area chart reveals via clip-path.
+- Styling:
+  - Dark, glassmorphic graph surfaces with subtle grid ticks (graph-surface, grid-ticks, brand-glow).
+  - Accent lines and fills use brand color sparingly; primary brand emphasis in CTA contexts only.
+  - Cards use card/card--accent with thin borders and sharp rounding.
+- Content (examples):
+  - Gauge: “Knowledge locked in individuals” at 42% (animated).
+  - Metric tiles:
+    - Knowledge Retained — 92%
+    - Days Faster Onboarding — 45
+    - Weeks to Competency — 3
+    - Answer Confidence — 96%
+  - Graphs:
+    - Knowledge Retained (progressive bars)
+    - Onboarding Time Reduction (branded area chart)
+- Accessibility:
+  - Gauge includes an accessible <title> bound via aria-labelledby.
+  - Animated numbers are readable and stabilized after animation completes.
+- Implementation Notes:
+  - Uses a local cn utility for className composition.
+  - Ambient backdrop brand-tinted radial gradients are rendered behind content for depth.
+  - Animations are client-only and run once per visit to prevent distraction.
+- Import:
+  - import { SectionTwo } from "@/components/sections/SectionTwo";
+- Props:
+  - None (section components do not accept props).
+
+> appendUser
+Generate a landing page based on the sections
+
+> nop
+//_END_MAKE_TARGET_INPUT_
+
+
+> assistant
+import Head from "next/head";
+import React from "react";
+import { useNoMargins } from "@/lib/hooks";
+import { Hero } from "@/components/sections/Hero";
+import { SectionTwo } from "@/components/sections/SectionTwo";
+
+export default function HomePage() {
+    useNoMargins();
+
+    return (
+        <div className="page--HomePage bg-page">
+            <Head>
+                <title>theMindArk.AI — Exit Strategy Echo</title>
+                <meta
+                    name="description"
+                    content="Capture what they know. Keep it working. Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts."
+                />
+            </Head>
+
+            <Hero />
+
+            <SectionTwo />
+        </div>
+    );
+}
+> user
+

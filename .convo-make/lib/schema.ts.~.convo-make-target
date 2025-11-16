@@ -1,0 +1,950 @@
+> define
+__makeRoot="../.."
+__makeFile="make.convo"
+__makeOut="lib/schema.ts"
+__model="gpt-5"
+
+> system
+You are generating content that will be directly written to "lib/schema.ts".
+DO NOT include a preamble or postamble.
+
+Always respond with the full content for "lib/schema.ts", even if you are making an
+small or incremental update.
+
+> appendUser
+<app-description>
+## theMindArk.AI — Exit Strategy Echo Landing Page
+
+A high-level, content-first plan for the marketing homepage that introduces Exit Strategy Echo: a modular system for capturing and preserving institutional knowledge by replicating an exiting employee as a digital assistant (“Echo”) and generating an onboarding playbook.
+
+---
+
+## Mission
+
+Capture and preserve departing employees’ knowledge, then make it accessible:
+- Echo: An AI assistant mirroring the exiting employee, available for teammates after the employee leaves.
+- Onboarding Playbook: A clear, structured markdown document new hires can follow to learn the role quickly.
+
+This page is the primary marketing landing and focuses on clarity, credibility, and conversion.
+
+---
+
+## Features
+
+- Echo (AI Replica of Exiting Employee)
+  - Mirrors the exiting employee’s knowledge and style.
+  - Provides answers to role-specific questions after the employee departs.
+  - Enables continuity across projects, processes, and tribal knowledge.
+
+- Onboarding Playbook (Markdown)
+  - A structured document capturing responsibilities, workflows, tools, and FAQs.
+  - Clear, skimmable sections designed for day-one usability.
+  - Becomes a living reference that complements the Echo.
+
+- Hero Video Showcase
+  - Immersive background/foreground interplay with text overlay.
+  - Video placed on the right two-thirds of the hero; text runs on top of it.
+  - Uses /videos/hero.mp4 and a modern, glassy dark theme presentation.
+
+- Animated Impact Metrics (SectionTwo)
+  - Graph values animate from 0 to their final values to illustrate impact.
+  - Updated graph background colors to align with the app’s dark, glassmorphism styling and brand accents.
+
+- Modern, Luxurious UI
+  - Dark mode by default, gradient backgrounds, and glassmorphism.
+  - Minimal, sharp rounding with subtle depth and motion.
+  - Brand color #752E4F used sparingly for emphasis and primary CTAs.
+
+- Static, Fast, Reliable
+  - Built with React + Next.js (pages directory), statically generated for reliability and speed.
+  - Tailwind v4 for consistent design system and responsive layout.
+
+- Clear Calls-to-Action
+  - Conversion-focused CTAs for “Get a Demo” and “See How It Works.”
+  - Scannable content and anchor navigation for a concise single-page flow.
+
+---
+
+## Sections and Routes
+
+- Hero
+  - Route: /#hero (visible at the top of /)
+  - Purpose: Immediate value proposition, aspirational visuals (video), and primary CTA.
+  - Content: Headline, subheadline, CTA, and the hero video on the right two-thirds with text overlay.
+
+- Features Overview
+  - Route: /#features
+  - Purpose: Summarize Echo and Playbook benefits in a quick, scannable layout.
+  - Content: Two-column or stacked cards describing Echo and Onboarding Playbook.
+
+- Echo (AI Assistant)
+  - Route: /#echo
+  - Purpose: Explain how the Echo mirrors the exiting employee.
+  - Content: Example use cases such as Q&A, context recall, and cross-team knowledge support.
+
+- Onboarding Playbook
+  - Route: /#playbook
+  - Purpose: Present the playbook as a structured, markdown-based companion to Echo.
+  - Content: Example table of contents and sample entries (responsibilities, SOPs, tools).
+
+- Metrics & Impact (SectionTwo)
+  - Route: /#metrics
+  - Purpose: Quantify benefits through animated graphs that grow from 0 to final values.
+  - Content: Graphs with branded backgrounds consistent with the dark glass theme. Example metrics:
+    - Knowledge Retained (coverage over time)
+    - Onboarding Time Reduction
+    - Response Accuracy/Confidence
+    - Time-to-Competency
+
+- How It Works
+  - Route: /#how-it-works
+  - Purpose: A simple three-step explanation:
+    1) Knowledge capture from exiting employee,
+    2) Echo replication and playbook generation,
+    3) Rollout to team with continuous access.
+  - Content: Minimal, icon-driven steps with short explanations.
+
+- Call to Action
+  - Route: /#cta
+  - Purpose: Encourage visitors to request a demo or learn more.
+  - Content: Primary CTA using the brand color as a background for emphasis; secondary link for more details.
+
+- FAQ
+  - Route: /#faq
+  - Purpose: Address common questions about security, setup time, and maintenance.
+  - Content: Short, direct answers.
+
+- Footer
+  - Route: /#footer
+  - Purpose: Provide legal links, contact, and brand attribution.
+  - Content: Links to privacy/terms, company info, and social profiles.
+
+Note: All sections are part of a single, statically generated marketing page at /. Anchors enable smooth in-page navigation without additional routes.
+
+---
+
+## Content Details
+
+### Hero
+
+- Layout
+  - Video on the right two-thirds of the screen.
+  - Headline and subheadline flow over the video (text overlays), ensuring legibility through a subtle dark gradient overlay and backdrop blur where needed.
+  - The initial motif “Square with a circle inside of it” is represented as a framed, minimal geometric container for the video to hint at structure + human knowledge (“Echo”).
+- Media
+  - Video URL: /videos/hero.mp4
+- Copy Direction
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - Primary CTA: “Get a Demo”
+  - Secondary CTA: “See How It Works”
+
+### Features Overview
+
+- Two stacked focus areas:
+  - Echo — the AI replica available post-departure.
+  - Onboarding Playbook — a structured, markdown-based guide for new hires.
+- Each block includes a concise description and one supporting benefit.
+
+### Echo (AI Assistant)
+
+- Emphasis on mirroring knowledge, tone, and decision context of the exiting employee.
+- Scenarios:
+  - “What’s the escalation path for Vendor X?”
+  - “How do we deploy the Q3 reporting pipeline?”
+  - “Which stakeholders must approve this contract?”
+
+### Onboarding Playbook
+
+- Organized as markdown for portability and clarity.
+- Example outline:
+  - Role Overview
+  - Core Responsibilities
+  - Daily/Weekly/Monthly Routines
+  - Key Systems and Access
+  - Processes and SOPs
+  - Stakeholders and Communication
+  - FAQs and Troubleshooting
+
+### Metrics & Impact (SectionTwo)
+
+- Animation
+  - All numeric values animate from 0 to their target to showcase momentum and impact.
+  - Duration and easing tuned for legibility (e.g., 1.2–1.6s with smooth ease-out).
+- Visual Style
+  - Graph backgrounds updated to match the dark, glassmorphic palette.
+  - Use brand color #752E4F sparingly for highlights, tick accents, or a thin border to call attention—not as a full graph fill except for a primary CTA chart.
+- Sample Graphs
+  - Knowledge Retained (% coverage)
+  - Onboarding Time Reduction (days)
+  - Time-to-Competency (weeks)
+  - Answer Confidence (score)
+
+### How It Works
+
+- Step 1: Capture Knowledge
+  - Interview prompts, document imports, and structured Q&A sessions with the exiting employee.
+- Step 2: Create Echo + Playbook
+  - Echo becomes the AI assistant; Playbook generates a clear reference for new hires.
+- Step 3: Deploy to Team
+  - Share Echo access and onboard new hires with the Playbook.
+
+### CTA
+
+- Strong, primary CTA using the brand color as a background.
+- Secondary CTA link styled with a thin brand-colored border to indicate alternative action without competing.
+
+### FAQ
+
+- Example questions:
+  - “What happens when the exiting employee is unavailable for clarifications?”
+  - “Is the Echo limited to predefined topics?”
+  - “How is the Playbook maintained over time?”
+
+---
+
+## Visual and Interaction Design
+
+- Theme: Dark, modern, minimal, luxurious.
+- Style: Glassmorphism with backdrop blur, subtle gradients, thin borders, and sharp corners.
+- Color: Brand #752E4F reserved mainly for primary CTAs and tasteful borders.
+- Motion: Gentle float animations for geometric accents and shimmer for interactive elements (e.g., CTA hover).
+- Typography:
+  - Hero headline: large, responsive (72px desktop, 48px mobile), with a gradient text treatment.
+  - Subtitles and captions use semantic classes for hierarchy and readability.
+
+---
+
+## Technical and Implementation Notes
+
+- Tech Stack
+  - React, Next.js (pages directory), Tailwind v4, lucide-react.
+  - Static Site Generation only; no server-side rendering.
+- Layout Preferences
+  - Stacking layouts with flex columns to avoid horizontal overflow.
+  - Avoid long button labels; use icons when possible.
+  - If buttons need text, do not enforce fixed widths.
+- Structure
+  - Single landing page at / with anchor-based sections for navigation.
+  - No usage of the App Router; strictly the pages directory.
+  - Named exports by default for components; Next.js pages export default as the page component.
+- Styling
+  - Apply gradient backgrounds and glass overlays with Tailwind utilities.
+  - Maintain consistent dark scales, border opacities, and semantic text colors.
+- Motion and Interaction
+  - Animate metrics from 0 to final values on viewport intersection.
+  - Update graph backgrounds to match dark/glass theme with subtle depth and contrast.
+
+---
+
+## Copy Outline
+
+- Hero
+  - Headline: “Capture what they know. Keep it working.”
+  - Subheadline: “Replicate departing employees as secure, AI-powered Echos and generate an onboarding playbook that lasts.”
+  - CTA: “Get a Demo” (primary), “See How It Works” (secondary)
+- Features
+  - Echo: “A digital extension of your departing expert—available on demand.”
+  - Playbook: “A clear, portable, markdown guide for new hires.”
+- Metrics
+  - “Make continuity measurable.” Short hooks paired with animated numbers.
+- How It Works
+  - “From exit to enablement in three steps.”
+- CTA
+  - “Ready to preserve what matters? Get a Demo.”
+
+---
+
+## Summary
+
+A focused, single-page marketing experience that clearly communicates the mission of Exit Strategy Echo:
+- Preserve knowledge via an AI “Echo” of the exiting employee.
+- Empower new hires with a concise, markdown-based onboarding playbook.
+- Demonstrate value visually with a compelling hero video and animated impact metrics.
+- Deliver a refined, modern, glassy dark theme aligned with the brand.
+</app-description>
+
+> appendUser
+<coding-rules>
+## Tech Stack
+- ReactJS
+- NextJS - pages directory and static site generation
+- Tailwinds v4
+- lucide-react - icons
+
+## Layout
+It is preferred to use stacking layouts using flex-box columns to avoid running out of horizontal
+room. Avoid long names in buttons and prefer to use icons for buttons.
+
+If buttons display text DO NOT give the button a static width.
+
+## Static site generation
+The frontend of the app uses static site generation so no server side rendering should be used. All
+pages are stored in the pages directory and the NextJS app router is NOT used.
+
+## Exports
+Always use named exports unless explicitly told otherwise or required such as when creating NextJS
+pages.
+
+
+## Full screen screens
+The `useFullPage` hook can be used to display a full screen page without the main navigation bar.
+
+example:
+``` tsx
+import { useFullPage } from "@/lib/hooks";
+
+function ExampleComponent(){
+
+    useFullPage();
+
+    return (
+        <div></div>
+    )
+}
+```
+
+## Form Data
+When creating forms store form data in a typed useState variable.
+
+Zod schemas can be imported from `@/lib/schema` to validate types stored in the database.
+
+Form state example:
+``` tsx
+
+interface NewsletterForm
+{
+    name:string
+    email:string;
+}
+function ExampleComponent()
+{
+    const [newsletterData,setNewsletterData]=useState<NewsletterForm>({
+        name:'',
+        email:'',
+    });
+
+    return (
+        <form>
+            <input
+                placeholder="Enter name"
+                value={newsletterData.name}
+                onChange={e=>setNewsletterData({...newsletterData,name:e.target.value})}
+            />
+            <input
+                placeholder="Enter email"
+                value={newsletterData.email}
+                onChange={e=>setNewsletterData({...newsletterData,email:e.target.value})}
+            />
+        </form>
+    )
+}
+```
+
+## Pages
+When creating NextJS pages export the page component as a default function with the function
+name reflecting the name of the page.
+
+Do not use the MainLayout component when creating a page. The Main Layout component will be
+used by the top level App component.
+
+Include the name of the page in the className of the root element of the page component using the
+format of: "page--{PageComponentName}"
+
+Example Page with a route of "/example":
+``` tsx
+
+export default function ExamplePage(){
+
+    return (
+        <div className="page--ExamplePage">
+            Example page content
+        <div>
+    )
+}
+```
+
+## Main Layout
+The `MainLayout` component is used by the top level `App` component to render the main layout of the
+app. By default the MainLayout should render pages in a centered column with a navigation bar.
+
+### Main Layout Display modes
+Pages can use the `useFullPage` and `useNoMargins` hooks to alter the way the page is displayed.
+Implement display modes using css or class names, DO NOT change the render order or do anything
+that would cause the page to be unmounted.
+
+### Main Layout Fullscreen Mode
+Pages can request to enter into fullscreen. Use the `useIsInFullPageMode` hook imported from 
+`@/lib/hooks` to check if the page should be displayed in fullscreen mode. If useIsInFullPageMode
+returns true hide the main navigation and any other UI other than the page content.
+
+### Main Layout No Margins Mode
+Pages can request to remove all page margins so that they can display content edge to edge. Use
+the `useIsNoMarginMode` hook imported from `@/lib/hooks` to check if the page should be displayed
+in no margins mode.
+
+
+## Packages
+This is the package.json file for the project. You can only use libraries based on the dependencies
+of the package.json file.
+
+``` json
+{
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "markdown-it": "^14.1.0",
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "rxjs": "^7.8.2",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+```
+
+## Standard Components
+The following components can be used
+
+### Logo
+Displays the apps logo using an SVG
+
+Import: `import { Logo } from "@/components/Logo";`
+Props:
+``` ts
+interface LogoProps
+{
+    color?:string;
+    /**
+     * @default "w-8 h-8"
+     */ 
+    className?:string;
+    size?:string|number;
+}
+```
+
+## Utility Functions
+The following utility functions can be imported from `@/lib/util`
+
+``` ts
+export type ClassNameValue = string | false | number | null | undefined | {
+    [className: string]: any;
+} | ClassNameValue[];
+
+/**
+ * Combines class names and ignores falsy values.
+ */
+export const cn=(...classNames:ClassNameValue[]):string=>;
+```
+
+
+## Hooks
+React components can use the following hooks imported from `@/lib/hooks`
+
+``` ts
+/**
+ * Hides common UI controls such as the main nav bar.
+ * @param enabled If false the hook is disabled
+ */
+export const useFullPage=(enabled=true)=>;
+
+/**
+ * Removes all margins and paddings from the main layout while keeping the main navigation and
+ * other shared UI elements
+ * @param enabled If false the hook is disabled
+ */
+export const useNoMargins=(enabled=true)=>;
+
+/**
+ * Returns true if the page should be displayed in full screen
+ */
+export const useIsInFullPageMode=():boolean=>{
+    const count=useSubject(fullPageSubject);
+    return count>0;
+}
+
+/**
+ * Returns true if the page should remove all margins
+ */
+export const useIsNoMarginMode=():boolean=>;
+```
+</coding-rules>
+
+> appendUser
+<editor-config>
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+</editor-config>
+
+> appendUser
+Generate TypeScript types for common entities shared by the app.
+
+> nop
+//_END_MAKE_TARGET_INPUT_
+
+
+@time 2025-11-16T15:14:34+01:00
+@tokenUsage 3647 / 4326 / $0.009966250000000001
+@model gpt-5-2025-08-07
+> assistant
+import { z } from "zod";
+
+/**
+ * Generic helpers
+ */
+export const zId = z.string().min(1, "id is required");
+export type Id = z.infer<typeof zId>;
+
+export const zNonEmpty = z.string().min(1, "Required");
+
+export const zEmail = z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email("Invalid email address");
+
+export const zColorHex = z
+    .string()
+    .regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/, "Invalid color hex");
+export type ColorHex = z.infer<typeof zColorHex>;
+
+/**
+ * URLs and paths
+ * - Allow on-site roots (/path) and absolute http(s) links.
+ */
+export const zHref = z
+    .string()
+    .trim()
+    .refine(
+        (v) =>
+            v.startsWith("/") ||
+            v.startsWith("http://") ||
+            v.startsWith("https://") ||
+            v.startsWith("mailto:") ||
+            v.startsWith("tel:"),
+        "Must be a path or a valid URL (/, http(s), mailto, tel)"
+    );
+export type Href = z.infer<typeof zHref>;
+
+/**
+ * Video paths for hero and showcases
+ * Accepts on-site assets and absolute URLs
+ */
+export const zVideoPath = z
+    .string()
+    .trim()
+    .refine(
+        (v) =>
+            v.startsWith("/videos/") ||
+            v.startsWith("http://") ||
+            v.startsWith("https://"),
+        "Video should be served from /videos or a full URL"
+    )
+    .refine((v) => v.endsWith(".mp4") || v.endsWith(".webm"), "Video must be .mp4 or .webm");
+export type VideoPath = z.infer<typeof zVideoPath>;
+
+/**
+ * Section anchors
+ */
+export const SectionIdEnum = z.enum([
+    "hero",
+    "features",
+    "echo",
+    "playbook",
+    "metrics",
+    "how-it-works",
+    "cta",
+    "faq",
+    "footer",
+]);
+export type SectionId = z.infer<typeof SectionIdEnum>;
+
+export const zAnchorHref = z.custom<`/#${SectionId}`>((val) => {
+    if (typeof val !== "string") return false;
+    if (!val.startsWith("/#")) return false;
+    const id = val.slice(2) as SectionId;
+    return SectionIdEnum.safeParse(id).success;
+}, "Anchor href must match '/#section-id'");
+export type AnchorHref = z.infer<typeof zAnchorHref>;
+
+/**
+ * CTA
+ */
+export const CtaStyleEnum = z.enum(["primary", "secondary", "link"]);
+export type CtaStyle = z.infer<typeof CtaStyleEnum>;
+
+export const zCTA = z.object({
+    label: zNonEmpty.max(40),
+    href: z.union([zHref, zAnchorHref]),
+    style: CtaStyleEnum.default("primary"),
+    /**
+     * Optional icon name (lucide icon identifier) used by UI layer
+     */
+    icon: z.string().optional(),
+    newTab: z.boolean().default(false),
+    /**
+     * Accessible description for screen readers
+     */
+    srLabel: z.string().optional(),
+});
+export type CTA = z.infer<typeof zCTA>;
+
+/**
+ * Media
+ */
+export const zVideoSource = z.object({
+    src: zVideoPath,
+    type: z.enum(["mp4", "webm"]).default("mp4"),
+    poster: z
+        .string()
+        .trim()
+        .optional(),
+});
+export type VideoSource = z.infer<typeof zVideoSource>;
+
+/**
+ * Hero content
+ */
+export const zHero = z.object({
+    id: SectionIdEnum.default("hero"),
+    headline: zNonEmpty.max(120),
+    subheadline: zNonEmpty.max(240),
+    primaryCta: zCTA,
+    secondaryCta: zCTA.optional(),
+    video: zVideoSource,
+    /**
+     * Visual options for overlays and theme
+     */
+    overlay: z
+        .object({
+            enabled: z.boolean().default(true),
+            /**
+             * Backdrop gradient opacity 0-1
+             */
+            gradientOpacity: z.number().min(0).max(1).default(0.35),
+            blurPx: z.number().min(0).max(20).default(6),
+        })
+        .default({}),
+    motif: z
+        .object({
+            /**
+             * "square-with-circle" to reflect brand motif in hero container
+             */
+            type: z.enum(["square-with-circle"]).default("square-with-circle"),
+            borderColor: zColorHex.optional(),
+            borderOpacity: z.number().min(0).max(1).default(0.2),
+            radius: z.number().min(0).max(24).default(8),
+        })
+        .default({}),
+});
+export type Hero = z.infer<typeof zHero>;
+
+/**
+ * Features Overview
+ */
+export const zFeature = z.object({
+    id: zId.optional(),
+    title: zNonEmpty.max(80),
+    description: zNonEmpty.max(280),
+    /**
+     * Icon identifier (lucide icon name) - presentation-only
+     */
+    icon: z.string().optional(),
+    /**
+     * One supporting benefit tagline
+     */
+    benefit: z.string().max(140).optional(),
+});
+export type Feature = z.infer<typeof zFeature>;
+
+export const zFeaturesSection = z.object({
+    id: SectionIdEnum.default("features"),
+    items: z.array(zFeature).min(1).max(6),
+});
+export type FeaturesSection = z.infer<typeof zFeaturesSection>;
+
+/**
+ * Echo (AI Assistant) specifics
+ */
+export const zEchoUseCase = z.object({
+    prompt: zNonEmpty.max(160),
+    /**
+     * Optional short explanation of how Echo responds or why it matters
+     */
+    note: z.string().max(160).optional(),
+});
+export type EchoUseCase = z.infer<typeof zEchoUseCase>;
+
+export const zEchoSection = z.object({
+    id: SectionIdEnum.default("echo"),
+    title: zNonEmpty.max(100).default("Echo (AI Assistant)"),
+    description: zNonEmpty.max(320),
+    useCases: z.array(zEchoUseCase).min(1).max(8),
+});
+export type EchoSection = z.infer<typeof zEchoSection>;
+
+/**
+ * Onboarding Playbook structure
+ */
+export const PlaybookHeadingEnum = z.enum([
+    "Role Overview",
+    "Core Responsibilities",
+    "Daily/Weekly/Monthly Routines",
+    "Key Systems and Access",
+    "Processes and SOPs",
+    "Stakeholders and Communication",
+    "FAQs and Troubleshooting",
+]);
+export type PlaybookHeading = z.infer<typeof PlaybookHeadingEnum>;
+
+export const zPlaybookEntry = z.object({
+    heading: PlaybookHeadingEnum,
+    /**
+     * Markdown content for the entry
+     */
+    bodyMarkdown: zNonEmpty,
+});
+export type PlaybookEntry = z.infer<typeof zPlaybookEntry>;
+
+export const zPlaybookSection = z.object({
+    id: SectionIdEnum.default("playbook"),
+    title: zNonEmpty.max(100).default("Onboarding Playbook"),
+    description: zNonEmpty.max(320),
+    outline: z.array(zPlaybookEntry).min(1),
+});
+export type PlaybookSection = z.infer<typeof zPlaybookSection>;
+
+/**
+ * Metrics & Impact
+ */
+export const EasingEnum = z.enum(["linear", "easeIn", "easeOut", "easeInOut"]);
+export type Easing = z.infer<typeof EasingEnum>;
+
+export const zMetric = z.object({
+    id: zId.optional(),
+    label: zNonEmpty.max(80),
+    /**
+     * Target numeric value to animate to
+     */
+    value: z.number().nonnegative(),
+    /**
+     * Unit label displayed near value (%, days, weeks, score)
+     */
+    unit: z.string().max(16).optional(),
+    /**
+     * Animation config
+     */
+    animate: z
+        .object({
+            durationMs: z.number().min(100).max(5000).default(1400),
+            delayMs: z.number().min(0).max(2000).default(0),
+            easing: EasingEnum.default("easeOut"),
+        })
+        .default({}),
+});
+export type Metric = z.infer<typeof zMetric>;
+
+export const GraphBackgroundStyleEnum = z.enum(["glass-dark", "solid-dark"]);
+export type GraphBackgroundStyle = z.infer<typeof GraphBackgroundStyleEnum>;
+
+export const zMetricsSection = z.object({
+    id: SectionIdEnum.default("metrics"),
+    title: zNonEmpty.max(100).default("Metrics & Impact"),
+    subtitle: z.string().max(200).optional(),
+    metrics: z.array(zMetric).min(1).max(8),
+    graphStyle: z
+        .object({
+            background: GraphBackgroundStyleEnum.default("glass-dark"),
+            /**
+             * Accent color used sparingly for highlights
+             * Default brand: #752E4F
+             */
+            accent: zColorHex.default("#752E4F"),
+            /**
+             * Apply a thin border highlight around a primary chart
+             */
+            accentBorder: z.boolean().default(true),
+        })
+        .default({}),
+});
+export type MetricsSection = z.infer<typeof zMetricsSection>;
+
+/**
+ * How It Works (3 steps)
+ */
+export const zHowStep = z.object({
+    step: z.number().int().min(1).max(9),
+    title: zNonEmpty.max(80),
+    description: zNonEmpty.max(200),
+    icon: z.string().optional(),
+});
+export type HowStep = z.infer<typeof zHowStep>;
+
+export const zHowItWorksSection = z.object({
+    id: SectionIdEnum.default("how-it-works"),
+    title: zNonEmpty.max(100).default("How It Works"),
+    steps: z.array(zHowStep).min(3).max(6),
+});
+export type HowItWorksSection = z.infer<typeof zHowItWorksSection>;
+
+/**
+ * Call To Action section
+ */
+export const zCTASection = z.object({
+    id: SectionIdEnum.default("cta"),
+    title: zNonEmpty.max(120),
+    primary: zCTA,
+    secondary: zCTA.optional(),
+    /**
+     * Visual: emphasize brand color background for primary CTA
+     */
+    emphasizeBrand: z.boolean().default(true),
+});
+export type CTASection = z.infer<typeof zCTASection>;
+
+/**
+ * FAQ
+ */
+export const zFaqItem = z.object({
+    q: zNonEmpty.max(140),
+    a: zNonEmpty,
+});
+export type FaqItem = z.infer<typeof zFaqItem>;
+
+export const zFaqSection = z.object({
+    id: SectionIdEnum.default("faq"),
+    items: z.array(zFaqItem).min(1),
+});
+export type FaqSection = z.infer<typeof zFaqSection>;
+
+/**
+ * Footer
+ */
+export const zFooterLink = z.object({
+    label: zNonEmpty.max(48),
+    href: zHref,
+    external: z.boolean().default(false),
+});
+export type FooterLink = z.infer<typeof zFooterLink>;
+
+export const zFooter = z.object({
+    id: SectionIdEnum.default("footer"),
+    links: z.array(zFooterLink).min(1),
+    attribution: z.string().max(160).optional(),
+});
+export type Footer = z.infer<typeof zFooter>;
+
+/**
+ * Navigation
+ */
+export const zNavItem = z.object({
+    label: zNonEmpty.max(32),
+    href: z.union([zAnchorHref, zHref]),
+});
+export type NavItem = z.infer<typeof zNavItem>;
+
+export const zNav = z.object({
+    items: z.array(zNavItem).min(1),
+});
+export type Nav = z.infer<typeof zNav>;
+
+/**
+ * Site meta and config
+ */
+export const zSocialLink = z.object({
+    network: z.enum(["x", "linkedin", "github", "website", "youtube", "facebook", "instagram"]),
+    href: zHref,
+});
+export type SocialLink = z.infer<typeof zSocialLink>;
+
+export const zSiteMeta = z.object({
+    title: zNonEmpty.max(80).default("theMindArk.AI — Exit Strategy Echo"),
+    description: zNonEmpty.max(200).default(
+        "Capture what they know. Keep it working. Replicate departing employees as secure Echos and generate an onboarding playbook that lasts."
+    ),
+    ogImage: z.string().optional(),
+});
+export type SiteMeta = z.infer<typeof zSiteMeta>;
+
+export const zSiteConfig = z.object({
+    brandName: zNonEmpty.max(64).default("theMindArk.AI"),
+    brandColor: zColorHex.default("#752E4F"),
+    darkMode: z.boolean().default(true),
+    nav: zNav,
+    social: z.array(zSocialLink).default([]),
+    meta: zSiteMeta.default({}),
+});
+export type SiteConfig = z.infer<typeof zSiteConfig>;
+
+/**
+ * Landing page composition
+ * All sections included in a single-page layout.
+ */
+export const zLandingPage = z.object({
+    route: z.literal("/").default("/"),
+    hero: zHero,
+    features: zFeaturesSection,
+    echo: zEchoSection,
+    playbook: zPlaybookSection,
+    metrics: zMetricsSection,
+    howItWorks: zHowItWorksSection,
+    cta: zCTASection,
+    faq: zFaqSection,
+    footer: zFooter,
+    config: zSiteConfig,
+});
+export type LandingPage = z.infer<typeof zLandingPage>;
+
+/**
+ * Forms
+ */
+export const zNewsletterForm = z.object({
+    name: zNonEmpty.max(80),
+    email: zEmail,
+});
+export type NewsletterForm = z.infer<typeof zNewsletterForm>;
+
+export const zDemoRequestForm = z.object({
+    name: zNonEmpty.max(80),
+    email: zEmail,
+    company: zNonEmpty.max(120),
+    role: z.string().max(80).optional(),
+    teamSize: z
+        .number()
+        .int()
+        .min(1)
+        .max(100000)
+        .optional(),
+    message: z.string().max(800).optional(),
+    /**
+     * Checkbox to accept privacy/terms if applicable
+     */
+    agreeToContact: z.boolean().default(true),
+});
+export type DemoRequestForm = z.infer<typeof zDemoRequestForm>;
+
+/**
+ * Utility: guards
+ */
+export const isAnchorHref = (value: unknown): value is AnchorHref =>
+    zAnchorHref.safeParse(value).success;
+
+export const isColorHex = (value: unknown): value is ColorHex =>
+    zColorHex.safeParse(value).success;
+
+
+
+> user

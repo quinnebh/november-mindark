@@ -9,12 +9,6 @@ import { useEffect } from "react";
 addPolyfills();
 
 export default function App({ Component, pageProps }: AppProps) {
-
-    useEffect(()=>{
-        import('@/lib/frontendModule').then(m=>{
-            m.initFrontend();
-        });
-    },[]);
     
     return (
         <>
