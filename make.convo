@@ -170,13 +170,14 @@ Component=struct(
         {path: 'docs/style-guide.md' tag:'style-guide'}
         {path: 'docs/main-layout.md' tag:'main-layout'}
         {path: '.editorconfig' tag:'editor-config'}
-        {path: 'context/sections.convo', tag:'section'}
+        'context/sections.convo'
     )
     deps: 'section-components'
     in: 'components/sections/*.tsx'
+    inputTag: 'sections'
     out: 'docs/section-description.md'
     ---
-    Generate a description of a component for each section based on each of the `section` xml tags.
+    Generate a description of a component for each section based on each of the `sections` xml tags.
     Do not include any other sections. Include how to import the component and its props.
     ---
 
@@ -195,11 +196,6 @@ Component=struct(
     ---
     Generate a landing page based on the sections
     ---
-
-
-
-
-
 
 
 
