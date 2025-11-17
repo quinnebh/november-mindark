@@ -24,7 +24,7 @@ export function Hero() {
                 <div className="absolute inset-x-0 bottom-[22%] md:bottom-[24%] lg:bottom-[26%] z-10">
                     <div className="container-page">
                         <div className="px-6 lg:px-0 max-w-[900px] text-left">
-                            <h1 className="headline-gradient font-bold leading-[1.05] tracking-tight text-[38px] sm:text-[44px] lg:text-[62px]">
+                            <h1 className="headline-gradient font-bold leading-[1.05] tracking-tight text-[28px] sm:text-[34px] lg:text-[52px] relative -translate-y-[10px] md:-translate-y-[12px] lg:-translate-y-[16px]">
                                 We Automate Wisdom
                             </h1>
                             <p className="text-subtitle mt-2 max-w-prose">
