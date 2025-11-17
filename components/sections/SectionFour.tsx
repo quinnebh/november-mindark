@@ -11,6 +11,7 @@ import { Copy, RotateCcw, Send } from "lucide-react";
  * Animations:
  * - Left column content fades in when entering the viewport (staggered)
  * - Numbers count up from 0 to target (respects prefers-reduced-motion)
+ * - Subtle traveling black lines in the background for gentle, constant motion (reduced in prefers-reduced-motion)
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -44,6 +45,22 @@ export function SectionFour() {
 
     const animateIn = inView && !reduceMotion;
 
+    // Precomputed positions/durations for gentle traveling lines
+    const lines = useMemo(
+        () =>
+            Array.from({ length: 14 }).map((_, i) => {
+                const top = 6 + i * 6; // 6% to ~90%
+                const height = i % 5 === 0 ? 2 : 1;
+                const width = 120 + ((i * 37) % 80); // 120–200px
+                const duration = 9 + ((i * 7) % 9); // 9–17s
+                const delay = (i * 0.7) % 8; // up to 8s
+                const reverse = i % 3 === 0; // some lines go right-to-left
+                const opacity = 0.18 + ((i * 3) % 7) * 0.01; // ~0.18–0.24
+                return { id: i, top, height, width, duration, delay, reverse, opacity };
+            }),
+        []
+    );
+
     return (
         <section
             id="results"
@@ -51,7 +68,33 @@ export function SectionFour() {
             className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)]"
             aria-label="Measurable results"
         >
-            <div className="container-page relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Subtle traveling black lines (behind content) */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+                {lines.map((l) => (
+                    <span
+                        key={l.id}
+                        className="absolute block"
+                        style={{
+                            top: `${l.top}%`,
+                            left: 0,
+                            height: `${l.height}px`,
+                            width: `${l.width}px`,
+                            background: "rgba(0,0,0,0.22)",
+                            boxShadow: "0 0 0.5px rgba(0,0,0,0.18)",
+                            transform: l.reverse ? "translateX(120%)" : "translateX(-20%)",
+                            animationName: l.reverse ? "ma-line-rev" as any : "ma-line" as any,
+                            animationDuration: `${l.duration}s`,
+                            animationDelay: `${l.delay}s`,
+                            animationTimingFunction: "linear",
+                            animationIterationCount: "infinite",
+                            animationPlayState: reduceMotion ? ("paused" as const) : ("running" as const),
+                            opacity: l.opacity,
+                        }}
+                    />
+                ))}
+            </div>
+
+            <div className="container-page relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Left: Headline + Stats (fade-in) */}
                 <div className="flex flex-col gap-6">
                     <header
@@ -236,6 +279,42 @@ export function SectionFour() {
                     </div>
                 </div>
             </div>
+
+            {/* Scoped animation keyframes for traveling lines */}
+            <style jsx>{`
+                @keyframes ma-line {
+                    0% {
+                        transform: translateX(-20%);
+                        opacity: 0.15;
+                    }
+                    10% {
+                        opacity: 0.22;
+                    }
+                    90% {
+                        opacity: 0.22;
+                    }
+                    100% {
+                        transform: translateX(120%);
+                        opacity: 0.12;
+                    }
+                }
+                @keyframes ma-line-rev {
+                    0% {
+                        transform: translateX(120%);
+                        opacity: 0.15;
+                    }
+                    10% {
+                        opacity: 0.22;
+                    }
+                    90% {
+                        opacity: 0.22;
+                    }
+                    100% {
+                        transform: translateX(-20%);
+                        opacity: 0.12;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

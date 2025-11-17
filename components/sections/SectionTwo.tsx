@@ -3,12 +3,11 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionTwo — Metrics & Graphs with floating popups
- * - Bottom-left popup: Replacement Cost vertical bars (150%, 275%, 400%) with animation
+ * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
+ *   Labels: Junor, Middle, Senior
  * - Top-right popup: 42% gauge (knowledge in individuals)
  * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
- * Updates:
- * - Popup backgrounds changed from bright white to premium dark glass surfaces with subtle brand-accent borders
- *   to remain noticeable but less jarring.
+ * - Popups use premium dark glass surfaces with subtle brand-accent borders to pop without harsh contrast.
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -58,7 +57,7 @@ export function SectionTwo() {
 
                         {/* Floating popups (desktop/tablet) */}
                         <div className="hidden md:block">
-                            {/* Bottom-left: Replacement Cost vertical bars */}
+                            {/* Bottom-left: Replacement Cost horizontal bars (staggered) */}
                             <PopupCostRange
                                 inView={inView}
                                 className={cn(
@@ -187,7 +186,7 @@ function LaptopScreenVideo({ src }: { src: string }) {
     );
 }
 
-/* ================= Popup: Replacement Cost — Vertical Bars (150%, 275%, 400%) ================= */
+/* ================= Popup: Replacement Cost — Horizontal Bars (150%, 275%, 400%) ================= */
 
 function PopupCostRange({
     className,
@@ -199,21 +198,21 @@ function PopupCostRange({
     delay?: number;
 }) {
     const prefersReducedMotion = usePrefersReducedMotion();
-    const duration = prefersReducedMotion ? 0 : 1100;
+    const duration = prefersReducedMotion ? 0 : 700;
 
     const MAX = 400;
     const LOW = 150;
     const MED = 275;
     const HIGH = 400;
 
-    // Staggered bar animations
+    // Staggered bar animations (low -> medium -> high)
     const pLow = useProgress(inView, duration, delay + 0);
-    const pMed = useProgress(inView, duration, delay + 120);
-    const pHigh = useProgress(inView, duration, delay + 240);
+    const pMed = useProgress(inView, duration, delay + 140);
+    const pHigh = useProgress(inView, duration, delay + 280);
 
-    const hLow = (LOW / MAX) * 100 * pLow;
-    const hMed = (MED / MAX) * 100 * pMed;
-    const hHigh = (HIGH / MAX) * 100 * pHigh;
+    const wLow = (LOW / MAX) * 100 * pLow;
+    const wMed = (MED / MAX) * 100 * pMed;
+    const wHigh = (HIGH / MAX) * 100 * pHigh;
 
     return (
         <article
@@ -241,81 +240,87 @@ function PopupCostRange({
                     </p>
                 </header>
 
-                {/* Vertical bar chart */}
-                <div className="grid gap-2">
-                    <div className="relative h-[160px] rounded-[10px] bg-[rgb(255_255_255/0.06)] overflow-hidden p-3">
-                        {/* Horizontal grid lines at 100/200/300/400% */}
-                        {[100, 200, 300, 400].map((tick) => {
-                            const y = 100 - (tick / MAX) * 100;
-                            return (
-                                <div
-                                    key={tick}
-                                    className="pointer-events-none absolute left-0 right-0 h-px bg-[rgb(255_255_255/0.12)]"
-                                    style={{ top: `calc(${y}% + 3px)` }}
-                                />
-                            );
-                        })}
+                {/* Horizontal bar chart */}
+                <div className="grid gap-3">
+                    {/* Axis labels */}
+                    <div className="flex items-center justify-between text-[11px] text-[rgb(var(--color-text-secondary))]">
+                        <span>0%</span>
+                        <span>100%</span>
+                        <span>200%</span>
+                        <span>300%</span>
+                        <span>400%</span>
+                    </div>
 
-                        {/* Bars */}
-                        <div className="absolute inset-x-3 bottom-3 top-3 grid grid-cols-3 items-end gap-3">
-                            {/* Low */}
-                            <div className="flex flex-col items-center gap-1">
+                    {/* Rows */}
+                    <div className="grid gap-2">
+                        {/* Low (Junor) */}
+                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
+                            <div className="text-xs text-[rgb(var(--color-text-secondary))]">Junor</div>
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                                <div className="pointer-events-none absolute inset-0 flex justify-between">
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                </div>
                                 <div
-                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    className="h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
                                     style={{
-                                        height: `${hLow}%`,
-                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
+                                        width: `${wLow}%`,
+                                        transition: "width 700ms cubic-bezier(0.22,1,0.36,1)",
                                     }}
                                     aria-hidden="true"
                                 />
-                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
-                                    Low
-                                </div>
-                                <div className="text-[11px] font-medium leading-none">{LOW}%</div>
                             </div>
-                            {/* Medium */}
-                            <div className="flex flex-col items-center gap-1">
-                                <div
-                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
-                                    style={{
-                                        height: `${hMed}%`,
-                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
-                                    }}
-                                    aria-hidden="true"
-                                />
-                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
-                                    Medium
-                                </div>
-                                <div className="text-[11px] font-medium leading-none">{MED}%</div>
-                            </div>
-                            {/* High */}
-                            <div className="flex flex-col items-center gap-1">
-                                <div
-                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
-                                    style={{
-                                        height: `${hHigh}%`,
-                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
-                                    }}
-                                    aria-hidden="true"
-                                />
-                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
-                                    High
-                                </div>
-                                <div className="text-[11px] font-medium leading-none">{HIGH}%</div>
-                            </div>
+                            <div className="text-xs font-medium">{LOW}%</div>
                         </div>
 
-                        {/* Y-axis labels */}
-                        <div className="absolute left-1 top-2 bottom-2 flex flex-col justify-between text-[10px] text-[rgb(var(--color-text-secondary))]">
-                            <span>400%</span>
-                            <span>300%</span>
-                            <span>200%</span>
-                            <span>100%</span>
-                            <span>0%</span>
+                        {/* Medium */}
+                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
+                            <div className="text-xs text-[rgb(var(--color-text-secondary))]">Middle</div>
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                                <div className="pointer-events-none absolute inset-0 flex justify-between">
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                </div>
+                                <div
+                                    className="h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    style={{
+                                        width: `${wMed}%`,
+                                        transition: "width 700ms cubic-bezier(0.22,1,0.36,1)",
+                                    }}
+                                    aria-hidden="true"
+                                />
+                            </div>
+                            <div className="text-xs font-medium">{MED}%</div>
+                        </div>
+
+                        {/* High */}
+                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
+                            <div className="text-xs text-[rgb(var(--color-text-secondary))]">Senior</div>
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                                <div className="pointer-events-none absolute inset-0 flex justify-between">
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                    <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                                </div>
+                                <div
+                                    className="h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    style={{
+                                        width: `${wHigh}%`,
+                                        transition: "width 700ms cubic-bezier(0.22,1,0.36,1)",
+                                    }}
+                                    aria-hidden="true"
+                                />
+                            </div>
+                            <div className="text-xs font-medium">{HIGH}%</div>
                         </div>
                     </div>
 
-                    {/* Range summary */}
+                    {/* Summary */}
                     <div className="flex items-baseline justify-between">
                         <div className="text-[22px] font-bold tracking-tight">150–400%</div>
                         <div className="text-sm text-[rgb(var(--color-text-secondary))]">
