@@ -4,14 +4,14 @@ import { cn } from "@/lib/util";
 /**
  * SectionTwo — Metrics & Graphs (Laptop with pop-up gauges)
  *
- * Requirements met:
+ * Updates requested:
+ * - Lighter, more defined laptop edges and bezels
+ * - Replace the screen's internal light lines with a real video (/images/hero.mp4)
+ *
+ * Conventions:
  * - Root element is <section>
  * - Content centered via container-page
- * - Full-bleed background allowed; section content stays centered
  * - Named export; no props
- * - Laptop mock with neon “X” screen and three pop-up gauge cards (as in reference)
- * - Animated count-up and gauge fill when in view; respects reduced motion
- * - Dark, luxurious style with glass + subtle brand accents (#752E4F used sparingly)
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -50,9 +50,7 @@ export function SectionTwo() {
             <div className="container-page grid gap-8">
                 <header className="flex flex-col gap-2">
                     <p className="text-eyebrow">Metrics</p>
-                    <h2 className="text-2xl font-bold">
-                        Knowledge risk, made visible
-                    </h2>
+                    <h2 className="text-2xl font-bold">Knowledge risk, made visible</h2>
                     <p className="text-caption">
                         A focused look at what leaves when people do—and how Echo helps close the gap.
                     </p>
@@ -61,8 +59,8 @@ export function SectionTwo() {
                 {/* Laptop mock with pop-up cards */}
                 <div className="relative w-full">
                     <div className="relative mx-auto w-full max-w-5xl">
-                        <LaptopFrame animate={!prefersReducedMotion}>
-                            <NeonXScreen animate={!prefersReducedMotion} />
+                        <LaptopFrame>
+                            <LaptopScreenVideo src="/videos/sectiontwo.mp4" />
                         </LaptopFrame>
 
                         {/* Floating popups (desktop/tablet) */}
@@ -133,109 +131,63 @@ function BackdropSweep() {
 
 /* ================= Laptop + Screen ================= */
 
-function LaptopFrame({
-    children,
-    animate = true,
-}: {
-    children: React.ReactNode;
-    animate?: boolean;
-}) {
+function LaptopFrame({ children }: { children: React.ReactNode }) {
     return (
-        <div
-            className={cn(
-                "relative mx-auto",
-                "rounded-[18px] border border-[rgb(255_255_255/0.08)]",
-                "bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]",
-                "shadow-[0_20px_60px_rgba(0,0,0,0.45)]",
-                "overflow-hidden"
-            )}
-        >
-            {/* Top bezel with camera */}
-            <div className="relative h-8 bg-[rgb(16_16_18)] flex items-center justify-center">
-                <div className="absolute left-6 w-16 h-2 rounded-full bg-[rgb(255_255_255/0.06)]" />
-                <div className="w-2 h-2 rounded-full bg-[rgb(0_0_0)] border border-[rgb(255_255_255/0.15)] shadow-[0_0_0_2px_rgba(0,0,0,0.6)_inset]" />
-            </div>
-
-            {/* Screen */}
-            <div className="relative bg-black">
-                <div className="aspect-[16/9] overflow-hidden">{children}</div>
-            </div>
-
-            {/* Bottom bar (laptop body hint) */}
-            <div className="h-3 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] hairline" />
-            {/* Base/foot */}
+        <div className="relative mx-auto">
+            {/* Outer shell with lighter metallic edges */}
             <div
                 className={cn(
-                    "mx-auto mt-2 h-1.5 w-[70%] rounded-full",
-                    "bg-[linear-gradient(90deg,rgba(255,255,255,0.28),rgba(255,255,255,0.06),rgba(255,255,255,0.28))]"
+                    "relative rounded-[18px] overflow-hidden",
+                    // Brighter edge with subtle metallic gradient
+                    "bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(220,220,225,0.22)_40%,rgba(180,180,190,0.18))]",
+                    "border-2 border-[rgb(255_255_255/0.35)]",
+                    "shadow-[0_28px_80px_rgba(0,0,0,0.55)]"
                 )}
-            />
+            >
+                {/* Edge highlights (top/left/right glints) */}
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(255,255,255,0.85),rgba(255,255,255,0.35),rgba(255,255,255,0.85))]" />
+                    <div className="absolute left-0 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.6),transparent)]" />
+                    <div className="absolute right-0 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.6),transparent)]" />
+                </div>
+
+                {/* Bezel with camera (lighter, more obvious) */}
+                <div className="relative h-8 bg-[linear-gradient(180deg,rgba(240,240,245,0.75),rgba(210,210,220,0.65))] flex items-center justify-center">
+                    <div className="absolute left-6 w-16 h-2 rounded-full bg-[rgb(0_0_0/0.15)]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[rgb(18_18_20)] border border-[rgb(255_255_255/0.7)] shadow-[0_0_0_2px_rgba(0,0,0,0.5)_inset]" />
+                </div>
+
+                {/* Screen */}
+                <div className="relative bg-black">
+                    <div className="aspect-[16/9] overflow-hidden">{children}</div>
+                </div>
+
+                {/* Bottom bezel (lighter) */}
+                <div className="h-3 bg-[linear-gradient(180deg,rgba(240,240,245,0.65),rgba(210,210,220,0.55))] hairline" />
+            </div>
+
+            {/* Base/foot with metallic shine */}
+            <div className="mx-auto mt-2 h-1.5 w-[72%] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.7),rgba(200,200,210,0.35),rgba(255,255,255,0.7))]" />
         </div>
     );
 }
 
-function NeonXScreen({ animate = true }: { animate?: boolean }) {
-    // An SVG “X” with neon glow; animation is a slow pulse/float
+function LaptopScreenVideo({ src }: { src: string }) {
     return (
         <div className="relative w-full h-full">
-            <svg viewBox="0 0 1600 900" className="w-full h-full">
-                <defs>
-                    <linearGradient id="xLine" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="rgb(255 80 180)" stopOpacity="0.85" />
-                        <stop offset="50%" stopColor="rgb(255 140 220)" stopOpacity="1" />
-                        <stop offset="100%" stopColor="rgb(255 80 180)" stopOpacity="0.85" />
-                    </linearGradient>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="8" result="b1" />
-                        <feGaussianBlur stdDeviation="18" result="b2" />
-                        <feMerge>
-                            <feMergeNode in="b2" />
-                            <feMergeNode in="b1" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-
-                {/* Soft star at center */}
-                <radialGradient id="pulse" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="rgb(255 150 220)" stopOpacity="0.9" />
-                    <stop offset="40%" stopColor="rgb(255 80 180)" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="transparent" />
-                </radialGradient>
-                <rect width="1600" height="900" fill="url(#pulse)">
-                    {/* noop */}
-                </rect>
-
-                {/* X curves */}
-                <g filter="url(#glow)">
-                    {/* Curve A */}
-                    <path
-                        d="M 0 650 C 300 600, 650 520, 800 450 C 950 380, 1250 320, 1600 260"
-                        stroke="url(#xLine)"
-                        strokeWidth="16"
-                        fill="none"
-                        opacity="0.9"
-                    />
-                    {/* Curve B */}
-                    <path
-                        d="M 0 240 C 360 300, 650 380, 800 450 C 950 520, 1240 600, 1600 640"
-                        stroke="url(#xLine)"
-                        strokeWidth="16"
-                        fill="none"
-                        opacity="0.9"
-                    />
-                </g>
-            </svg>
-
-            {/* Gentle animated bloom */}
-            <div
-                className={cn(
-                    "absolute inset-0 pointer-events-none",
-                    animate && "animate-float"
-                )}
-            >
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] rounded-full blur-[80px] bg-[radial-gradient(closest-side,rgba(255,120,200,0.25),transparent_70%)]" />
-            </div>
+            <video
+                className="absolute inset-0 w-full h-full object-cover"
+                src={src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+            />
+            {/* Readability overlays (subtle vignettes + brand-tint sweep) */}
+            <div className="absolute inset-0 hero-video__overlay pointer-events-none"></div>
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(800px_320px_at_50%_60%,rgba(117,46,79,0.22),transparent_70%)]" />
+            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(0deg,rgba(0,0,0,0.32),rgba(0,0,0,0.12)_30%,rgba(0,0,0,0)_55%)]" />
         </div>
     );
 }
@@ -268,7 +220,7 @@ function PopupGauge({
     return (
         <article
             className={cn(
-                // Light popup card to closely match reference image
+                // Light popup card to closely match the reference
                 "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
                 "p-4 sm:p-5",
@@ -291,10 +243,6 @@ function PopupGauge({
                     >
                         <title id={`g-${arcId}`}>Knowledge held in individuals</title>
                         <defs>
-                            <linearGradient id={`gfill-${arcId}`} x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="0%" stopColor="rgb(216 130 190)" />
-                                <stop offset="100%" stopColor="rgb(0 0 0)" />
-                            </linearGradient>
                             <linearGradient id={`brand-${arcId}`} x1="0" x2="1" y1="0" y2="0">
                                 <stop offset="0%" stopColor="rgb(216 130 190)" />
                                 <stop offset="100%" stopColor="rgb(117 46 79)" />
@@ -310,7 +258,7 @@ function PopupGauge({
                             strokeLinecap="round"
                             opacity="0.86"
                         />
-                        {/* Progress (purple brand-ish gradient) */}
+                        {/* Progress (purple/brand gradient) */}
                         <path
                             d={describeSemiArc(100, 100, r)}
                             stroke={`url(#brand-${arcId})`}

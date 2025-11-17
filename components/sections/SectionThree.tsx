@@ -88,7 +88,7 @@ function MediaPanel({ reducedMotion }: { reducedMotion: boolean }) {
                 loop
                 playsInline
                 preload="metadata"
-                src="/videos/hero.mp4"
+                src="/videos/sectionthree.mp4"
                 aria-label="Process montage video (muted)"
             />
 
