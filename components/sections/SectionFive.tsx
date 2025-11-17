@@ -11,12 +11,13 @@ import {
 
 /**
  * SectionFive — Convo‑Lang: Transparent Agentic Orchestration
- * - Left: glass code panel (mock DSL) with VS Code–like colors
- * - Right: feature cards
- * - Bottom: brand-forward CTA band
+ * Reorganized so the feature cards are on top and the Example Interview Agent
+ * code panel appears below them, followed by the CTA band.
  *
- * Renders colored tokens as React nodes (no innerHTML), so raw markup never appears.
- * Fix: Apostrophes in natural language (e.g., What's, isn't) are no longer treated as string delimiters.
+ * Notes:
+ * - VS Code–like inline syntax coloring without innerHTML
+ * - Dark, glassy, minimal styling per theme
+ * - Brand reserved for CTA accents
  */
 export function SectionFive() {
     const code = useMemo(
@@ -69,7 +70,7 @@ What's the one thing you do that isn't in any manual but is critical to success?
         []
     );
 
-    // Small helpers
+    // Helpers
     const isAlpha = (ch: string) => /[A-Za-z_]/.test(ch);
     const isAlnum = (ch: string) => /[A-Za-z0-9_-]/.test(ch);
     const KEYWORDS = new Set(["struct", "enum", "return"]);
@@ -85,7 +86,6 @@ What's the one thing you do that isn't in any manual but is critical to success?
 
         // Directive at line start: > word
         if (line.startsWith(">")) {
-            // capture "> word"
             let j = 1;
             while (j < L && line[j] === " ") j++;
             const startWord = j;
@@ -97,7 +97,7 @@ What's the one thing you do that isn't in any manual but is critical to success?
                         {directiveChunk}
                     </span>
                 );
-                i = j; // continue with rest of line
+                i = j;
             }
         }
 
@@ -268,9 +268,66 @@ What's the one thing you do that isn't in any manual but is critical to success?
 
     return (
         <section id="section-five" className="section-anchor section-y">
-            <div className="container-page grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* Left: Code surface */}
-                <div className="lg:col-span-7 relative">
+            {/* Top: Cards */}
+            <div className="container-page grid gap-6">
+                <header className="grid gap-2">
+                    <h3 className="text-2xl md:text-3xl font-bold headline-gradient">
+                        Convo‑Lang
+                    </h3>
+                    <p className="text-subtitle">Transparent Agentic Orchestration</p>
+                </header>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <article className="card glass p-4 sm:p-5 rounded-[var(--radius-sm)]">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-1 shrink-0">
+                                <Target className="w-5 h-5 text-[rgb(var(--color-text))]" />
+                            </div>
+                            <div className="grid gap-1">
+                                <h4 className="font-medium">Precision Context Engineering</h4>
+                                <p className="text-caption">
+                                    Curate sources, roles, and guardrails into a single conversation
+                                    spec that travels with each Echo—deterministic, versionable, and auditable.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article className="card glass p-4 sm:p-5 rounded-[var(--radius-sm)]">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-1 shrink-0">
+                                <ShieldCheck className="w-5 h-5 text-[rgb(var(--color-text))]" />
+                            </div>
+                            <div className="grid gap-1">
+                                <h4 className="font-medium">Portable Agents and Prompts</h4>
+                                <p className="text-caption">
+                                    Store, diff, and ship Convo‑Lang with your Echo across environments for
+                                    reproducible behavior in dev, staging, and production.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article className="card card--accent p-4 sm:p-5 rounded-[var(--radius-sm)]">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-1 shrink-0">
+                                <Braces className="w-5 h-5" />
+                            </div>
+                            <div className="grid gap-1">
+                                <h4 className="font-medium">Simplified usage of MCP, RAG, Tool calling and more</h4>
+                                <p className="text-caption">
+                                    First‑class hooks for retrieval and tool execution—consistent affordances for
+                                    vector search, MCP tools, and workflow orchestration.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            {/* Below: Example Interview Agent code panel */}
+            <div className="container-page mt-8">
+                <div className="relative">
                     {/* Floating geometric accent (square with circle) */}
                     <div className="pointer-events-none absolute -top-4 -left-3 size-8 animate-float opacity-70">
                         <div className="relative size-full rounded-[8px] border border-[rgb(255_255_255/0.12)]">
@@ -316,7 +373,6 @@ What's the one thing you do that isn't in any manual but is critical to success?
                             <pre className="m-0 p-4 sm:p-5 overflow-auto text-[12.5px] leading-5 tracking-[-0.01em] font-mono">
                                 <code style={{ color: COLORS.default }}>{highlightedNodes}</code>
                             </pre>
-                            {/* Inner glow border */}
                             <div className="pointer-events-none absolute inset-0 rounded-[var(--radius-xs)] ring-1 ring-inset ring-[rgb(255_255_255/0.05)]" />
                         </div>
                     </div>
@@ -334,63 +390,6 @@ What's the one thing you do that isn't in any manual but is critical to success?
                         </a>
                     </div>
                 </div>
-
-                {/* Right: Feature bullets */}
-                <div className="lg:col-span-5 grid grid-cols-1 gap-4">
-                    <header className="grid gap-2 mb-1">
-                        <h3 className="text-2xl md:text-3xl font-bold headline-gradient">
-                            Convo‑Lang
-                        </h3>
-                        <p className="text-subtitle">
-                            Transparent Agentic Orchestration
-                        </p>
-                    </header>
-
-                    <article className="card glass p-4 sm:p-5 rounded-[var(--radius-sm)]">
-                        <div className="flex items-start gap-3">
-                            <div className="mt-1 shrink-0">
-                                <Target className="w-5 h-5 text-[rgb(var(--color-text))]" />
-                            </div>
-                            <div className="grid gap-1">
-                                <h4 className="font-medium">Precision Context Engineering</h4>
-                                <p className="text-caption">
-                                    Curate sources, roles, and guardrails into a single conversation
-                                    spec that travels with each Echo—deterministic, versionable, and auditable.
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article className="card glass p-4 sm:p-5 rounded-[var(--radius-sm)]">
-                        <div className="flex items-start gap-3">
-                            <div className="mt-1 shrink-0">
-                                <ShieldCheck className="w-5 h-5 text-[rgb(var(--color-text))]" />
-                            </div>
-                            <div className="grid gap-1">
-                                <h4 className="font-medium">Transparent Agentic Behavior</h4>
-                                <p className="text-caption">
-                                    Plain‑text prompts show what an agent can do, why answers happen, and which
-                                    policies apply—clear governance without guesswork.
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article className="card card--accent p-4 sm:p-5 rounded-[var(--radius-sm)]">
-                        <div className="flex items-start gap-3">
-                            <div className="mt-1 shrink-0">
-                                <Braces className="w-5 h-5" />
-                            </div>
-                            <div className="grid gap-1">
-                                <h4 className="font-medium">Unified syntax for agentic apps</h4>
-                                <p className="text-caption">
-                                    One format for system, assistant, and user messages—with structure for tools
-                                    and memory hints so complex flows don’t sprawl across files.
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
             </div>
 
             {/* CTA band */}
@@ -399,7 +398,7 @@ What's the one thing you do that isn't in any manual but is critical to success?
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div className="max-w-[60ch]">
                             <h3 className="text-2xl md:text-3xl font-extrabold mb-2 headline-gradient">
-                                We Automate Widom
+                                We Automate Wisdom
                             </h3>
                             <p className="text-caption">
                                 Onboarding and Offboarding Made Easy

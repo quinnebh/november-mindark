@@ -97,7 +97,7 @@ export function MainNav() {
 
                     {/* Right: CTA + Account + Mobile Toggle */}
                     <div className="flex items-center gap-2">
-                        <a href="/#cta" className="hidden sm:inline-flex btn btn--primary">
+                        <a href="mailto:hello@mindark.ai" className="hidden sm:inline-flex btn btn--primary">
                             Get a Demo
                         </a>
 
