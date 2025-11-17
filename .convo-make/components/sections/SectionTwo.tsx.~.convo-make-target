@@ -7229,3 +7229,4 @@ function bigIntMathCheck() {
 
 
 > user
+Make the animations for the data in the popouts delay so that they play one after the other instead of all at once. The Top right popout animates first, then the Bottom left popout, and finally the Bottom right popout. They should have enough delay in-between them that the viewer can process the information in each one.

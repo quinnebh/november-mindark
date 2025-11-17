@@ -5,14 +5,14 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 /**
  * SectionFour — Measurable Results
  * Left: headline + three KPI counters (fade-in + count up)
- * Right: Laptop + Phone mockups (side-by-side, no overlap) showing the same EA chat
+ * Right: Laptop mockup (16:9) showing the Executive Assistant chat
  *
  * Visuals
  * - Section background: solid brand magenta (#752E4F)
  * - Subtle traveling black lines in the background for gentle motion (paused on reduced motion)
  * - In-screen accents use brand color tokens: thin borders, rings, small glows, and primary CTA buttons
  *
- * Update: Laptop screen uses a true 16:9 aspect ratio via CSS aspect-ratio.
+ * Note: Phone removed per request.
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -62,7 +62,7 @@ export function SectionFour() {
         <section
             id="results"
             ref={sectionRef}
-            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[980px]"
+            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[860px]"
             aria-label="Measurable results"
         >
             {/* Traveling black lines layer (behind content) */}
@@ -153,7 +153,7 @@ export function SectionFour() {
                             )}
                             style={{ transitionDelay: animateIn ? "360ms" : "0ms" }}
                         >
-                            <div className="flex flex-col">
+                            <div className="flex items-baseline gap-2">
                                 <span className="sr-only">24/7 Access to expertise</span>
                                 <StatNumber
                                     target={24}
@@ -167,158 +167,101 @@ export function SectionFour() {
                     </ul>
                 </div>
 
-                {/* Right: Device mockups (Laptop + Phone) — side-by-side, no overlap */}
+                {/* Right: Laptop mockup — wider, true 16:9 aspect via CSS aspect-ratio */}
                 <div className="relative w-full">
-                    <div className="flex flex-col sm:flex-row items-end justify-center gap-6 md:gap-8">
-                        {/* Laptop — wider, true 16:9 aspect via CSS aspect-ratio */}
-                        <div className="relative flex-1 min-w-[520px] max-w-[1200px] w-full">
-                            {/* Screen with thin bezel */}
-                            <div
-                                className="relative mx-auto w-full rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden"
-                                style={{ aspectRatio: "16 / 9", minHeight: 380 }}
-                            >
-                                {/* Top brand hairline */}
-                                <div className="absolute top-0 left-0 right-0 h-px bg-[rgb(var(--color-brand)/0.45)]" />
+                    <div className="relative flex-1 min-w-[520px] max-w-[1200px] w-full mx-auto">
+                        {/* Screen with thin bezel */}
+                        <div
+                            className="relative mx-auto w-full rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden"
+                            style={{ aspectRatio: "16 / 9", minHeight: 380 }}
+                        >
+                            {/* Top brand hairline */}
+                            <div className="absolute top-0 left-0 right-0 h-px bg-[rgb(var(--color-brand)/0.45)]" />
 
-                                {/* Tiny camera dot */}
-                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[rgb(34_34_34)] ring-2 ring-[rgb(0_0_0/0.35)]"></div>
+                            {/* Tiny camera dot */}
+                            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[rgb(34_34_34)] ring-2 ring-[rgb(0_0_0/0.35)]"></div>
 
-                                {/* Laptop chat header */}
-                                <div className="flex items-center justify-between px-4 py-2.5 bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
-                                    <div className="flex items-center gap-3">
-                                        <img
-                                            src="/favicon.png"
-                                            alt="Echo avatar"
-                                            width={28}
-                                            height={28}
-                                            className="w-7 h-7 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
-                                        />
-                                        <div className="leading-tight">
-                                            <p className="text-[13px] font-medium">Executive Assistant</p>
-                                            <p className="text-[11px] text-[rgb(255_255_255/0.7)]">Echo</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 text-[rgb(255_255_255/0.9)]">
-                                        <button
-                                            type="button"
-                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
-                                            aria-label="Copy"
-                                        >
-                                            <Copy className="w-4 h-4" />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
-                                            aria-label="Reset"
-                                        >
-                                            <RotateCcw className="w-4 h-4" />
-                                        </button>
+                            {/* Laptop chat header */}
+                            <div className="flex items-center justify-between px-4 py-2.5 bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
+                                <div className="flex items-center gap-3">
+                                    <img
+                                        src="/favicon.png"
+                                        alt="Echo avatar"
+                                        width={28}
+                                        height={28}
+                                        className="w-7 h-7 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
+                                    />
+                                    <div className="leading-tight">
+                                        <p className="text-[13px] font-medium">Executive Assistant</p>
+                                        <p className="text-[11px] text-[rgb(255_255_255/0.7)]">Echo</p>
                                     </div>
                                 </div>
+                                <div className="flex items-center gap-1.5 text-[rgb(255_255_255/0.9)]">
+                                    <button
+                                        type="button"
+                                        className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                        aria-label="Copy"
+                                    >
+                                        <Copy className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                        aria-label="Reset"
+                                    >
+                                        <RotateCcw className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            </div>
 
-                                {/* Conversation area (space above input) */}
-                                <div className="absolute inset-x-0 top-[52px] bottom-[64px] px-4 py-3 overflow-auto">
-                                    {/* Assistant bubble (brand-accent border + glow) */}
-                                    <div className="max-w-[78%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
-                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                            I’m coordinating across client initiatives to keep projects aligned.
-                                            Echoes preserve decision context, while the Playbook helps new teammates
-                                            ramp quickly.
-                                        </p>
-                                    </div>
-
-                                    {/* User bubble (neutral) */}
-                                    <div className="max-w-[70%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
-                                        What’s the current status of the Bravespace rollout?
-                                    </div>
-
-                                    {/* Assistant bubble (brand-accent) */}
-                                    <div className="max-w-[78%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
-                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                            The training sessions are scheduled and materials are finalized.
-                                            I can share the checklist and contacts for approvals if needed.
-                                        </p>
-                                    </div>
+                            {/* Conversation area (space above input) */}
+                            <div className="absolute inset-x-0 top-[52px] bottom-[64px] px-4 py-3 overflow-auto">
+                                {/* Assistant bubble (brand-accent border + glow) */}
+                                <div className="max-w-[78%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                    <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                        I’m coordinating across client initiatives to keep projects aligned.
+                                        Echoes preserve decision context, while the Playbook helps new teammates
+                                        ramp quickly.
+                                    </p>
                                 </div>
 
-                                {/* Input row */}
-                                <div className="absolute left-0 right-0 bottom-0 px-3 py-3 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
-                                    <div className="flex items-center gap-2">
-                                        <input
-                                            readOnly
-                                            aria-label="Type a message"
-                                            placeholder="Ask the Echo… Shift+Enter for new line"
-                                            className="flex-1 input bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
-                                            value=""
-                                        />
-                                        <button type="button" className="btn btn--primary shrink-0" aria-label="Send">
-                                            <Send className="w-4 h-4" />
-                                        </button>
-                                    </div>
-                                    <p className="text-[11px] text-[rgb(255_255_255/0.65)] mt-1">
-                                        Sessions are saved to your account for this Echo.
+                                {/* User bubble (neutral) */}
+                                <div className="max-w-[70%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
+                                    What’s the current status of the Bravespace rollout?
+                                </div>
+
+                                {/* Assistant bubble (brand-accent) */}
+                                <div className="max-w-[78%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                    <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                        The training sessions are scheduled and materials are finalized.
+                                        I can share the checklist and contacts for approvals if needed.
                                     </p>
                                 </div>
                             </div>
 
-                            {/* Laptop base */}
-                            <div className="mx-auto w-[96%] h-4 rounded-b-[16px] bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.2))] border-x border-b border-[rgb(255_255_255/0.12)] mt-2" />
-                            <div className="mx-auto w-[60%] h-1 rounded-full bg-[rgb(0_0_0/0.45)] mt-1" />
-                        </div>
-
-                        {/* Phone (iPhone-style) */}
-                        <div className="relative shrink-0 w-[180px] md:w-[200px] aspect-[9/19] rounded-[28px] bg-[rgb(10_10_10)] border border-[rgb(255_255_255/0.16)] shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden">
-                            {/* Bezel + notch */}
-                            <div className="absolute top-0 left-0 right-0 h-5 bg-[rgb(0_0_0/0.4)]" />
-                            <div className="absolute top-1 left-1/2 -translate-x-1/2 w-[98px] h-[18px] bg-[rgb(0_0_0/0.75)] rounded-b-[14px]" />
-
-                            {/* Phone header (brand border) */}
-                            <div className="mt-6 px-3 py-2 flex items-center justify-between bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
+                            {/* Input row */}
+                            <div className="absolute left-0 right-0 bottom-0 px-3 py-3 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
                                 <div className="flex items-center gap-2">
-                                    <img
-                                        src="/favicon.png"
-                                        alt="Echo avatar"
-                                        width={20}
-                                        height={20}
-                                        className="w-5 h-5 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
-                                    />
-                                    <p className="text-[12px]">Executive Assistant</p>
-                                </div>
-                                <span className="text-[10px] text-[rgb(255_255_255/0.7)]">Now</span>
-                            </div>
-
-                            {/* Conversation */}
-                            <div className="px-3 py-2">
-                                <div className="max-w-[86%] p-2 rounded-[10px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-[12px] leading-5 brand-glow">
-                                    I’m coordinating handoffs and documenting steps in the Playbook.
-                                </div>
-                                <div className="max-w-[78%] ml-auto mt-2 p-2 rounded-[10px] bg-[rgb(255_255_255/0.08)] text-[12px]">
-                                    Share the status for Bravespace?
-                                </div>
-                                <div className="max-w-[86%] mt-2 p-2 rounded-[10px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-[12px] leading-5 brand-glow">
-                                    Training is scheduled. I’ll send the checklist and contacts.
-                                </div>
-                            </div>
-
-                            {/* Phone input */}
-                            <div className="absolute left-0 right-0 bottom-0 px-2 py-2 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
-                                <div className="flex items-center gap-1.5">
                                     <input
                                         readOnly
-                                        placeholder="Message Echo"
-                                        className="flex-1 input h-8 text-[12px] bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
+                                        aria-label="Type a message"
+                                        placeholder="Ask the Echo… Shift+Enter for new line"
+                                        className="flex-1 input bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
                                         value=""
                                     />
-                                    <button
-                                        type="button"
-                                        className="btn btn--primary h-8 px-2"
-                                        aria-label="Send"
-                                    >
-                                        <Send className="w-3.5 h-3.5" />
+                                    <button type="button" className="btn btn--primary shrink-0" aria-label="Send">
+                                        <Send className="w-4 h-4" />
                                     </button>
                                 </div>
+                                <p className="text-[11px] text-[rgb(255_255_255/0.65)] mt-1">
+                                    Sessions are saved to your account for this Echo.
+                                </p>
                             </div>
                         </div>
+
+                        {/* Laptop base */}
+                        <div className="mx-auto w-[96%] h-4 rounded-b-[16px] bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.2))] border-x border-b border-[rgb(255_255_255/0.12)] mt-2" />
+                        <div className="mx-auto w-[60%] h-1 rounded-full bg-[rgb(0_0_0/0.45)] mt-1" />
                     </div>
                 </div>
             </div>
@@ -372,7 +315,7 @@ export function SectionFour() {
                 .ma-line-rev {
                     animation-name: ma-line-rev;
                     animation-timing-function: linear;
-                    animation-iteration-count: infinite;
+                    animation-iteration-count: infinite.
                 }
                 .ma-lines-paused .ma-line,
                 .ma-lines-paused .ma-line-rev {
