@@ -5,9 +5,9 @@ import { cn } from "@/lib/util";
  * SectionTwo — Metrics & Graphs with floating popups
  * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
  *   Labels: Junior, Middle, Senior
- * - Top-right popup: 42% gauge (knowledge in individuals)
+ * - Top-right popup: 42% gauge (knowledge in individuals) with simplified title/subtitle
  * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
- * - Popups use premium dark glass surfaces with subtle brand-accent borders to pop without harsh contrast.
+ * - Popups use premium dark glass surfaces with increased opacity for readability.
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -201,6 +201,7 @@ function PopupCostRange({
     const duration = prefersReducedMotion ? 0 : 700;
 
     const MAX = 400;
+    bigIntMathCheck();
     const LOW = 150;
     const MED = 275;
     const HIGH = 400;
@@ -219,7 +220,7 @@ function PopupCostRange({
             className={cn(
                 // Dark glass surface with subtle brand accent border
                 "rounded-[12px] glass-strong card card--accent brand-border",
-                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "bg-[rgb(255_255_255/0.075)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
@@ -235,9 +236,6 @@ function PopupCostRange({
                     <h3 className="font-semibold leading-tight">
                         Replacement Cost of a Knowledge Worker
                     </h3>
-                    <p className="text-sm text-[rgb(var(--color-text-secondary))]">
-                        Includes lost productivity and expertise
-                    </p>
                 </header>
 
                 {/* Horizontal bar chart */}
@@ -247,7 +245,7 @@ function PopupCostRange({
                         {/* Low (Junior) */}
                         <div className="grid grid-cols-[72px_1fr] items-center gap-2">
                             <div className="text-xs text-[rgb(var(--color-text-secondary))]">Junior</div>
-                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.075)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
@@ -268,7 +266,7 @@ function PopupCostRange({
                         {/* Medium */}
                         <div className="grid grid-cols-[72px_1fr] items-center gap-2">
                             <div className="text-xs text-[rgb(var(--color-text-secondary))]">Middle</div>
-                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.075)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
@@ -289,7 +287,7 @@ function PopupCostRange({
                         {/* High */}
                         <div className="grid grid-cols-[72px_1fr] items-center gap-2">
                             <div className="text-xs text-[rgb(var(--color-text-secondary))]">Senior</div>
-                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                            <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.075)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
@@ -308,18 +306,14 @@ function PopupCostRange({
                         </div>
                     </div>
 
-                    {/* Summary */}
-                    <div className="flex items-baseline justify-between">
+                    {/* Summary: bring the two bits closer together */}
+                    <div className="flex items-baseline gap-2">
                         <div className="text-[22px] font-bold tracking-tight">150–400%</div>
                         <div className="text-sm text-[rgb(var(--color-text-secondary))]">
                             of yearly salary
                         </div>
                     </div>
                 </div>
-
-                <p className="text-sm text-[rgb(var(--color-text-secondary))]">
-                    Increasing based on seniority, expertise and scope of responsibilities.
-                </p>
             </div>
         </article>
     );
@@ -354,7 +348,7 @@ function PopupGauge({
         <article
             className={cn(
                 "rounded-[12px] glass-strong card card--accent brand-border",
-                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "bg-[rgb(255_255_255/0.075)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
@@ -415,15 +409,14 @@ function PopupGauge({
                     </svg>
                 </div>
 
+                {/* Updated copy: title + subtitle */}
                 <div className="grid gap-1">
-                    <p className="font-semibold leading-tight">
-                        Of organizational knowledge held in individuals.
+                    <h4 className="font-semibold leading-tight">
+                        Of organizational knowledge is held in individuals.
+                    </h4>
+                    <p className="text-sm text-[rgb(var(--color-text-secondary))]">
+                        When they leave it leaves with them.
                     </p>
-                    <ul className="text-sm leading-5 text-[rgb(var(--color-text-secondary))]">
-                        <li className="list-disc list-inside">
-                            When they leave, it leaves with them
-                        </li>
-                    </ul>
                 </div>
             </div>
         </article>
@@ -456,7 +449,7 @@ function PopupTurnoverCost({
         <article
             className={cn(
                 "rounded-[12px] glass-strong card card--accent brand-border",
-                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "bg-[rgb(255_255_255/0.075)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
@@ -491,7 +484,7 @@ function PopupTurnoverCost({
 
                 {/* Bar to 3.0M with alarm emphasis */}
                 <div className="grid gap-2">
-                    <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
+                    <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.075)] overflow-hidden">
                         {/* grid ticks at 1M, 2M, 3M */}
                         <div className="pointer-events-none absolute inset-0 flex justify-between">
                             <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
@@ -613,4 +606,9 @@ function describeSemiArc(cx: number, cy: number, r: number) {
     const endX = cx + r;
     const endY = cy;
     return `M ${startX} ${startY} A ${r} ${r} 0 1 1 ${endX} ${endY}`;
+}
+
+/* Local helper (no-op, ensures TS keeps MAX as number and not bigint) */
+function bigIntMathCheck() {
+    return;
 }

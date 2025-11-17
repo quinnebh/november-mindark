@@ -1758,3 +1758,4 @@ function usePrefersReducedMotion() {
 }
 
 > user
+Make the video on the left third larger, taking up half the width of the section instead of a third. Adjust the right side accordingly to take up the remaining half. The Shape of the video is square so the box it is in should also be square.
