@@ -11,6 +11,8 @@ import { Copy, RotateCcw, Send } from "lucide-react";
  * - Numbers and labels centered
  * - Laptop aligned with the left column; chat fits on screen (no scrolling)
  * - Typing effect for messages with a short delay between each
+ * - Right-align the user question and add a question mark at the end
+ * - User message bubble shrinks to content width (w-fit) while respecting a max width
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -56,10 +58,10 @@ export function SectionFour() {
         []
     );
 
-    // Chat messages (exact strings as requested)
+    // Chat messages (exact strings with requested punctuation)
     const MSG_WELCOME =
         "Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!";
-    const MSG_QUESTION = "What is the most important think I need to know";
+    const MSG_QUESTION = "What is the most important think I need to know?";
     const MSG_RESPONSE =
         "The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in the way.";
 
@@ -234,13 +236,17 @@ export function SectionFour() {
                                         </p>
                                     </div>
 
-                                    {/* User question (typing after welcome) */}
+                                    {/* User question (typing after welcome) — right aligned; bubble shrinks to text content */}
                                     {t1.done && (
-                                        <div className="max-w-[72%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
-                                            <span>
-                                                {t2.output}
-                                                {t2.typing && <span className="tw-caret tw-caret--light" aria-hidden="true" />}
-                                            </span>
+                                        <div className="mt-3 flex justify-end">
+                                            <div className="w-fit max-w-[72%] p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px] text-right">
+                                                <span>
+                                                    {t2.output}
+                                                    {t2.typing && (
+                                                        <span className="tw-caret tw-caret--light" aria-hidden="true" />
+                                                    )}
+                                                </span>
+                                            </div>
                                         </div>
                                     )}
 
@@ -388,12 +394,13 @@ function StatNumber({
         }
         let raf = 0;
         const t0 = performance.now();
-        const step = (now: number) => {
-            const p = Math.min(1, (now - t0) / duration);
+        theStep();
+        function theStep(now?: number) {
+            const n = now ?? performance.now();
+            const p = Math.min(1, (n - t0) / duration);
             setVal(Math.round(ease(p) * target));
-            if (p < 1) raf = requestAnimationFrame(step);
-        };
-        raf = requestAnimationFrame(step);
+            if (p < 1) raf = requestAnimationFrame(theStep);
+        }
         return () => cancelAnimationFrame(raf);
     }, [start, target, duration, ease, reduceMotion]);
 
