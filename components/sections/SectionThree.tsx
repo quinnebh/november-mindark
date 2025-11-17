@@ -3,11 +3,15 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionThree — Story & Solutions
- * Updates applied:
- * - Left-third video removed previously.
- * - Grid backgrounds on visuals removed (glass only).
+ * Updates:
+ * - Left-third video removed (prior request).
+ * - Grid backgrounds removed from visuals.
  * - Adds bold white section title: "The Echo System".
- * - Removes step index labels and "Story & Solutions" footer text from cards.
+ * - Removes step index labels and "Story & Solutions" text from cards.
+ * - Visuals now animate like GIFs:
+ *   - Centralize: light flows from outer dots inward.
+ *   - Interview: squares move quickly and obviously.
+ *   - Activate: lines pulse outward.
  * Route anchor: /#section-three
  */
 export function SectionThree() {
@@ -90,7 +94,7 @@ function NarrativeCard(props: {
                     <p className="text-caption">{props.copy}</p>
                 </div>
 
-                {/* Visual block (no grid background) */}
+                {/* Visual block (glass only, no grid) */}
                 <div className="relative min-h-[160px] md:min-h-[100%]">
                     <div className="absolute inset-0 glass rounded-none md:rounded-l-[var(--radius-sm)] overflow-hidden">
                         {/* shimmer placeholder layer */}
@@ -115,41 +119,107 @@ function NarrativeCard(props: {
 }
 
 /* -------------------------
-   Inline accent visuals
+   Inline accent visuals (animated like GIFs)
    ------------------------- */
 
 function DiscoverVisual({ reducedMotion }: { reducedMotion: boolean }) {
-    // simple concentric network with brand tint
+    // Animated inward "light" traveling from outer dots into the center node
+    const nodes = useMemo(() => new Array(14).fill(0).map((_, i) => i), []);
     return (
         <div className="relative w-full h-full">
-            <svg viewBox="0 0 300 200" className="w-full h-full">
+            <svg
+                viewBox="0 0 300 200"
+                className="w-full h-full"
+                data-paused={reducedMotion ? "true" : "false"}
+            >
+                <style>{`
+                    @keyframes dash-in {
+                        from { stroke-dashoffset: 120; }
+                        to   { stroke-dashoffset: 0; }
+                    }
+                    @keyframes center-glow {
+                        0%, 90%, 100% { r: 10; opacity: .85; }
+                        40% { r: 13; opacity: 1; }
+                    }
+                    @keyframes outer-pulse {
+                        0%, 100% { opacity: .45; }
+                        50% { opacity: .95; }
+                    }
+                    svg[data-paused="true"] * { animation-play-state: paused !important; }
+                `}</style>
+
                 <defs>
                     <radialGradient id="dotGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="rgb(var(--color-brand))" stopOpacity="0.9" />
-                        <stop offset="100%" stopColor="rgb(var(--color-brand-700))" stopOpacity="0.05" />
+                        <stop offset="0%" stopColor="rgb(var(--color-brand))" stopOpacity="0.95" />
+                        <stop offset="100%" stopColor="rgb(var(--color-brand-700))" stopOpacity="0.0" />
                     </radialGradient>
                 </defs>
-                {/* nodes */}
-                {new Array(14).fill(0).map((_, i) => {
-                    const angle = (i / 14) * Math.PI * 2;
-                    const x = 150 + Math.cos(angle) * 70;
-                    const y = 100 + Math.sin(angle) * 50;
+
+                {/* base spokes */}
+                {nodes.map((i) => {
+                    const angle = (i / nodes.length) * Math.PI * 2;
+                    const x = 150 + Math.cos(angle) * 92;
+                    const y = 100 + Math.sin(angle) * 68;
                     return (
-                        <g key={i}>
-                            <line x1={150} y1={100} x2={x} y2={y} stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
-                            <circle cx={x} cy={y} r="4" fill="url(#dotGlow)" />
+                        <g key={`base-${i}`}>
+                            <line x1={x} y1={y} x2={150} y2={100} stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
                         </g>
                     );
                 })}
-                <circle cx="150" cy="100" r="18" fill="url(#dotGlow)" opacity="0.8" />
+
+                {/* animated "light" traveling inward */}
+                {nodes.map((i) => {
+                    const angle = (i / nodes.length) * Math.PI * 2;
+                    const x = 150 + Math.cos(angle) * 92;
+                    const y = 100 + Math.sin(angle) * 68;
+                    const delay = (i % nodes.length) * 0.08; // stagger
+                    return (
+                        <line
+                            key={`pulse-${i}`}
+                            x1={x}
+                            y1={y}
+                            x2={150}
+                            y2={100}
+                            stroke="rgb(var(--color-brand))"
+                            strokeOpacity="0.85"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            style={{
+                                strokeDasharray: "120 160",
+                                strokeDashoffset: 120,
+                                animation: `dash-in 1.6s ease-in-out ${delay}s infinite`,
+                                filter: "drop-shadow(0 0 6px rgba(117,46,79,0.8))",
+                            }}
+                        />
+                    );
+                })}
+
+                {/* outer dots */}
+                {nodes.map((i) => {
+                    const angle = (i / nodes.length) * Math.PI * 2;
+                    const x = 150 + Math.cos(angle) * 92;
+                    const y = 100 + Math.sin(angle) * 68;
+                    const delay = (i % nodes.length) * 0.08;
+                    return (
+                        <circle
+                            key={`dot-${i}`}
+                            cx={x}
+                            cy={y}
+                            r="4"
+                            fill="url(#dotGlow)"
+                            style={{ animation: `outer-pulse 1.6s ease-in-out ${delay}s infinite` }}
+                        />
+                    );
+                })}
+
+                {/* center */}
                 <circle
                     cx="150"
                     cy="100"
-                    r="34"
-                    stroke="rgba(255,255,255,0.18)"
-                    strokeWidth="1"
-                    fill="none"
-                    className={cn(reducedMotion ? "" : "animate-float")}
+                    r="10"
+                    fill="white"
+                    opacity="0.9"
+                    style={{ animation: "center-glow 1.6s ease-in-out infinite" }}
                 />
             </svg>
         </div>
@@ -157,58 +227,118 @@ function DiscoverVisual({ reducedMotion }: { reducedMotion: boolean }) {
 }
 
 function InterviewVisual({ reducedMotion }: { reducedMotion: boolean }) {
-    // overlapping squares motif (square with circle center implied)
+    // Faster, more obvious square motion
     const squares = useMemo(() => [0, 1, 2, 3, 4].map((i) => 12 + i * 10), []);
     return (
         <div className="relative w-full h-full">
             <div className="absolute inset-0 bg-[radial-gradient(80%_80%_at_85%_15%,rgba(117,46,79,0.20),transparent_60%)]"></div>
-            <div className="absolute inset-0 grid place-items-center">
-                {squares.map((size, i) => (
-                    <div
-                        key={i}
-                        className={cn("border hairline", "absolute", reducedMotion ? "" : "animate-float")}
-                        style={{
-                            width: `${size + 80}px`,
-                            height: `${size + 50}px`,
-                            transform: `translate(${i * 6 - 20}px, ${i * 3 - 16}px)`,
-                        }}
-                    />
-                ))}
-                <div className="absolute w-16 h-16 rounded-full border brand-border"></div>
+
+            <div
+                className="absolute inset-0"
+                data-paused={reducedMotion ? "true" : "false"}
+            >
+                <style>{`
+                    @keyframes square-move {
+                        0%   { transform: translate(-20px, -14px) rotate(-4deg) scale(0.94); opacity: .85; }
+                        50%  { transform: translate(6px, 2px) rotate(6deg) scale(1.06); opacity: 1; }
+                        100% { transform: translate(22px, 14px) rotate(10deg) scale(1.12); opacity: .95; }
+                    }
+                    [data-paused="true"] * { animation-play-state: paused !important; }
+                `}</style>
+
+                <div className="absolute inset-0 grid place-items-center">
+                    {squares.map((size, i) => (
+                        <div
+                            key={i}
+                            className={cn("border hairline absolute")}
+                            style={{
+                                width: `${size + 90}px`,
+                                height: `${size + 56}px`,
+                                animation: `square-move ${1 + i * 0.15}s ease-in-out ${i * 0.06}s infinite alternate`,
+                            }}
+                        />
+                    ))}
+                    <div className="absolute w-16 h-16 rounded-full border brand-border"></div>
+                </div>
             </div>
         </div>
     );
 }
 
 function ActivateVisual({ reducedMotion }: { reducedMotion: boolean }) {
+    // Lines pulse outward from center repeatedly
+    const rays = useMemo(() => new Array(24).fill(0).map((_, i) => i), []);
     return (
         <div className="relative w-full h-full">
-            <svg viewBox="0 0 300 200" className="w-full h-full">
+            <svg
+                viewBox="0 0 300 200"
+                className="w-full h-full"
+                data-paused={reducedMotion ? "true" : "false"}
+            >
+                <style>{`
+                    @keyframes dash-out {
+                        0%   { stroke-dashoffset: 120; opacity: .0; }
+                        30%  { opacity: .85; }
+                        100% { stroke-dashoffset: 0; opacity: .0; }
+                    }
+                    svg[data-paused="true"] * { animation-play-state: paused !important; }
+                `}</style>
+
                 <defs>
                     <radialGradient id="burst" cx="50%" cy="50%" r="60%">
-                        <stop offset="0%" stopColor="rgb(var(--color-brand))" stopOpacity="0.55" />
+                        <stop offset="0%" stopColor="rgb(var(--color-brand))" stopOpacity="0.45" />
                         <stop offset="100%" stopColor="rgba(117,46,79,0)" stopOpacity="0" />
                     </radialGradient>
                 </defs>
+
                 <rect width="300" height="200" fill="url(#burst)"></rect>
-                {new Array(24).fill(0).map((_, i) => {
-                    const angle = (i / 24) * Math.PI * 2;
-                    const x2 = 150 + Math.cos(angle) * 90;
-                    const y2 = 100 + Math.sin(angle) * 70;
+
+                {/* base faint rays */}
+                {rays.map((i) => {
+                    const angle = (i / rays.length) * Math.PI * 2;
+                    const x2 = 150 + Math.cos(angle) * 96;
+                    const y2 = 100 + Math.sin(angle) * 72;
                     return (
                         <line
-                            key={i}
+                            key={`base-${i}`}
                             x1="150"
                             y1="100"
                             x2={x2}
                             y2={y2}
-                            stroke="rgba(255,255,255,0.35)"
+                            stroke="rgba(255,255,255,0.15)"
                             strokeWidth="1"
-                            className={cn(!reducedMotion ? "brand-glow" : "")}
                         />
                     );
                 })}
-                <circle cx="150" cy="100" r="10" fill="rgb(255,255,255)" opacity="0.85"></circle>
+
+                {/* animated pulses */}
+                {rays.map((i) => {
+                    const angle = (i / rays.length) * Math.PI * 2;
+                    const x2 = 150 + Math.cos(angle) * 96;
+                    const y2 = 100 + Math.sin(angle) * 72;
+                    const delay = (i % rays.length) * 0.06;
+                    return (
+                        <line
+                            key={`pulse-${i}`}
+                            x1="150"
+                            y1="100"
+                            x2={x2}
+                            y2={y2}
+                            stroke="rgb(var(--color-brand))"
+                            strokeWidth="2"
+                            strokeOpacity="0.9"
+                            strokeLinecap="round"
+                            style={{
+                                strokeDasharray: "120 160",
+                                strokeDashoffset: 120,
+                                animation: `dash-out 1.4s ease-out ${delay}s infinite`,
+                                filter: "drop-shadow(0 0 6px rgba(117,46,79,0.8))",
+                            }}
+                        />
+                    );
+                })}
+
+                <circle cx="150" cy="100" r="10" fill="white" opacity="0.9"></circle>
             </svg>
         </div>
     );
