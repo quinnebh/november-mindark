@@ -1,13 +1,12 @@
 [in]
-docs/app-description.md:JiRdhpdrQC2a2WII5h6RtlVDILTrlzwBNfzdnFhYj1w
+docs/app-description.md:4UJtE9vYaxpP9HISNVM38jpDqOTaX_oyfAxyb6S7QaY
 context/coding-rules.md:lDH2PXcAfdD4UyET2qn4KKHsxFlVu-zuU4WjP2_yDro
 context/style.md:oby3UdG5raBniYgxjRnTnZPG9tgSP-jDL9zbj_pRLy8
 docs/style-guide.md:mVkweyUE9y4peN3mo19rHUJgIwZuOO0WHCXnaN0ArUk
 docs/main-layout.md:Tcpyq2gmQ1XciovWIU6O0ZPZp-L6k7go2H459YX1KCk
 .editorconfig:zjl_gjpiYewC-Fj1qVHBDJMjBNLFWlkM8KSxJCc4VKk
 context/sections.convo:V8adJ7pzq5Am4NR5U_dkWChnvfvUCHQ2luNNrsbfFLI
-components/sections/Hero.tsx:IEMhdDf5kmJL9Zoo0g-Wy2I9K_3aLjGHDRoLGv6RIDA
-components/sections/SectionTwo.tsx:hV3HxzNuaxCEQuSpeTwlUpC8nNGuT5X1CWt0fw0lU8c
-:1R4abbWTqCO3Y1GgEQcLkZ61ddgDmPFp0Dm-APrTsAw
+context/section-images/SectionThree.png:_-Nkr_HSoMLR_3W-RA_TNSQa5Tm2PSBZMx2I1aQexXE
+:W6O_1pDsK3Q_xzXmMGKjzHyXcTYZVB_guA2gLdNRQIs
 [out]
-docs/section-description.md:35iREFIYhdjpSPIztqaO292cq24_2ukCMCVP-lDSOlc
+components/sections/SectionThree.tsx:rHZ6qI_Lfmb7sm3TRMgrjH4VhPwj4i5jhLXjgDQphd0

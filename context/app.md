@@ -14,3 +14,7 @@ use /videos/hero.mp4 as the url for the video.
 Animate in the graph values from zero to their display value.
 
 Update the background color of the graphs to match the rest of the styling of the app.
+
+### SectionThree
+
+There should be a video on the left third, then the right two thirds has images and text. Recreate the supporting images of the sections on the right side as closely as possible.

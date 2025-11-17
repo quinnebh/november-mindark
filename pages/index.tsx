@@ -3,6 +3,7 @@ import React from "react";
 import { useNoMargins } from "@/lib/hooks";
 import { Hero } from "@/components/sections/Hero";
 import { SectionTwo } from "@/components/sections/SectionTwo";
+import { SectionThree } from "@/components/sections/SectionThree";
 
 export default function HomePage() {
     useNoMargins();
@@ -20,6 +21,8 @@ export default function HomePage() {
             <Hero />
 
             <SectionTwo />
+
+            <SectionThree />
         </div>
     );
 }

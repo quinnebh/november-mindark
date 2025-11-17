@@ -1559,11 +1559,10 @@ export function Hero() {
                             <div className="flex flex-col justify-center gap-6 px-6 py-10 lg:px-0 lg:py-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.65),rgba(0,0,0,0.25)_35%,transparent_65%)] lg:bg-transparent rounded-[var(--radius-sm)]">
                                 <p className="text-eyebrow">Exit Strategy Echo</p>
                                 <h1 className="text-hero headline-gradient">
-                                    Capture what they know. Keep it working.
+                                    We Automate Wisdom
                                 </h1>
                                 <p className="text-subtitle max-w-prose">
-                                    Replicate departing employees as secure, AI-powered Echos and
-                                    generate an onboarding playbook that lasts.
+                                    Onboarding and Offboarding Made Easy
                                 </p>
 
                                 <div className="flex items-center gap-4">
@@ -1935,87 +1934,3 @@ Do not include any other sections. Include how to import the component and its p
 
 > nop
 //_END_MAKE_TARGET_INPUT_
-
-
-@time 2025-11-16T15:51:49+01:00
-@tokenUsage 17060 / 1775 / $0.023543750000000002
-@model gpt-5-2025-08-07
-> assistant
-Hero — Section Component
-- Description: Marketing hero section introducing Exit Strategy Echo with a right-aligned background video and overlayed headline, subheadline, and CTAs. Emphasizes “square with a circle inside” motif via a floating SVG accent. Optimized for dark, glassy, luxurious aesthetic with gradient text treatments and legible overlays.
-- Anchor/Route: #hero
-- Structure:
-  - Root element is a section with id="hero".
-  - Responsive grid: 1 column on small screens; 3 columns on large with the video spanning the right two-thirds.
-  - Text content overlays the video on small screens via absolute positioning and gradient overlay; becomes static in the left column on large screens.
-  - Includes a geometric SVG accent (square with inner circle) floating over the video on large screens.
-- Content:
-  - Eyebrow: “Exit Strategy Echo”
-  - Headline: “Capture what they know. Keep it working.”
-  - Subheadline: Positioning statement for Echo + Playbook.
-  - CTAs:
-    - Primary: “Get a Demo” linking to #cta with an icon.
-    - Secondary: “See How It Works” linking to #how-it-works with an icon.
-- Behavior/Interactions:
-  - Video: autoplay, muted, loop, playsInline; overlay for legibility using hero-video__overlay.
-  - Uses lucide-react icons Mail and ChevronRight.
-  - Maintains stacking layout to avoid horizontal overflow on narrow screens.
-- Styling:
-  - Dark theme, glassmorphism, gradient headline (text-hero, headline-gradient).
-  - Classes: hero-frame, hero-video, hero-video__overlay, container-page, text-eyebrow, text-subtitle, btn btn--primary, btn btn--secondary.
-  - Brand color (#752E4F) used sparingly for accents and the primary CTA background.
-- Accessibility:
-  - Clear text overlays with contrast-preserving gradient background on smaller screens.
-  - Buttons support keyboard focus via theme focus-ring utility.
-- Assets:
-  - Hero video: /videos/hero.mp4
-- Import:
-  - import { Hero } from "@/components/sections/Hero";
-- Props:
-  - None (section components do not accept props).
-
-
-
-SectionTwo — Metrics & Impact
-- Description: Animated, glassy metrics section showing count-up tiles, a semi-circle gauge, and branded graph surfaces. Communicates measurable continuity benefits with motion and clarity.
-- Anchor/Route: #metrics
-- Structure:
-  - Root element is a section with id="metrics".
-  - Centered content via container-page with stacked, responsive grids:
-    - Header with eyebrow, title, and caption.
-    - Top row: semi-circle gauge card + 4 metric tiles (count-up).
-    - Bottom row: knowledge-retained bars + onboarding-time reduction area chart.
-- Behavior/Animations:
-  - IntersectionObserver triggers once at 25% visibility to activate animations.
-  - Count-up values animate 0 → target with ease-out cubic over ~1.3–1.5s.
-  - Gauge uses an SVG semi-arc with stroke-dashoffset animation and brand gradient.
-  - Bars animate heights in sequence with small delays; area chart reveals via clip-path.
-- Styling:
-  - Dark, glassmorphic graph surfaces with subtle grid ticks (graph-surface, grid-ticks, brand-glow).
-  - Accent lines and fills use brand color sparingly; primary brand emphasis in CTA contexts only.
-  - Cards use card/card--accent with thin borders and sharp rounding.
-- Content (examples):
-  - Gauge: “Knowledge locked in individuals” at 42% (animated).
-  - Metric tiles:
-    - Knowledge Retained — 92%
-    - Days Faster Onboarding — 45
-    - Weeks to Competency — 3
-    - Answer Confidence — 96%
-  - Graphs:
-    - Knowledge Retained (progressive bars)
-    - Onboarding Time Reduction (branded area chart)
-- Accessibility:
-  - Gauge includes an accessible <title> bound via aria-labelledby.
-  - Animated numbers are readable and stabilized after animation completes.
-- Implementation Notes:
-  - Uses a local cn utility for className composition.
-  - Ambient backdrop brand-tinted radial gradients are rendered behind content for depth.
-  - Animations are client-only and run once per visit to prevent distraction.
-- Import:
-  - import { SectionTwo } from "@/components/sections/SectionTwo";
-- Props:
-  - None (section components do not accept props).
-
-
-
-> user
