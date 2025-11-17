@@ -1423,9 +1423,6 @@ Generate a React section component based on the image
 //_END_MAKE_TARGET_INPUT_
 
 
-@time 2025-11-16T16:30:02+01:00
-@tokenUsage 13820 / 5131 / $0.02368875
-@model gpt-5-2025-08-07
 > assistant
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/util";
@@ -1442,15 +1439,10 @@ export function SectionThree() {
     return (
         <section
             id="section-three"
-            className={cn(
-                "section-anchor section-y bg-section relative"
-            )}
+            className={cn("section-anchor section-y bg-section relative")}
         \>
             {/* subtle background gradient sweep spanning full width */}
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10"
-            \>
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
                 <div className="absolute inset-0 bg-[radial-gradient(60%_80%_at_20%_10%,rgba(117,46,79,0.20),rgba(0,0,0,0)_60%)]"></div>
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_35%)]"></div>
             </div>
@@ -1506,24 +1498,26 @@ function MediaPanel({ reducedMotion }: { reducedMotion: boolean }) {
             ref={ref}
             className={cn(
                 "relative glass-strong rounded-[var(--radius-sm)] overflow-hidden min-h-[320px] lg:min-h-[520px] hero-frame",
-                "flex items-stretch"
+                // Center content so letterboxing (object-contain) is balanced
+                "flex items-center justify-center bg-[rgb(0_0_0/0.5)]"
             )}
         \>
-            {/* Video */}
+            {/* Video — fit without distortion or cropping */}
             <video
-                className="hero-video w-full h-full object-cover"
+                className="hero-video w-full h-full"
+                style=\{{ objectFit: "contain", objectPosition: "center" }}
                 autoPlay={!reducedMotion}
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                src="/videos/hero.mp4"
+                src="/videos/sectionthree.mp4"
                 aria-label="Process montage video (muted)"
             />
 
             {/* Gradient mask for legibility */}
             <div className="hero-video__overlay pointer-events-none"></div>
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.20)_45%,rgba(0,0,0,0.60))]"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.20)_45%,rgba(0,0,0,0.60))] pointer-events-none"></div>
 
             {/* Geometric motif: square with a circle inside (floating) */}
             <div
@@ -1531,7 +1525,7 @@ function MediaPanel({ reducedMotion }: { reducedMotion: boolean }) {
                 className={cn(
                     "absolute right-5 top-5 size-[96px] rounded-[10px] border hairline",
                     "grid place-items-center",
-                    inView && !reducedMotion ? "animate-float" : ""
+                    inView ? "animate-float" : ""
                 )}
             \>
                 <div className="size-[52px] rounded-full border brand-border"></div>
@@ -1635,14 +1629,7 @@ function DiscoverVisual({ reducedMotion }: { reducedMotion: boolean }) {
                     const y = 100 + Math.sin(angle) * 50;
                     return (
                         <g key={i}>
-                            <line
-                                x1={150}
-                                y1={100}
-                                x2={x}
-                                y2={y}
-                                stroke="rgba(255,255,255,0.16)"
-                                strokeWidth="1"
-                            />
+                            <line x1={150} y1={100} x2={x} y2={y} stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
                             <circle cx={x} cy={y} r="4" fill="url(#dotGlow)" />
                         </g>
                     );
@@ -1664,10 +1651,7 @@ function DiscoverVisual({ reducedMotion }: { reducedMotion: boolean }) {
 
 function InterviewVisual({ reducedMotion }: { reducedMotion: boolean }) {
     // overlapping squares motif (square with circle center implied)
-    const squares = useMemo(
-        () => [0, 1, 2, 3, 4].map((i) => 12 + i * 10),
-        []
-    );
+    const squares = useMemo(() => [0, 1, 2, 3, 4].map((i) => 12 + i * 10), []);
     return (
         <div className="relative w-full h-full">
             <div className="absolute inset-0 bg-[radial-gradient(80%_80%_at_85%_15%,rgba(117,46,79,0.20),transparent_60%)]"></div>
@@ -1675,11 +1659,7 @@ function InterviewVisual({ reducedMotion }: { reducedMotion: boolean }) {
                 {squares.map((size, i) => (
                     <div
                         key={i}
-                        className={cn(
-                            "border hairline",
-                            "absolute",
-                            reducedMotion ? "" : "animate-float"
-                        )}
+                        className={cn("border hairline", "absolute", reducedMotion ? "" : "animate-float")}
                         style=\{{
                             width: `${size + 80}px`,
                             height: `${size + 50}px`,
@@ -1776,7 +1756,3 @@ function usePrefersReducedMotion() {
     }, []);
     return reduced;
 }
-
-
-
-> user
