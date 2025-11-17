@@ -2,21 +2,15 @@ import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/util";
 
 /**
- * SectionTwo — Metrics & Graphs (Laptop with pop-up gauges)
- *
- * Updates requested:
- * - Lighter, more defined laptop edges and bezels
- * - Replace the screen's internal light lines with a real video (/images/hero.mp4)
- *
- * Conventions:
- * - Root element is <section>
- * - Content centered via container-page
- * - Named export; no props
+ * SectionTwo — Metrics & Graphs with floating popups
+ * - Bottom-left popup: Replacement Cost range (150–400% of yearly salary)
+ * - Top-right popup: 42% gauge (knowledge in individuals)
+ * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
+ *   Emphasizes the $2.5M figure with strong visual weight and animated bar.
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
     const [inView, setInView] = useState(false);
-    const prefersReducedMotion = usePrefersReducedMotion();
 
     useEffect(() => {
         if (!sectionRef.current) return;
@@ -40,11 +34,8 @@ export function SectionTwo() {
         <section
             id="metrics"
             ref={sectionRef as any}
-            className={cn(
-                "section-anchor section-y relative overflow-hidden bg-section"
-            )}
+            className={cn("section-anchor section-y relative overflow-hidden bg-section")}
         >
-            {/* Ambient brand-tinted backdrop */}
             <BackdropSweep />
 
             <div className="container-page grid gap-8">
@@ -56,7 +47,7 @@ export function SectionTwo() {
                     </p>
                 </header>
 
-                {/* Laptop mock with pop-up cards */}
+                {/* Laptop + floating popups */}
                 <div className="relative w-full">
                     <div className="relative mx-auto w-full max-w-5xl">
                         <LaptopFrame>
@@ -65,7 +56,8 @@ export function SectionTwo() {
 
                         {/* Floating popups (desktop/tablet) */}
                         <div className="hidden md:block">
-                            <PopupGauge
+                            {/* Bottom-left: Replacement Cost range (150–400%) */}
+                            <PopupCostRange
                                 inView={inView}
                                 className={cn(
                                     "absolute -left-6 lg:-left-10 bottom-[10%]",
@@ -74,6 +66,7 @@ export function SectionTwo() {
                                 delay={0}
                             />
 
+                            {/* Top-right: 42% gauge */}
                             <PopupGauge
                                 inView={inView}
                                 className={cn(
@@ -83,11 +76,12 @@ export function SectionTwo() {
                                 delay={120}
                             />
 
-                            <PopupGauge
+                            {/* Bottom-right: Annual turnover cost — $2.5M */}
+                            <PopupTurnoverCost
                                 inView={inView}
                                 className={cn(
                                     "absolute right-0 bottom-[-18%] lg:bottom-[-10%]",
-                                    "w-[260px] lg:w-[300px]"
+                                    "w-[280px] lg:w-[340px]"
                                 )}
                                 delay={240}
                             />
@@ -95,10 +89,10 @@ export function SectionTwo() {
                     </div>
                 </div>
 
-                {/* Mobile fallback: stack the popups below */}
+                {/* Mobile fallback — stack the popups; keep cost range first, then turnover cost, then gauge */}
                 <div className="grid md:hidden grid-cols-1 gap-4">
-                    <PopupGauge inView={inView} className="w-full" delay={0} />
-                    <PopupGauge inView={inView} className="w-full" delay={80} />
+                    <PopupCostRange inView={inView} className="w-full" delay={0} />
+                    <PopupTurnoverCost inView={inView} className="w-full" delay={80} />
                     <PopupGauge inView={inView} className="w-full" delay={160} />
                 </div>
             </div>
@@ -138,20 +132,19 @@ function LaptopFrame({ children }: { children: React.ReactNode }) {
             <div
                 className={cn(
                     "relative rounded-[18px] overflow-hidden",
-                    // Brighter edge with subtle metallic gradient
                     "bg-[linear-gradient(180deg,rgba(255,255,255,0.35),rgba(220,220,225,0.22)_40%,rgba(180,180,190,0.18))]",
                     "border-2 border-[rgb(255_255_255/0.35)]",
                     "shadow-[0_28px_80px_rgba(0,0,0,0.55)]"
                 )}
             >
-                {/* Edge highlights (top/left/right glints) */}
+                {/* Edge highlights */}
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(255,255,255,0.85),rgba(255,255,255,0.35),rgba(255,255,255,0.85))]" />
                     <div className="absolute left-0 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.6),transparent)]" />
                     <div className="absolute right-0 top-0 h-full w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.6),transparent)]" />
                 </div>
 
-                {/* Bezel with camera (lighter, more obvious) */}
+                {/* Bezel with camera */}
                 <div className="relative h-8 bg-[linear-gradient(180deg,rgba(240,240,245,0.75),rgba(210,210,220,0.65))] flex items-center justify-center">
                     <div className="absolute left-6 w-16 h-2 rounded-full bg-[rgb(0_0_0/0.15)]" />
                     <div className="w-2.5 h-2.5 rounded-full bg-[rgb(18_18_20)] border border-[rgb(255_255_255/0.7)] shadow-[0_0_0_2px_rgba(0,0,0,0.5)_inset]" />
@@ -162,11 +155,11 @@ function LaptopFrame({ children }: { children: React.ReactNode }) {
                     <div className="aspect-[16/9] overflow-hidden">{children}</div>
                 </div>
 
-                {/* Bottom bezel (lighter) */}
+                {/* Bottom bezel */}
                 <div className="h-3 bg-[linear-gradient(180deg,rgba(240,240,245,0.65),rgba(210,210,220,0.55))] hairline" />
             </div>
 
-            {/* Base/foot with metallic shine */}
+            {/* Base */}
             <div className="mx-auto mt-2 h-1.5 w-[72%] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.7),rgba(200,200,210,0.35),rgba(255,255,255,0.7))]" />
         </div>
     );
@@ -184,7 +177,7 @@ function LaptopScreenVideo({ src }: { src: string }) {
                 playsInline
                 preload="metadata"
             />
-            {/* Readability overlays (subtle vignettes + brand-tint sweep) */}
+            {/* Subtle overlays for depth and legibility */}
             <div className="absolute inset-0 hero-video__overlay pointer-events-none"></div>
             <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(800px_320px_at_50%_60%,rgba(117,46,79,0.22),transparent_70%)]" />
             <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(0deg,rgba(0,0,0,0.32),rgba(0,0,0,0.12)_30%,rgba(0,0,0,0)_55%)]" />
@@ -192,7 +185,114 @@ function LaptopScreenVideo({ src }: { src: string }) {
     );
 }
 
-/* ================= Popup Gauge Card ================= */
+/* ================= Popup: Replacement Cost Range (150–400%) ================= */
+
+function PopupCostRange({
+    className,
+    inView,
+    delay = 0,
+}: {
+    className?: string;
+    inView: boolean;
+    delay?: number;
+}) {
+    const prefersReducedMotion = usePrefersReducedMotion();
+    const duration = prefersReducedMotion ? 0 : 1100;
+
+    // Range expressed as a percentage of the 0–400% scale
+    const startTargetPct = (150 / 400) * 100; // 37.5%
+    const endTargetPct = 100; // 400% endpoint (100% of bar width)
+
+    const progress = useProgress(inView, duration, delay); // 0..1
+    const startPct = startTargetPct * progress;
+    const endPct = endTargetPct * progress;
+    const left = startPct;
+    const width = Math.max(0, endPct - startPct);
+
+    return (
+        <article
+            className={cn(
+                "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
+                "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
+                "p-4 sm:p-5",
+                "will-change-transform will-change-opacity",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                className
+            )}
+            style={{ transitionDelay: `${delay}ms` }}
+        >
+            <div className="grid gap-3">
+                <header className="grid gap-1">
+                    <h3 className="font-semibold leading-tight">
+                        Replacement Cost of a Knowledge Worker
+                    </h3>
+                    <p className="text-sm text-[rgb(0_0_0/0.7)]">
+                        Includes lost productivity and expertise
+                    </p>
+                </header>
+
+                {/* Range bar */}
+                <div className="grid gap-2">
+                    <div className="relative h-3 rounded-[8px] bg-[rgb(0_0_0/0.08)] overflow-hidden">
+                        {/* Grid ticks at 100/200/300% */}
+                        <div className="pointer-events-none absolute inset-0 flex justify-between">
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                        </div>
+
+                        {/* Highlighted cost range: 150–400% */}
+                        <div
+                            className="absolute top-0 h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                            style={{
+                                left: `${left}%`,
+                                width: `${width}%`,
+                                transition:
+                                    "left 700ms cubic-bezier(0.22,1,0.36,1), width 700ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                        />
+
+                        {/* Handles */}
+                        <span
+                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)] shadow-[0_1px_0_rgba(0,0,0,0.2)]"
+                            style={{
+                                left: `${left}%`,
+                                transition: "left 700ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                            aria-hidden="true"
+                        />
+                        <span
+                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)] shadow-[0_1px_0_rgba(0,0,0,0.2)]"
+                            style={{
+                                left: `${left + width}%`,
+                                transition: "left 700ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                            aria-hidden="true"
+                        />
+                    </div>
+
+                    {/* Scale labels */}
+                    <div className="flex items-center justify-between text-[11px] text-[rgb(0_0_0/0.6)]">
+                        <span>0%</span>
+                        <span>100%</span>
+                        <span>200%</span>
+                        <span>300%</span>
+                        <span>400%</span>
+                    </div>
+                </div>
+
+                {/* Primary stat */}
+                <div className="flex items-baseline justify-between">
+                    <div className="text-[22px] font-bold tracking-tight">150–400%</div>
+                    <div className="text-sm text-[rgb(0_0_0/0.7)]">of yearly salary</div>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+/* ================= Popup: Gauge (42%) ================= */
 
 function PopupGauge({
     className,
@@ -220,14 +320,11 @@ function PopupGauge({
     return (
         <article
             className={cn(
-                // Light popup card to closely match the reference
                 "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
                 "p-4 sm:p-5",
                 "will-change-transform will-change-opacity",
-                inView
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-6",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 className
             )}
@@ -258,7 +355,7 @@ function PopupGauge({
                             strokeLinecap="round"
                             opacity="0.86"
                         />
-                        {/* Progress (purple/brand gradient) */}
+                        {/* Progress (brand gradient) */}
                         <path
                             d={describeSemiArc(100, 100, r)}
                             stroke={`url(#brand-${arcId})`}
@@ -300,14 +397,113 @@ function PopupGauge({
     );
 }
 
-/* ================= Animations ================= */
+/* ================= Popup: Annual Turnover Cost ($2.5M) ================= */
 
-function useCountUp(
-    active: boolean,
-    to: number,
-    duration = 1400,
-    delay = 0
-) {
+function PopupTurnoverCost({
+    className,
+    inView,
+    delay = 0,
+}: {
+    className?: string;
+    inView: boolean;
+    delay?: number;
+}) {
+    const prefersReducedMotion = usePrefersReducedMotion();
+    const duration = prefersReducedMotion ? 0 : 1200;
+
+    const MAX = 3_000_000; // $3.0M scale max for the bar
+    const TARGET = 2_500_000; // $2.5M emphasized figure
+
+    const progress = useProgress(inView, duration, delay); // 0..1
+    const fillPct = (TARGET / MAX) * 100 * progress;
+
+    const money = useCountUp(inView, TARGET, prefersReducedMotion ? 0 : 1200, delay + 150);
+
+    return (
+        <article
+            className={cn(
+                "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
+                "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
+                "p-4 sm:p-5",
+                "will-change-transform will-change-opacity",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                className
+            )}
+            style={{ transitionDelay: `${delay}ms` }}
+            aria-label="Estimated annual turnover cost visualization"
+        >
+            <div className="grid gap-3">
+                <header className="grid gap-1">
+                    <h3 className="font-semibold leading-tight">
+                        Estimated Annual Turnover Cost
+                    </h3>
+                    <p className="text-sm text-[rgb(0_0_0/0.7)]">
+                        100-person firm • $50k average salary
+                    </p>
+                </header>
+
+                {/* Emphasized figure */}
+                <div className="flex items-baseline justify-between">
+                    <div className="text-[28px] sm:text-[30px] font-extrabold tracking-tight">
+                        <span className="text-transparent bg-[linear-gradient(90deg,rgb(117_46_79),rgb(216_130_190))] bg-clip-text">
+                            {formatMoneyCompact(money)}
+                        </span>
+                    </div>
+                    <div className="text-sm font-medium text-[rgb(0_0_0/0.7)]">
+                        per year
+                    </div>
+                </div>
+
+                {/* Bar to 3.0M with danger-alarm emphasis via brand gradient */}
+                <div className="grid gap-2">
+                    <div className="relative h-3 rounded-[8px] bg-[rgb(0_0_0/0.08)] overflow-hidden">
+                        {/* grid ticks at 1M, 2M, 3M */}
+                        <div className="pointer-events-none absolute inset-0 flex justify-between">
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                        </div>
+
+                        {/* Filled portion */}
+                        <div
+                            className="absolute top-0 left-0 h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(117,46,79,1),rgba(216,130,190,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                            style={{
+                                width: `${fillPct}%`,
+                                transition: "width 800ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                        />
+
+                        {/* Marker dot near the end to dramatize */}
+                        <span
+                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)]"
+                            style={{
+                                left: `${fillPct}%`,
+                                transition: "left 800ms cubic-bezier(0.22,1,0.36,1)",
+                            }}
+                            aria-hidden="true"
+                        />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px] text-[rgb(0_0_0/0.6)]">
+                        <span>$0</span>
+                        <span>$1.0M</span>
+                        <span>$2.0M</span>
+                        <span>$3.0M</span>
+                    </div>
+                </div>
+
+                <p className="text-sm text-[rgb(0_0_0/0.75)]">
+                    Recruiting, ramp time, and loss of continuity compound rapidly.
+                </p>
+            </div>
+        </article>
+    );
+}
+
+/* ================= Animation utilities ================= */
+
+function useCountUp(active: boolean, to: number, duration = 1400, delay = 0) {
     const [val, setVal] = useState(0);
 
     useEffect(() => {
@@ -332,7 +528,50 @@ function useCountUp(
     return val;
 }
 
-/* ================= SVG helpers ================= */
+function useProgress(active: boolean, duration = 1000, delay = 0) {
+    const [p, setP] = useState(0);
+
+    useEffect(() => {
+        if (!active) return;
+        let raf = 0;
+        let start = 0;
+
+        const tick = (ts: number) => {
+            if (!start) start = ts;
+            const t = Math.max(0, ts - start - delay);
+            const ratio = Math.min(1, duration === 0 ? 1 : t / duration);
+            const eased = 1 - Math.pow(1 - ratio, 3); // easeOutCubic
+            setP(eased);
+            if (ratio < 1) raf = requestAnimationFrame(tick);
+        };
+
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+    }, [active, duration, delay]);
+
+    return p;
+}
+
+/* ================= Format helpers ================= */
+
+function formatMoneyCompact(n: number) {
+    if (n >= 1_000_000) {
+        const m = n / 1_000_000;
+        const s = (Math.round(m * 10) / 10).toFixed(1);
+        return `$${stripTrailingZero(s)}M`;
+    }
+    if (n >= 1_000) {
+        const k = n / 1_000;
+        const s = (Math.round(k * 10) / 10).toFixed(1);
+        return `$${stripTrailingZero(s)}k`;
+    }
+    return `$${n}`;
+}
+function stripTrailingZero(s: string) {
+    return s.endsWith(".0") ? s.slice(0, -2) : s;
+}
+
+/* ================= SVG helper ================= */
 
 function describeSemiArc(cx: number, cy: number, r: number) {
     const startX = cx - r;

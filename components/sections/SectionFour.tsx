@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/util";
-import { Copy, RotateCcw, Send, UserRound } from "lucide-react";
+import { Copy, RotateCcw, Send } from "lucide-react";
 
 /**
  * SectionFour — Measurable Results
  * Left: bold headline + three key outcome stats (animated with fade-in)
- * Right: glass chat preview card
+ * Right: glass chat preview card with avatar image
  *
  * Background: Solid brand magenta (#752E4F) so the section pops from the rest of the page.
  * Animations:
@@ -167,9 +167,13 @@ export function SectionFour() {
                         {/* Header */}
                         <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-[rgb(255_255_255/0.12)] grid place-items-center text-[rgb(255_255_255/0.9)]">
-                                    <UserRound className="w-4 h-4" />
-                                </div>
+                                <img
+                                    src="/favicon.png" /* served from /public/favicon.png */
+                                    alt="Echo avatar"
+                                    width={32}
+                                    height={32}
+                                    className="w-8 h-8 rounded-full object-cover ring-1 ring-[rgb(255_255_255/0.25)]"
+                                />
                                 <div className="leading-tight">
                                     <p className="text-sm font-medium">Executive Assistant</p>
                                     <p className="text-caption text-[12px] text-[rgb(255_255_255/0.85)]">Echo</p>
