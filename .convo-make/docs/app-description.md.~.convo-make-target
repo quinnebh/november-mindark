@@ -37,6 +37,9 @@ There should be a video on the left third, then the right two thirds has images 
 ### SectionFour
 
 Recreate the supporting images of the sections as closely as possible.
+
+### SectionFive
+Recreate the supporting images of the sections as closely as possible.
 </app-description>
 
 > appendUser
@@ -486,3 +489,5 @@ The site is built as a statically generated marketing page (NextJS pages directo
 
 - SectionThree (Story & Solutions) — route: /#section-three
   - Left third video with right two thirds of layered images and explanatory text. Recreated visuals styled with glassmorphism and subtle motion.
+
+> user

@@ -5,7 +5,7 @@ import { Hero } from "@/components/sections/Hero";
 import { SectionTwo } from "@/components/sections/SectionTwo";
 import { SectionThree } from "@/components/sections/SectionThree";
 import { SectionFour } from "@/components/sections/SectionFour";
-
+import { SectionFive } from "@/components/sections/SectionFive";
 
 export default function HomePage() {
     useNoMargins();
@@ -26,7 +26,9 @@ export default function HomePage() {
 
             <SectionThree />
 
-            <SectionFour />     
+            <SectionFour />
+
+            <SectionFive />     
         </div>
     );
 }
