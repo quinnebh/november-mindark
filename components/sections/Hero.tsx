@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, ChevronRight } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export function Hero() {
     return (
@@ -34,17 +34,13 @@ export function Hero() {
                     </div>
                 </div>
 
-                {/* CTAs: placed lower in the section */}
+                {/* CTA: placed lower in the section */}
                 <div className="absolute inset-x-0 bottom-[8%] md:bottom-[9%] lg:bottom-[10%] z-10">
                     <div className="container-page">
                         <div className="px-6 lg:px-0 flex items-center gap-4">
-                            <a href="#cta" className="btn btn--primary">
+                            <a href="mailto:hello@mindark.ai" className="btn btn--primary">
                                 <Mail className="w-4 h-4" />
                                 Get a Demo
-                            </a>
-                            <a href="#how-it-works" className="btn btn--secondary">
-                                See How It Works
-                                <ChevronRight className="w-4 h-4" />
                             </a>
                         </div>
                     </div>
