@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/util";
-import { FileText, MessageSquare, Rocket } from "lucide-react";
 
 /**
  * SectionThree — Story & Solutions
- * Left third video panel; right two thirds stacked glass cards with visuals and short narrative.
+ * Updates applied:
+ * - Left-third video removed previously.
+ * - Grid backgrounds on visuals removed (glass only).
+ * - Adds bold white section title: "The Echo System".
+ * - Removes step index labels and "Story & Solutions" footer text from cards.
  * Route anchor: /#section-three
  */
 export function SectionThree() {
@@ -21,36 +24,31 @@ export function SectionThree() {
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_35%)]"></div>
             </div>
 
-            <div className="container-page grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Left third: video panel */}
-                <MediaPanel reducedMotion={reducedMotion} />
+            <div className="container-page grid grid-cols-1 gap-6">
+                {/* Section Title */}
+                <header className="mb-2 md:mb-4">
+                    <h2 className="text-[rgb(255_255_255)] font-bold text-2xl md:text-3xl">
+                        The Echo System
+                    </h2>
+                </header>
 
-                {/* Right two thirds: narrative cards */}
-                <div className="lg:col-span-2 grid grid-cols-1 gap-6">
+                {/* Narrative cards (full-width stacking) */}
+                <div className="grid grid-cols-1 gap-6">
                     <NarrativeCard
-                        index="05.1"
-                        label="PRESERVE"
                         title="Centralize what matters"
-                        icon={<FileText className="w-4 h-4" />}
                         copy="We gather documents, meeting notes, process flows, and project details to uncover context and centralize information."
                         accentVisual={<DiscoverVisual reducedMotion={reducedMotion} />}
                     />
 
                     <NarrativeCard
-                        index="05.2"
-                        label="DISCOVER"
                         title="Interview for the unwritten"
-                        icon={<MessageSquare className="w-4 h-4" />}
                         copy="Our Interview Agent (IA) engages the expert with organizational context and managerial goals to surface the unwritten know‑how—focusing on the vital 20% that drives 80% of results."
                         accent
                         accentVisual={<InterviewVisual reducedMotion={reducedMotion} />}
                     />
 
                     <NarrativeCard
-                        index="05.3"
-                        label="ACTIVATE"
                         title="Deploy Echo + Playbook"
-                        icon={<Rocket className="w-4 h-4" />}
                         copy="The Continuity Engine auto‑generates an onboarding playbook and a simple Knowledge Dashboard to empower a new hire—achieving in‑flow in weeks, not months, with significantly reduced onboarding costs."
                         accentVisual={<ActivateVisual reducedMotion={reducedMotion} />}
                     />
@@ -64,61 +62,9 @@ export function SectionThree() {
    Subcomponents & hooks
    ========================= */
 
-function MediaPanel({ reducedMotion }: { reducedMotion: boolean }) {
-    const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
-
-    return (
-        <div
-            ref={ref}
-            className={cn(
-                "relative glass-strong rounded-[var(--radius-sm)] overflow-hidden min-h-[320px] lg:min-h-[520px] hero-frame",
-                // Center content so letterboxing (object-contain) is balanced
-                "flex items-center justify-center bg-[rgb(0_0_0/0.5)]"
-            )}
-        >
-            {/* Video — fit without distortion or cropping */}
-            <video
-                className="hero-video w-full h-full"
-                style={{ objectFit: "contain", objectPosition: "center" }}
-                autoPlay={!reducedMotion}
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                src="/videos/sectionthree.mp4"
-                aria-label="Process montage video (muted)"
-            />
-
-            {/* Gradient mask for legibility */}
-            <div className="hero-video__overlay pointer-events-none"></div>
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.20)_45%,rgba(0,0,0,0.60))] pointer-events-none"></div>
-
-            {/* Geometric motif: square with a circle inside (floating) */}
-            <div
-                aria-hidden="true"
-                className={cn(
-                    "absolute right-5 top-5 size-[96px] rounded-[10px] border hairline",
-                    "grid place-items-center",
-                    inView ? "animate-float" : ""
-                )}
-            >
-                <div className="size-[52px] rounded-full border brand-border"></div>
-            </div>
-
-            {/* Subtle caption badge */}
-            <div className="absolute left-4 bottom-4 px-3 py-1.5 rounded-[var(--radius-xs)] glass text-xs text-[rgb(var(--color-text-secondary))]">
-                Media-led Story
-            </div>
-        </div>
-    );
-}
-
 function NarrativeCard(props: {
-    index: string;
-    label: string;
     title: string;
     copy: string;
-    icon: React.ReactNode;
     accent?: boolean;
     accentVisual?: React.ReactNode;
 }) {
@@ -140,26 +86,13 @@ function NarrativeCard(props: {
                         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                     )}
                 >
-                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-[rgb(var(--color-text-muted))]">
-                        <span className="px-1.5 py-0.5 rounded-[var(--radius-xs)] bg-[rgb(255_255_255/0.04)] hairline">
-                            {props.index}
-                        </span>
-                        <span>{props.label}</span>
-                    </div>
                     <h3 className="font-semibold text-base md:text-lg">{props.title}</h3>
                     <p className="text-caption">{props.copy}</p>
-
-                    <div className="mt-2 inline-flex items-center gap-2 text-[12px] text-[rgb(var(--color-text-secondary))]">
-                        <span className="inline-flex items-center justify-center size-6 rounded-[var(--radius-xs)] bg-[rgb(255_255_255/0.04)] hairline">
-                            {props.icon}
-                        </span>
-                        <span>Story & Solutions</span>
-                    </div>
                 </div>
 
-                {/* Visual block */}
+                {/* Visual block (no grid background) */}
                 <div className="relative min-h-[160px] md:min-h-[100%]">
-                    <div className="absolute inset-0 graph-surface grid-ticks rounded-none md:rounded-l-[var(--radius-sm)] overflow-hidden">
+                    <div className="absolute inset-0 glass rounded-none md:rounded-l-[var(--radius-sm)] overflow-hidden">
                         {/* shimmer placeholder layer */}
                         <div
                             aria-hidden="true"
