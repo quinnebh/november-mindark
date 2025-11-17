@@ -60,10 +60,10 @@ export function SectionFour() {
 
     // Chat messages (exact strings with requested punctuation)
     const MSG_WELCOME =
-        "Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!";
-    const MSG_QUESTION = "What is the most important think I need to know?";
+        "Welcome! Let's get you onboarded. I interviewed your predecessor for insights and prepared a personalized playbook to help you get started quickly!";
+    const MSG_QUESTION = "What is the most important thing I need to know?";
     const MSG_RESPONSE =
-        "The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in the way.";
+        "The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in their way.";
 
     // Typewriter sequences
     const t1 = useTypewriter({
