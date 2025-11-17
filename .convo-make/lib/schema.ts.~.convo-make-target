@@ -417,9 +417,6 @@ Generate TypeScript types for common entities shared by the app.
 //_END_MAKE_TARGET_INPUT_
 
 
-@time 2025-11-16T15:14:34+01:00
-@tokenUsage 3647 / 4326 / $0.009966250000000001
-@model gpt-5-2025-08-07
 > assistant
 import { z } from "zod";
 
@@ -865,7 +862,5 @@ export const isAnchorHref = (value: unknown): value is AnchorHref =>
 
 export const isColorHex = (value: unknown): value is ColorHex =>
     zColorHex.safeParse(value).success;
-
-
 
 > user

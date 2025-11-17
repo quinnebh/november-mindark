@@ -3,10 +3,12 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionTwo — Metrics & Graphs with floating popups
- * - Bottom-left popup: Replacement Cost range (150–400% of yearly salary)
+ * - Bottom-left popup: Replacement Cost vertical bars (150%, 275%, 400%) with animation
  * - Top-right popup: 42% gauge (knowledge in individuals)
  * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
- *   Emphasizes the $2.5M figure with strong visual weight and animated bar.
+ * Updates:
+ * - Popup backgrounds changed from bright white to premium dark glass surfaces with subtle brand-accent borders
+ *   to remain noticeable but less jarring.
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -56,7 +58,7 @@ export function SectionTwo() {
 
                         {/* Floating popups (desktop/tablet) */}
                         <div className="hidden md:block">
-                            {/* Bottom-left: Replacement Cost range (150–400%) */}
+                            {/* Bottom-left: Replacement Cost vertical bars */}
                             <PopupCostRange
                                 inView={inView}
                                 className={cn(
@@ -185,7 +187,7 @@ function LaptopScreenVideo({ src }: { src: string }) {
     );
 }
 
-/* ================= Popup: Replacement Cost Range (150–400%) ================= */
+/* ================= Popup: Replacement Cost — Vertical Bars (150%, 275%, 400%) ================= */
 
 function PopupCostRange({
     className,
@@ -199,94 +201,132 @@ function PopupCostRange({
     const prefersReducedMotion = usePrefersReducedMotion();
     const duration = prefersReducedMotion ? 0 : 1100;
 
-    // Range expressed as a percentage of the 0–400% scale
-    const startTargetPct = (150 / 400) * 100; // 37.5%
-    const endTargetPct = 100; // 400% endpoint (100% of bar width)
+    const MAX = 400;
+    const LOW = 150;
+    const MED = 275;
+    const HIGH = 400;
 
-    const progress = useProgress(inView, duration, delay); // 0..1
-    const startPct = startTargetPct * progress;
-    const endPct = endTargetPct * progress;
-    const left = startPct;
-    const width = Math.max(0, endPct - startPct);
+    // Staggered bar animations
+    const pLow = useProgress(inView, duration, delay + 0);
+    const pMed = useProgress(inView, duration, delay + 120);
+    const pHigh = useProgress(inView, duration, delay + 240);
+
+    const hLow = (LOW / MAX) * 100 * pLow;
+    const hMed = (MED / MAX) * 100 * pMed;
+    const hHigh = (HIGH / MAX) * 100 * pHigh;
 
     return (
         <article
             className={cn(
-                "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
-                "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
-                "p-4 sm:p-5",
+                // Dark glass surface with subtle brand accent border
+                "rounded-[12px] glass-strong card card--accent brand-border",
+                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
+                "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 className
             )}
             style={{ transitionDelay: `${delay}ms` }}
+            aria-label="Replacement cost of a knowledge worker"
         >
             <div className="grid gap-3">
                 <header className="grid gap-1">
                     <h3 className="font-semibold leading-tight">
                         Replacement Cost of a Knowledge Worker
                     </h3>
-                    <p className="text-sm text-[rgb(0_0_0/0.7)]">
+                    <p className="text-sm text-[rgb(var(--color-text-secondary))]">
                         Includes lost productivity and expertise
                     </p>
                 </header>
 
-                {/* Range bar */}
+                {/* Vertical bar chart */}
                 <div className="grid gap-2">
-                    <div className="relative h-3 rounded-[8px] bg-[rgb(0_0_0/0.08)] overflow-hidden">
-                        {/* Grid ticks at 100/200/300% */}
-                        <div className="pointer-events-none absolute inset-0 flex justify-between">
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                    <div className="relative h-[160px] rounded-[10px] bg-[rgb(255_255_255/0.06)] overflow-hidden p-3">
+                        {/* Horizontal grid lines at 100/200/300/400% */}
+                        {[100, 200, 300, 400].map((tick) => {
+                            const y = 100 - (tick / MAX) * 100;
+                            return (
+                                <div
+                                    key={tick}
+                                    className="pointer-events-none absolute left-0 right-0 h-px bg-[rgb(255_255_255/0.12)]"
+                                    style={{ top: `calc(${y}% + 3px)` }}
+                                />
+                            );
+                        })}
+
+                        {/* Bars */}
+                        <div className="absolute inset-x-3 bottom-3 top-3 grid grid-cols-3 items-end gap-3">
+                            {/* Low */}
+                            <div className="flex flex-col items-center gap-1">
+                                <div
+                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    style={{
+                                        height: `${hLow}%`,
+                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
+                                    }}
+                                    aria-hidden="true"
+                                />
+                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
+                                    Low
+                                </div>
+                                <div className="text-[11px] font-medium leading-none">{LOW}%</div>
+                            </div>
+                            {/* Medium */}
+                            <div className="flex flex-col items-center gap-1">
+                                <div
+                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    style={{
+                                        height: `${hMed}%`,
+                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
+                                    }}
+                                    aria-hidden="true"
+                                />
+                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
+                                    Medium
+                                </div>
+                                <div className="text-[11px] font-medium leading-none">{MED}%</div>
+                            </div>
+                            {/* High */}
+                            <div className="flex flex-col items-center gap-1">
+                                <div
+                                    className="w-full rounded-[8px] bg-[linear-gradient(180deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
+                                    style={{
+                                        height: `${hHigh}%`,
+                                        transition: "height 700ms cubic-bezier(0.22,1,0.36,1)",
+                                    }}
+                                    aria-hidden="true"
+                                />
+                                <div className="text-[11px] text-[rgb(var(--color-text-secondary))] leading-none">
+                                    High
+                                </div>
+                                <div className="text-[11px] font-medium leading-none">{HIGH}%</div>
+                            </div>
                         </div>
 
-                        {/* Highlighted cost range: 150–400% */}
-                        <div
-                            className="absolute top-0 h-full rounded-[8px] bg-[linear-gradient(90deg,rgba(216,130,190,1),rgba(117,46,79,1))] shadow-[0_0_0_1px_rgba(117,46,79,0.35)_inset]"
-                            style={{
-                                left: `${left}%`,
-                                width: `${width}%`,
-                                transition:
-                                    "left 700ms cubic-bezier(0.22,1,0.36,1), width 700ms cubic-bezier(0.22,1,0.36,1)",
-                            }}
-                        />
-
-                        {/* Handles */}
-                        <span
-                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)] shadow-[0_1px_0_rgba(0,0,0,0.2)]"
-                            style={{
-                                left: `${left}%`,
-                                transition: "left 700ms cubic-bezier(0.22,1,0.36,1)",
-                            }}
-                            aria-hidden="true"
-                        />
-                        <span
-                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)] shadow-[0_1px_0_rgba(0,0,0,0.2)]"
-                            style={{
-                                left: `${left + width}%`,
-                                transition: "left 700ms cubic-bezier(0.22,1,0.36,1)",
-                            }}
-                            aria-hidden="true"
-                        />
+                        {/* Y-axis labels */}
+                        <div className="absolute left-1 top-2 bottom-2 flex flex-col justify-between text-[10px] text-[rgb(var(--color-text-secondary))]">
+                            <span>400%</span>
+                            <span>300%</span>
+                            <span>200%</span>
+                            <span>100%</span>
+                            <span>0%</span>
+                        </div>
                     </div>
 
-                    {/* Scale labels */}
-                    <div className="flex items-center justify-between text-[11px] text-[rgb(0_0_0/0.6)]">
-                        <span>0%</span>
-                        <span>100%</span>
-                        <span>200%</span>
-                        <span>300%</span>
-                        <span>400%</span>
+                    {/* Range summary */}
+                    <div className="flex items-baseline justify-between">
+                        <div className="text-[22px] font-bold tracking-tight">150–400%</div>
+                        <div className="text-sm text-[rgb(var(--color-text-secondary))]">
+                            of yearly salary
+                        </div>
                     </div>
                 </div>
 
-                {/* Primary stat */}
-                <div className="flex items-baseline justify-between">
-                    <div className="text-[22px] font-bold tracking-tight">150–400%</div>
-                    <div className="text-sm text-[rgb(0_0_0/0.7)]">of yearly salary</div>
-                </div>
+                <p className="text-sm text-[rgb(var(--color-text-secondary))]">
+                    Increasing based on seniority, expertise and scope of responsibilities.
+                </p>
             </div>
         </article>
     );
@@ -320,9 +360,10 @@ function PopupGauge({
     return (
         <article
             className={cn(
-                "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
-                "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
-                "p-4 sm:p-5",
+                "rounded-[12px] glass-strong card card--accent brand-border",
+                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
+                "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
@@ -346,14 +387,13 @@ function PopupGauge({
                             </linearGradient>
                         </defs>
 
-                        {/* Track (black) */}
+                        {/* Track (muted light on dark) */}
                         <path
                             d={describeSemiArc(100, 100, r)}
-                            stroke="rgb(0 0 0)"
+                            stroke="rgb(255 255 255 / 0.2)"
                             strokeWidth={18}
                             fill="none"
                             strokeLinecap="round"
-                            opacity="0.86"
                         />
                         {/* Progress (brand gradient) */}
                         <path
@@ -374,7 +414,7 @@ function PopupGauge({
                             y="92"
                             textAnchor="middle"
                             className="font-semibold"
-                            fill="rgb(0 0 0)"
+                            fill="rgb(255 255 255)"
                             fontSize="28"
                         >
                             {value}%
@@ -386,7 +426,7 @@ function PopupGauge({
                     <p className="font-semibold leading-tight">
                         Of organizational knowledge held in individuals.
                     </p>
-                    <ul className="text-sm leading-5">
+                    <ul className="text-sm leading-5 text-[rgb(var(--color-text-secondary))]">
                         <li className="list-disc list-inside">
                             When they leave, it leaves with them
                         </li>
@@ -422,9 +462,10 @@ function PopupTurnoverCost({
     return (
         <article
             className={cn(
-                "rounded-[12px] bg-[rgb(255_255_255)] text-[rgb(17_17_17)]",
-                "shadow-[0_16px_44px_rgba(0,0,0,0.50)] border border-[rgb(0_0_0/0.08)]",
-                "p-4 sm:p-5",
+                "rounded-[12px] glass-strong card card--accent brand-border",
+                "bg-[rgb(255_255_255/0.06)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
+                "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
+                "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
                 inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
@@ -438,7 +479,7 @@ function PopupTurnoverCost({
                     <h3 className="font-semibold leading-tight">
                         Estimated Annual Turnover Cost
                     </h3>
-                    <p className="text-sm text-[rgb(0_0_0/0.7)]">
+                    <p className="text-sm text-[rgb(var(--color-text-secondary))]">
                         100-person firm • $50k average salary
                     </p>
                 </header>
@@ -450,19 +491,19 @@ function PopupTurnoverCost({
                             {formatMoneyCompact(money)}
                         </span>
                     </div>
-                    <div className="text-sm font-medium text-[rgb(0_0_0/0.7)]">
+                    <div className="text-sm font-medium text-[rgb(var(--color-text-secondary))]">
                         per year
                     </div>
                 </div>
 
-                {/* Bar to 3.0M with danger-alarm emphasis via brand gradient */}
+                {/* Bar to 3.0M with alarm emphasis */}
                 <div className="grid gap-2">
-                    <div className="relative h-3 rounded-[8px] bg-[rgb(0_0_0/0.08)] overflow-hidden">
+                    <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
                         {/* grid ticks at 1M, 2M, 3M */}
                         <div className="pointer-events-none absolute inset-0 flex justify-between">
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
-                            <span className="w-px h-full bg-[rgb(0_0_0/0.10)]" />
+                            <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                            <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
+                            <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
                         </div>
 
                         {/* Filled portion */}
@@ -474,7 +515,7 @@ function PopupTurnoverCost({
                             }}
                         />
 
-                        {/* Marker dot near the end to dramatize */}
+                        {/* Marker dot */}
                         <span
                             className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white border border-[rgb(117_46_79/0.7)]"
                             style={{
@@ -485,7 +526,7 @@ function PopupTurnoverCost({
                         />
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-[rgb(0_0_0/0.6)]">
+                    <div className="flex items-center justify-between text-[11px] text-[rgb(var(--color-text-secondary))]">
                         <span>$0</span>
                         <span>$1.0M</span>
                         <span>$2.0M</span>
@@ -493,7 +534,7 @@ function PopupTurnoverCost({
                     </div>
                 </div>
 
-                <p className="text-sm text-[rgb(0_0_0/0.75)]">
+                <p className="text-sm text-[rgb(var(--color-text-secondary))]">
                     Recruiting, ramp time, and loss of continuity compound rapidly.
                 </p>
             </div>

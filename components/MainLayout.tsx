@@ -12,23 +12,11 @@ export interface MainLayoutProps {
  * Primary in-page navigation items (anchors)
  */
 const NAV_ITEMS: { label: string; href: `/#${string}` }[] = [
-    { label: "Hero", href: "/#hero" },
-    { label: "Features", href: "/#features" },
-    { label: "Echo", href: "/#echo" },
-    { label: "Playbook", href: "/#playbook" },
-    { label: "Metrics", href: "/#metrics" },
-    { label: "How It Works", href: "/#how-it-works" },
-    { label: "FAQ", href: "/#faq" },
 ];
 
 /**
  * Mock account/workspace options for the switcher
  */
-const ACCOUNT_OPTIONS = [
-    { id: "acme", name: "Acme Corp" },
-    { id: "northwind", name: "Northwind" },
-    { id: "personal", name: "Personal" },
-];
 
 export function MainLayout({ children }: MainLayoutProps) {
     const isFull = useIsInFullPageMode();
@@ -88,7 +76,7 @@ export function MainNav() {
                     {/* Brand */}
                     <a href="/" className="flex items-center gap-2 focus-ring">
                         <Logo className="w-7 h-7" />
-                        <span className="font-semibold tracking-tight">theMindArk.AI</span>
+                        <span className="font-semibold tracking-tight">MindArk</span>
                     </a>
 
                     {/* Desktop Nav */}
@@ -113,7 +101,6 @@ export function MainNav() {
                             Get a Demo
                         </a>
 
-                        <AccountSwitcher />
 
                         <button
                             type="button"
@@ -154,105 +141,5 @@ export function MainNav() {
                 </div>
             </div>
         </header>
-    );
-}
-
-/**
- * AccountSwitcher — Minimal workspace switcher with glass dropdown
- */
-export function AccountSwitcher() {
-    const [open, setOpen] = useState(false);
-    const [active, setActive] = useState(ACCOUNT_OPTIONS[0]);
-    const panelRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === "Escape") setOpen(false);
-        };
-        const onClick = (e: MouseEvent) => {
-            if (!panelRef.current) return;
-            if (open && !panelRef.current.contains(e.target as Node)) {
-                setOpen(false);
-            }
-        };
-        window.addEventListener("keydown", onKey);
-        window.addEventListener("click", onClick);
-        return () => {
-            window.removeEventListener("keydown", onKey);
-            window.removeEventListener("click", onClick);
-        };
-    }, [open]);
-
-    return (
-        <div className="relative" ref={panelRef}>
-            <button
-                type="button"
-                aria-haspopup="menu"
-                aria-expanded={open}
-                className={cn(
-                    "inline-flex items-center gap-2 px-2.5 py-2 rounded-[var(--radius-xs)]",
-                    "text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))]",
-                    "hover:bg-[rgb(255_255_255/0.05)] focus-ring"
-                )}
-                onClick={() => setOpen((v) => !v)}
-            >
-                <Building2 className="w-4 h-4" />
-                <span className="max-w-[12ch] truncate">{active.name}</span>
-                <ChevronDown className="w-4 h-4 opacity-80" />
-            </button>
-
-            {open && (
-                <div
-                    role="menu"
-                    className="absolute right-0 mt-2 w-[220px] glass card p-2 rounded-[var(--radius-sm)] shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
-                >
-                    <div className="grid gap-1">
-                        {ACCOUNT_OPTIONS.map((acc) => {
-                            const isActive = acc.id === active.id;
-                            return (
-                                <button
-                                    key={acc.id}
-                                    role="menuitemradio"
-                                    aria-checked={isActive}
-                                    className={cn(
-                                        "w-full text-left px-3 py-2 rounded-[var(--radius-xs)] text-sm",
-                                        isActive ? "bg-[rgb(255_255_255/0.06)]" : "hover:bg-[rgb(255_255_255/0.05)]"
-                                    )}
-                                    onClick={() => {
-                                        setActive(acc);
-                                        setOpen(false);
-                                    }}
-                                >
-                                    {acc.name}
-                                </button>
-                            );
-                        })}
-                    </div>
-
-                    <div className="divider my-2" />
-
-                    <div className="grid gap-1">
-                        <a
-                            role="menuitem"
-                            href="/accounts/new"
-                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm hover:bg-[rgb(255_255_255/0.05)] focus-ring"
-                            onClick={() => setOpen(false)}
-                        >
-                            <Plus className="w-4 h-4" />
-                            Create new workspace
-                        </a>
-                        <a
-                            role="menuitem"
-                            href="/logout"
-                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
-                            onClick={() => setOpen(false)}
-                        >
-                            <LogOut className="w-4 h-4" />
-                            Sign out
-                        </a>
-                    </div>
-                </div>
-            )}
-        </div>
     );
 }
