@@ -3,6 +3,11 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionTwo — Metrics & Graphs with floating popups
+ * - Sequenced animations (one after another for easier processing):
+ *   1) Top-right Gauge (42%) — starts immediately
+ *   2) Bottom-left Replacement Cost bars — starts after gauge finishes
+ *   3) Bottom-right Turnover Cost — starts after replacement bars finish
+ *
  * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
  *   Labels: Junior, Middle, Senior
  * - Top-right popup: 42% gauge (knowledge in individuals) with simplified title/subtitle
@@ -30,6 +35,13 @@ export function SectionTwo() {
         io.observe(el);
         return () => io.disconnect();
     }, []);
+
+    // Sequenced delays (ms)
+    // Gauge anim ~1400ms + path ease; add gap for processing
+    const GAUGE_DELAY = 0;
+    const COST_DELAY = 1800; // starts after gauge
+    // Replacement bars last bar finishes ~980ms after start; add gap
+    const TURNOVER_DELAY = 3400; // starts after replacement cost
 
     return (
         <section
@@ -64,7 +76,7 @@ export function SectionTwo() {
                                     "absolute -left-6 lg:-left-10 bottom-[10%]",
                                     "w-[280px] lg:w-[340px]"
                                 )}
-                                delay={0}
+                                delay={COST_DELAY}
                             />
 
                             {/* Top-right: 42% gauge */}
@@ -74,7 +86,7 @@ export function SectionTwo() {
                                     "absolute right-[6%] -top-8",
                                     "w-[260px] lg:w-[300px]"
                                 )}
-                                delay={120}
+                                delay={GAUGE_DELAY}
                             />
 
                             {/* Bottom-right: Annual turnover cost — $2.5M */}
@@ -84,17 +96,17 @@ export function SectionTwo() {
                                     "absolute right-0 bottom-[-18%] lg:bottom-[-10%]",
                                     "w-[280px] lg:w-[340px]"
                                 )}
-                                delay={240}
+                                delay={TURNOVER_DELAY}
                             />
                         </div>
                     </div>
                 </div>
 
-                {/* Mobile fallback — stack the popups; keep cost range first, then turnover cost, then gauge */}
+                {/* Mobile fallback — keep the same animation order via delays */}
                 <div className="grid md:hidden grid-cols-1 gap-4">
-                    <PopupCostRange inView={inView} className="w-full" delay={0} />
-                    <PopupTurnoverCost inView={inView} className="w-full" delay={80} />
-                    <PopupGauge inView={inView} className="w-full" delay={160} />
+                    <PopupCostRange inView={inView} className="w-full" delay={COST_DELAY} />
+                    <PopupTurnoverCost inView={inView} className="w-full" delay={TURNOVER_DELAY} />
+                    <PopupGauge inView={inView} className="w-full" delay={GAUGE_DELAY} />
                 </div>
             </div>
         </section>
@@ -306,7 +318,7 @@ function PopupCostRange({
                         </div>
                     </div>
 
-                    {/* Summary: bring the two bits closer together */}
+                    {/* Summary: compact spacing */}
                     <div className="flex items-baseline gap-2">
                         <div className="text-[22px] font-bold tracking-tight">150–400%</div>
                         <div className="text-sm text-[rgb(var(--color-text-secondary))]">
