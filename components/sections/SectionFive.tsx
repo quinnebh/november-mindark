@@ -399,26 +399,18 @@ What's the one thing you do that isn't in any manual but is critical to success?
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div className="max-w-[60ch]">
                             <h3 className="text-2xl md:text-3xl font-extrabold mb-2 headline-gradient">
-                                The company that remembers.
+                                We Automate Widom
                             </h3>
                             <p className="text-caption">
-                                Exit Strategy Echo captures tacit expertise, generates playbooks,
-                                and powers AI Echoes for continuity.
+                                Onboarding and Offboarding Made Easy
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <a href="/#cta" className="btn btn--primary">
+                            <a href="mailto:hello@mindark.ai" className="btn btn--primary">
                                 Book a Demo
-                            </a>
-                            <a href="/#echo" className="btn btn--secondary inline-flex items-center gap-2">
-                                Explore ECHO System
-                                <ArrowRight className="w-4 h-4" />
                             </a>
                         </div>
                     </div>
-                    <p className="text-center md:text-left text-[12.5px] mt-4 text-[rgb(var(--color-text-secondary))]">
-                        Or email hello@mindark.ai to request a walkthrough.
-                    </p>
                 </div>
             </div>
         </section>

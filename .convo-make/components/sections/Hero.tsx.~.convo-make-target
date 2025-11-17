@@ -1979,10 +1979,5 @@ export function Hero() {
 
 
 > user
-Change "The company that remembers." to "MindArk AI | We Automate Widom"
-Change "Exit Strategy Echo captures tacit expertise, generates playbooks, and powers AI Echoes for continuity." to "Onboarding and Offboarding Made Easy"
-Erase the Explore Echo System CTA button.
-
-Make the "Book a Demo" CTA buttom link to hello@mindark.ai
-
-Erase "Or email hello@mindark.ai to request a walkthrough."
+Remove the "See How It Works" button entirely.
+Make the "Get a Demo" button link to "hello@mindark.ai"
