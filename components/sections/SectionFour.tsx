@@ -4,14 +4,14 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 
 /**
  * SectionFour — Measurable Results
- * Left: bold headline + three key outcome stats (animated with fade-in)
+ * Left: bold headline + three key outcome stats (fade-in)
  * Right: glass chat preview card with avatar image
  *
  * Background: Solid brand magenta (#752E4F) so the section pops from the rest of the page.
- * Animations:
- * - Left column content fades in when entering the viewport (staggered)
- * - Numbers count up from 0 to target (respects prefers-reduced-motion)
- * - Subtle traveling black lines in the background for gentle, constant motion (reduced in prefers-reduced-motion)
+ * Motion:
+ * - Left column fades in when entering viewport
+ * - Counters animate 0 → target (respects reduced motion)
+ * - Subtle traveling black lines in the background (global keyframes; paused on reduced motion)
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -32,9 +32,7 @@ export function SectionFour() {
         const io = new IntersectionObserver(
             (entries) => {
                 for (const e of entries) {
-                    if (e.isIntersecting) {
-                        setInView(true);
-                    }
+                    if (e.isIntersecting) setInView(true);
                 }
             },
             { rootMargin: "0px 0px -20% 0px", threshold: 0.2 }
@@ -45,17 +43,17 @@ export function SectionFour() {
 
     const animateIn = inView && !reduceMotion;
 
-    // Precomputed positions/durations for gentle traveling lines
+    // Parameters for gentle traveling lines (purely decorative, behind content)
     const lines = useMemo(
         () =>
             Array.from({ length: 14 }).map((_, i) => {
-                const top = 6 + i * 6; // 6% to ~90%
+                const top = 6 + i * 6; // 6% → ~90%
                 const height = i % 5 === 0 ? 2 : 1;
                 const width = 120 + ((i * 37) % 80); // 120–200px
                 const duration = 9 + ((i * 7) % 9); // 9–17s
-                const delay = (i * 0.7) % 8; // up to 8s
-                const reverse = i % 3 === 0; // some lines go right-to-left
-                const opacity = 0.18 + ((i * 3) % 7) * 0.01; // ~0.18–0.24
+                const delay = (i * 0.7) % 8; // up to 8s initial offset
+                const reverse = i % 3 === 0; // some go right-to-left
+                const opacity = 0.18 + (((i * 3) % 7) * 0.01); // ~0.18–0.24
                 return { id: i, top, height, width, duration, delay, reverse, opacity };
             }),
         []
@@ -68,27 +66,25 @@ export function SectionFour() {
             className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)]"
             aria-label="Measurable results"
         >
-            {/* Subtle traveling black lines (behind content) */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+            {/* Traveling black lines layer (behind content) */}
+            <div
+                className={cn(
+                    "pointer-events-none absolute inset-0 overflow-hidden z-0",
+                    reduceMotion && "ma-lines-paused"
+                )}
+                aria-hidden="true"
+            >
                 {lines.map((l) => (
                     <span
                         key={l.id}
-                        className="absolute block"
+                        className={cn("ma-line-base", l.reverse ? "ma-line-rev" : "ma-line")}
                         style={{
                             top: `${l.top}%`,
-                            left: 0,
                             height: `${l.height}px`,
                             width: `${l.width}px`,
-                            background: "rgba(0,0,0,0.22)",
-                            boxShadow: "0 0 0.5px rgba(0,0,0,0.18)",
-                            transform: l.reverse ? "translateX(120%)" : "translateX(-20%)",
-                            animationName: l.reverse ? "ma-line-rev" as any : "ma-line" as any,
+                            opacity: l.opacity,
                             animationDuration: `${l.duration}s`,
                             animationDelay: `${l.delay}s`,
-                            animationTimingFunction: "linear",
-                            animationIterationCount: "infinite",
-                            animationPlayState: reduceMotion ? ("paused" as const) : ("running" as const),
-                            opacity: l.opacity,
                         }}
                     />
                 ))}
@@ -100,36 +96,25 @@ export function SectionFour() {
                     <header
                         className={cn(
                             "grid gap-3 transition-all duration-700 ease-out will-change-transform",
-                            animateIn
-                                ? "opacity-100 translate-y-0"
-                                : "opacity-0 translate-y-2",
+                            animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                             reduceMotion && "transition-none opacity-100 translate-y-0"
                         )}
-                        style={{ transitionDelay: animateIn ? "0ms" : "0ms" }}
                     >
-                        <p className="text-eyebrow text-[rgb(255_255_255/0.9)]">Impact</p>
                         <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">
                             Measurable Results
                         </h2>
-                        <p className="text-subtitle max-w-prose text-[rgb(255_255_255/0.9)]">
-                            Retain critical knowledge, accelerate onboarding, and keep
-                            expertise available on demand.
-                        </p>
                     </header>
 
                     <ul className="grid gap-4">
                         <li
                             className={cn(
                                 "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
-                                animateIn
-                                    ? "opacity-100 translate-y-0"
-                                    : "opacity-0 translate-y-2",
+                                animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "120ms" : "0ms" }}
                         >
                             <div className="flex flex-col">
-                                <span className="text-caption text-[rgb(255_255_255/0.85)]">Onboarding Speed</span>
                                 <span className="sr-only">Faster Onboarding</span>
                                 <StatNumber
                                     target={70}
@@ -144,15 +129,12 @@ export function SectionFour() {
                         <li
                             className={cn(
                                 "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
-                                animateIn
-                                    ? "opacity-100 translate-y-0"
-                                    : "opacity-0 translate-y-2",
+                                animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "240ms" : "0ms" }}
                         >
                             <div className="flex flex-col">
-                                <span className="text-caption text-[rgb(255_255_255/0.85)]">Continuity</span>
                                 <span className="sr-only">Continuity Across Transitions</span>
                                 <StatNumber
                                     target={100}
@@ -167,27 +149,20 @@ export function SectionFour() {
                         <li
                             className={cn(
                                 "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
-                                animateIn
-                                    ? "opacity-100 translate-y-0"
-                                    : "opacity-0 translate-y-2",
+                                animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "360ms" : "0ms" }}
                         >
                             <div className="flex flex-col">
-                                <span className="text-caption text-[rgb(255_255_255/0.85)]">Access to Expertise</span>
-                                <span className="sr-only">Access to expertise with AI Digital Twins</span>
-                                <div className="flex items-baseline gap-2">
-                                    <StatNumber
-                                        target={24}
-                                        suffix=""
-                                        label="Access to expertise"
-                                        start={inView}
-                                        reduceMotion={reduceMotion}
-                                    />
-                                    <span className="text-2xl font-semibold leading-none">/7</span>
-                                </div>
-                                <p className="text-caption mt-1 text-[rgb(255_255_255/0.85)]">AI Digital Twins</p>
+                                <span className="sr-only">24/7 Access to expertise</span>
+                                <StatNumber
+                                    target={24}
+                                    suffix="/7"
+                                    label="Access to expertise"
+                                    start={inView}
+                                    reduceMotion={reduceMotion}
+                                />
                             </div>
                         </li>
                     </ul>
@@ -280,12 +255,12 @@ export function SectionFour() {
                 </div>
             </div>
 
-            {/* Scoped animation keyframes for traveling lines */}
-            <style jsx>{`
+            {/* Global keyframes and helpers for traveling lines */}
+            <style jsx global>{`
                 @keyframes ma-line {
                     0% {
-                        transform: translateX(-20%);
-                        opacity: 0.15;
+                        transform: translate3d(-20vw, 0, 0);
+                        opacity: 0.16;
                     }
                     10% {
                         opacity: 0.22;
@@ -294,14 +269,14 @@ export function SectionFour() {
                         opacity: 0.22;
                     }
                     100% {
-                        transform: translateX(120%);
+                        transform: translate3d(100vw, 0, 0);
                         opacity: 0.12;
                     }
                 }
                 @keyframes ma-line-rev {
                     0% {
-                        transform: translateX(120%);
-                        opacity: 0.15;
+                        transform: translate3d(100vw, 0, 0);
+                        opacity: 0.16;
                     }
                     10% {
                         opacity: 0.22;
@@ -310,9 +285,30 @@ export function SectionFour() {
                         opacity: 0.22;
                     }
                     100% {
-                        transform: translateX(-20%);
+                        transform: translate3d(-20vw, 0, 0);
                         opacity: 0.12;
                     }
+                }
+                .ma-line-base {
+                    position: absolute;
+                    left: 0;
+                    background: rgba(0, 0, 0, 0.22);
+                    box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.18);
+                    will-change: transform, opacity;
+                }
+                .ma-line {
+                    animation-name: ma-line;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                }
+                .ma-line-rev {
+                    animation-name: ma-line-rev;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                }
+                .ma-lines-paused .ma-line,
+                .ma-lines-paused .ma-line-rev {
+                    animation-play-state: paused !important;
                 }
             `}</style>
         </section>

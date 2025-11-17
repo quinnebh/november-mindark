@@ -5344,3 +5344,4 @@ function describeSemiArc(cx: number, cy: number, r: number) {
 
 
 > user
+Increase the opacity on the popups by 25%, currently the text is hard to read if it interacts with the background.
