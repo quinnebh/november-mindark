@@ -12,11 +12,11 @@ import {
 /**
  * SectionFive — Convo‑Lang: Transparent Agentic Orchestration
  * - Left: glass code panel (mock DSL) with VS Code–like colors
- * - Right: three compact feature cards with icons
+ * - Right: feature cards
  * - Bottom: brand-forward CTA band
  *
- * This version renders colored tokens as React nodes (no innerHTML),
- * so no raw HTML shows inside the code block.
+ * Renders colored tokens as React nodes (no innerHTML), so raw markup never appears.
+ * Fix: Apostrophes in natural language (e.g., What's, isn't) are no longer treated as string delimiters.
  */
 export function SectionFive() {
     const code = useMemo(
@@ -59,9 +59,9 @@ What's the one thing you do that isn't in any manual but is critical to success?
             type: "#4EC9B0", // Answer, string
             func: "#DCDCAA", // httpPost
             variable: "#9CDCFE", // record
-            string: "#CE9178", // "..." or '...'
-            number: "#B5CEA8", // 30, etc.
-            comment: "#6A9955", // # comment
+            string: "#CE9178", // strings
+            number: "#B5CEA8", // numbers
+            comment: "#6A9955", // comments
             directive: "#C586C0", // > define, > system, > assistant
             operator: "#D4D4D4", // = : -> ::
             default: "rgb(230 230 235 / 0.92)",
@@ -77,7 +77,7 @@ What's the one thing you do that isn't in any manual but is critical to success?
     const FUNCS = new Set(["httpPost"]);
     const VARS = new Set(["record"]);
 
-    // Tokenize one line and return React nodes with proper colors
+    // Tokenize one line and return React nodes with colors
     function renderLine(line: string, lineIndex: number) {
         const nodes: React.ReactNode[] = [];
         let i = 0;
@@ -104,16 +104,24 @@ What's the one thing you do that isn't in any manual but is critical to success?
         while (i < L) {
             const ch = line[i];
 
-            // Strings
-            if (ch === "'" || ch === '"') {
-                const q = ch;
+            // Single quote handling: treat as contraction apostrophe if surrounded by letters
+            if (ch === "'") {
+                const prev = i > 0 ? line[i - 1] : "";
+                const next = i + 1 < L ? line[i + 1] : "";
+                const isContraction = /[A-Za-z]/.test(prev) && /[A-Za-z]/.test(next);
+                if (isContraction) {
+                    nodes.push("'");
+                    i += 1;
+                    continue;
+                }
+                // Otherwise it's a string delimiter
                 let j = i + 1;
                 while (j < L) {
                     if (line[j] === "\\" && j + 1 < L) {
                         j += 2;
                         continue;
                     }
-                    if (line[j] === q) {
+                    if (line[j] === "'") {
                         j++;
                         break;
                     }
@@ -121,7 +129,31 @@ What's the one thing you do that isn't in any manual but is critical to success?
                 }
                 const str = line.slice(i, j);
                 nodes.push(
-                    <span key={`s-${lineIndex}-${i}`} style={{ color: COLORS.string }}>
+                    <span key={`s1-${lineIndex}-${i}`} style={{ color: COLORS.string }}>
+                        {str}
+                    </span>
+                );
+                i = j;
+                continue;
+            }
+
+            // Double-quoted strings
+            if (ch === '"') {
+                let j = i + 1;
+                while (j < L) {
+                    if (line[j] === "\\" && j + 1 < L) {
+                        j += 2;
+                        continue;
+                    }
+                    if (line[j] === '"') {
+                        j++;
+                        break;
+                    }
+                    j++;
+                }
+                const str = line.slice(i, j);
+                nodes.push(
+                    <span key={`s2-${lineIndex}-${i}`} style={{ color: COLORS.string }}>
                         {str}
                     </span>
                 );
@@ -287,6 +319,19 @@ What's the one thing you do that isn't in any manual but is critical to success?
                             {/* Inner glow border */}
                             <div className="pointer-events-none absolute inset-0 rounded-[var(--radius-xs)] ring-1 ring-inset ring-[rgb(255_255_255/0.05)]" />
                         </div>
+                    </div>
+
+                    {/* Centered CTA under the code panel */}
+                    <div className="mt-4 flex justify-center">
+                        <a
+                            href="https://www.convo-lang.ai/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn btn--secondary inline-flex items-center gap-2"
+                        >
+                            Learn More About Convo-Lang
+                            <ArrowRight className="w-4 h-4" />
+                        </a>
                     </div>
                 </div>
 
