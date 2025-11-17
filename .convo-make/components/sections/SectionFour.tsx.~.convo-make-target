@@ -7868,4 +7868,4 @@ function StatNumber({
 
 
 > user
-In the chatbox, make the text 
+In the chatbox, make the text appear with a typing transition. It should seem like the text is being typed in real-time. then have a small delay before the response message appears with the same typing effect. 
