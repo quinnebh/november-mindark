@@ -4,14 +4,15 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 
 /**
  * SectionFour — Measurable Results
- * Left: bold headline + three key outcome stats (fade-in)
- * Right: glass chat preview card with avatar image
+ * Left: headline + three KPI counters (fade-in + count up)
+ * Right: Laptop + Phone mockups (side-by-side, no overlap) showing the same EA chat
  *
- * Background: Solid brand magenta (#752E4F) so the section pops from the rest of the page.
- * Motion:
- * - Left column fades in when entering viewport
- * - Counters animate 0 → target (respects reduced motion)
- * - Subtle traveling black lines in the background (global keyframes; paused on reduced motion)
+ * Visuals
+ * - Section background: solid brand magenta (#752E4F)
+ * - Subtle traveling black lines in the background for gentle motion (paused on reduced motion)
+ * - In-screen accents use brand color tokens: thin borders, rings, small glows, and primary CTA buttons
+ *
+ * Update: Laptop screen uses a true 16:9 aspect ratio via CSS aspect-ratio.
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -31,9 +32,7 @@ export function SectionFour() {
         const el = sectionRef.current;
         const io = new IntersectionObserver(
             (entries) => {
-                for (const e of entries) {
-                    if (e.isIntersecting) setInView(true);
-                }
+                for (const e of entries) if (e.isIntersecting) setInView(true);
             },
             { rootMargin: "0px 0px -20% 0px", threshold: 0.2 }
         );
@@ -43,7 +42,7 @@ export function SectionFour() {
 
     const animateIn = inView && !reduceMotion;
 
-    // Parameters for gentle traveling lines (purely decorative, behind content)
+    // Decorative traveling lines configuration
     const lines = useMemo(
         () =>
             Array.from({ length: 14 }).map((_, i) => {
@@ -63,7 +62,7 @@ export function SectionFour() {
         <section
             id="results"
             ref={sectionRef}
-            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)]"
+            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[980px]"
             aria-label="Measurable results"
         >
             {/* Traveling black lines layer (behind content) */}
@@ -90,7 +89,7 @@ export function SectionFour() {
                 ))}
             </div>
 
-            <div className="container-page relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="container-page relative z-10 grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] gap-10 xl:gap-14 items-center">
                 {/* Left: Headline + Stats (fade-in) */}
                 <div className="flex flex-col gap-6">
                     <header
@@ -168,89 +167,158 @@ export function SectionFour() {
                     </ul>
                 </div>
 
-                {/* Right: Chat Preview */}
-                <div className="relative">
-                    {/* Decorative floating accent (square with circle) */}
-                    <div
-                        aria-hidden="true"
-                        className={cn(
-                            "absolute -top-6 -left-6 w-20 h-20 rounded-[12px] border border-[rgb(255_255_255/0.35)] grid place-items-center opacity-80",
-                            !reduceMotion && "animate-float"
-                        )}
-                    >
-                        <div className="w-10 h-10 rounded-full border border-[rgb(255_255_255/0.35)]"></div>
-                    </div>
+                {/* Right: Device mockups (Laptop + Phone) — side-by-side, no overlap */}
+                <div className="relative w-full">
+                    <div className="flex flex-col sm:flex-row items-end justify-center gap-6 md:gap-8">
+                        {/* Laptop — wider, true 16:9 aspect via CSS aspect-ratio */}
+                        <div className="relative flex-1 min-w-[520px] max-w-[1200px] w-full">
+                            {/* Screen with thin bezel */}
+                            <div
+                                className="relative mx-auto w-full rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden"
+                                style={{ aspectRatio: "16 / 9", minHeight: 380 }}
+                            >
+                                {/* Top brand hairline */}
+                                <div className="absolute top-0 left-0 right-0 h-px bg-[rgb(var(--color-brand)/0.45)]" />
 
-                    <div className="glass card p-4 sm:p-5 rounded-[var(--radius-md)] shadow-[0_16px_48px_rgba(0,0,0,0.45)] border border-[rgb(255_255_255/0.18)] bg-[rgb(0_0_0/0.2)]">
-                        {/* Header */}
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center gap-3">
-                                <img
-                                    src="/favicon.png" /* served from /public/favicon.png */
-                                    alt="Echo avatar"
-                                    width={32}
-                                    height={32}
-                                    className="w-8 h-8 rounded-full object-cover ring-1 ring-[rgb(255_255_255/0.25)]"
-                                />
-                                <div className="leading-tight">
-                                    <p className="text-sm font-medium">Executive Assistant</p>
-                                    <p className="text-caption text-[12px] text-[rgb(255_255_255/0.85)]">Echo</p>
+                                {/* Tiny camera dot */}
+                                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[rgb(34_34_34)] ring-2 ring-[rgb(0_0_0/0.35)]"></div>
+
+                                {/* Laptop chat header */}
+                                <div className="flex items-center justify-between px-4 py-2.5 bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
+                                    <div className="flex items-center gap-3">
+                                        <img
+                                            src="/favicon.png"
+                                            alt="Echo avatar"
+                                            width={28}
+                                            height={28}
+                                            className="w-7 h-7 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
+                                        />
+                                        <div className="leading-tight">
+                                            <p className="text-[13px] font-medium">Executive Assistant</p>
+                                            <p className="text-[11px] text-[rgb(255_255_255/0.7)]">Echo</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-[rgb(255_255_255/0.9)]">
+                                        <button
+                                            type="button"
+                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                            aria-label="Copy"
+                                        >
+                                            <Copy className="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                            aria-label="Reset"
+                                        >
+                                            <RotateCcw className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Conversation area (space above input) */}
+                                <div className="absolute inset-x-0 top-[52px] bottom-[64px] px-4 py-3 overflow-auto">
+                                    {/* Assistant bubble (brand-accent border + glow) */}
+                                    <div className="max-w-[78%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                            I’m coordinating across client initiatives to keep projects aligned.
+                                            Echoes preserve decision context, while the Playbook helps new teammates
+                                            ramp quickly.
+                                        </p>
+                                    </div>
+
+                                    {/* User bubble (neutral) */}
+                                    <div className="max-w-[70%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
+                                        What’s the current status of the Bravespace rollout?
+                                    </div>
+
+                                    {/* Assistant bubble (brand-accent) */}
+                                    <div className="max-w-[78%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                            The training sessions are scheduled and materials are finalized.
+                                            I can share the checklist and contacts for approvals if needed.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Input row */}
+                                <div className="absolute left-0 right-0 bottom-0 px-3 py-3 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            readOnly
+                                            aria-label="Type a message"
+                                            placeholder="Ask the Echo… Shift+Enter for new line"
+                                            className="flex-1 input bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
+                                            value=""
+                                        />
+                                        <button type="button" className="btn btn--primary shrink-0" aria-label="Send">
+                                            <Send className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <p className="text-[11px] text-[rgb(255_255_255/0.65)] mt-1">
+                                        Sessions are saved to your account for this Echo.
+                                    </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-2 text-[rgb(255_255_255/0.9)]">
-                                <button
-                                    type="button"
-                                    className="px-2.5 py-1.5 rounded-[var(--radius-xs)] text-xs hover:bg-[rgb(255_255_255/0.12)] focus-ring"
-                                    aria-label="Copy"
-                                >
-                                    <Copy className="w-4 h-4" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="px-2.5 py-1.5 rounded-[var(--radius-xs)] text-xs hover:bg-[rgb(255_255_255/0.12)] focus-ring"
-                                    aria-label="Reset"
-                                >
-                                    <RotateCcw className="w-4 h-4" />
-                                </button>
+                            {/* Laptop base */}
+                            <div className="mx-auto w-[96%] h-4 rounded-b-[16px] bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.2))] border-x border-b border-[rgb(255_255_255/0.12)] mt-2" />
+                            <div className="mx-auto w-[60%] h-1 rounded-full bg-[rgb(0_0_0/0.45)] mt-1" />
+                        </div>
+
+                        {/* Phone (iPhone-style) */}
+                        <div className="relative shrink-0 w-[180px] md:w-[200px] aspect-[9/19] rounded-[28px] bg-[rgb(10_10_10)] border border-[rgb(255_255_255/0.16)] shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden">
+                            {/* Bezel + notch */}
+                            <div className="absolute top-0 left-0 right-0 h-5 bg-[rgb(0_0_0/0.4)]" />
+                            <div className="absolute top-1 left-1/2 -translate-x-1/2 w-[98px] h-[18px] bg-[rgb(0_0_0/0.75)] rounded-b-[14px]" />
+
+                            {/* Phone header (brand border) */}
+                            <div className="mt-6 px-3 py-2 flex items-center justify-between bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        src="/favicon.png"
+                                        alt="Echo avatar"
+                                        width={20}
+                                        height={20}
+                                        className="w-5 h-5 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
+                                    />
+                                    <p className="text-[12px]">Executive Assistant</p>
+                                </div>
+                                <span className="text-[10px] text-[rgb(255_255_255/0.7)]">Now</span>
+                            </div>
+
+                            {/* Conversation */}
+                            <div className="px-3 py-2">
+                                <div className="max-w-[86%] p-2 rounded-[10px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-[12px] leading-5 brand-glow">
+                                    I’m coordinating handoffs and documenting steps in the Playbook.
+                                </div>
+                                <div className="max-w-[78%] ml-auto mt-2 p-2 rounded-[10px] bg-[rgb(255_255_255/0.08)] text-[12px]">
+                                    Share the status for Bravespace?
+                                </div>
+                                <div className="max-w-[86%] mt-2 p-2 rounded-[10px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-[12px] leading-5 brand-glow">
+                                    Training is scheduled. I’ll send the checklist and contacts.
+                                </div>
+                            </div>
+
+                            {/* Phone input */}
+                            <div className="absolute left-0 right-0 bottom-0 px-2 py-2 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
+                                <div className="flex items-center gap-1.5">
+                                    <input
+                                        readOnly
+                                        placeholder="Message Echo"
+                                        className="flex-1 input h-8 text-[12px] bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
+                                        value=""
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn--primary h-8 px-2"
+                                        aria-label="Send"
+                                    >
+                                        <Send className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        {/* Message */}
-                        <div className="p-3 sm:p-4 rounded-[var(--radius-sm)] border border-[rgb(255_255_255/0.25)] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]">
-                            <p className="text-sm text-[rgb(255_255_255/0.9)] leading-6">
-                                I’m currently collaborating across client initiatives to ensure
-                                seamless handoffs. Echoes assist with day-to-day decision
-                                context, while the Playbook gives new teammates a clear,
-                                portable guide to hit the ground running.
-                            </p>
-                            <p className="text-sm text-[rgb(255_255_255/0.9)] leading-6 mt-3">
-                                The combination reduces onboarding time and preserves critical
-                                knowledge—making continuity measurable and dependable.
-                            </p>
-                        </div>
-
-                        {/* Input */}
-                        <div className="mt-4 flex items-center gap-2">
-                            <input
-                                readOnly
-                                aria-label="Ask the Echo"
-                                placeholder="Ask the Echo… Shift+Enter for new line"
-                                className="flex-1 input bg-[rgb(0_0_0/0.25)] border border-[rgb(255_255_255/0.2)] placeholder:text-[rgb(255_255_255/0.65)]"
-                                value=""
-                            />
-                            <button
-                                type="button"
-                                className="btn btn--secondary shrink-0"
-                                aria-label="Send"
-                            >
-                                <Send className="w-4 h-4" />
-                            </button>
-                        </div>
-
-                        <p className="text-caption mt-2 text-[12px] text-[rgb(255_255_255/0.85)]">
-                            Sessions are saved to your account for this Echo.
-                        </p>
                     </div>
                 </div>
             </div>
