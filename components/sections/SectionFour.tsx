@@ -5,12 +5,12 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 /**
  * SectionFour — Measurable Results
  * Left: headline + three centered KPI counters (fade-in + count up)
- * Right: Larger laptop mockup (no fixed aspect ratio) with the Executive Assistant chat
+ * Right: Larger laptop mockup with the Executive Assistant chat (no fixed aspect ratio)
  *
- * Updates per request:
- * - Ignore 16:9; make the laptop a bit larger and align with the Measurable Results column
- * - Chat fits entirely on screen without scrolling
- * - Numbers and labels are center-aligned
+ * Updates:
+ * - Numbers and labels centered
+ * - Laptop aligned with the left column; chat fits on screen (no scrolling)
+ * - Typing effect for messages with a short delay between each
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -55,6 +55,36 @@ export function SectionFour() {
             }),
         []
     );
+
+    // Chat messages (exact strings as requested)
+    const MSG_WELCOME =
+        "Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!";
+    const MSG_QUESTION = "What is the most important think I need to know";
+    const MSG_RESPONSE =
+        "The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in the way.";
+
+    // Typewriter sequences
+    const t1 = useTypewriter({
+        text: MSG_WELCOME,
+        start: inView,
+        delay: 150, // slight delay after entering
+        speed: 16,
+        reduceMotion,
+    });
+    const t2 = useTypewriter({
+        text: MSG_QUESTION,
+        start: t1.done, // after first done
+        delay: 500,
+        speed: 18,
+        reduceMotion,
+    });
+    const t3 = useTypewriter({
+        text: MSG_RESPONSE,
+        start: t2.done, // after second done
+        delay: 600,
+        speed: 16,
+        reduceMotion,
+    });
 
     return (
         <section
@@ -196,21 +226,33 @@ export function SectionFour() {
 
                                 {/* Conversation — fits fully; hidden overflow to avoid scrollbars */}
                                 <div className="px-4 py-4 flex-1 overflow-hidden">
+                                    {/* Assistant welcome (typing) */}
                                     <div className="max-w-[86%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
                                         <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                            Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!
+                                            {t1.output}
+                                            {t1.typing && <span className="tw-caret" aria-hidden="true" />}
                                         </p>
                                     </div>
 
-                                    <div className="max-w-[72%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
-                                        What is the most important think I need to know
-                                    </div>
+                                    {/* User question (typing after welcome) */}
+                                    {t1.done && (
+                                        <div className="max-w-[72%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
+                                            <span>
+                                                {t2.output}
+                                                {t2.typing && <span className="tw-caret tw-caret--light" aria-hidden="true" />}
+                                            </span>
+                                        </div>
+                                    )}
 
-                                    <div className="max-w-[86%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
-                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                            The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in the way.
-                                        </p>
-                                    </div>
+                                    {/* Assistant response (typing after question) */}
+                                    {t2.done && (
+                                        <div className="max-w-[86%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                            <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                                {t3.output}
+                                                {t3.typing && <span className="tw-caret" aria-hidden="true" />}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Input (fixed height) */}
@@ -241,7 +283,7 @@ export function SectionFour() {
                 </div>
             </div>
 
-            {/* Global keyframes and helpers for traveling lines */}
+            {/* Global keyframes and helpers for traveling lines + caret */}
             <style jsx global>{`
                 @keyframes ma-line {
                     0% {
@@ -296,6 +338,23 @@ export function SectionFour() {
                 .ma-lines-paused .ma-line-rev {
                     animation-play-state: paused !important;
                 }
+                /* Blinking caret for typewriter effect */
+                @keyframes tw-caret-blink {
+                    0%, 49% { opacity: 1; }
+                    50%, 100% { opacity: 0; }
+                }
+                .tw-caret {
+                    display: inline-block;
+                    width: 1px;
+                    height: 1em;
+                    margin-left: 2px;
+                    background: rgba(255,255,255,0.9);
+                    animation: tw-caret-blink 1s step-end infinite;
+                    vertical-align: -2px;
+                }
+                .tw-caret--light {
+                    background: rgba(255,255,255,0.85);
+                }
             `}</style>
         </section>
     );
@@ -346,4 +405,65 @@ function StatNumber({
             </span>
         </div>
     );
+}
+
+/**
+ * useTypewriter — progressively reveals text to simulate typing.
+ * Respects prefers-reduced-motion, supports per-message delay and speed.
+ */
+function useTypewriter({
+    text,
+    start,
+    delay = 0,
+    speed = 18,
+    reduceMotion,
+}: {
+    text: string;
+    start: boolean;
+    delay?: number;
+    speed?: number;
+    reduceMotion?: boolean;
+}): { output: string; typing: boolean; done: boolean } {
+    const [output, setOutput] = useState("");
+    const [typing, setTyping] = useState(false);
+    const [done, setDone] = useState(false);
+
+    useEffect(() => {
+        let delayTimer: any;
+        let interval: any;
+
+        if (!start) return;
+
+        if (reduceMotion) {
+            setOutput(text);
+            setTyping(false);
+            setDone(true);
+            return;
+        }
+
+        setTyping(false);
+        setDone(false);
+        setOutput("");
+
+        delayTimer = setTimeout(() => {
+            let i = 0;
+            setTyping(true);
+            interval = setInterval(() => {
+                i++;
+                setOutput(text.slice(0, i));
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    setTyping(false);
+                    setDone(true);
+                }
+            }, speed);
+        }, Math.max(0, delay));
+
+        return () => {
+            if (delayTimer) clearTimeout(delayTimer);
+            if (interval) clearInterval(interval);
+        };
+    }, [text, start, delay, speed, reduceMotion]);
+
+    return { output, typing, done };
 }
