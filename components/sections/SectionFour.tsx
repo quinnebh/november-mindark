@@ -5,18 +5,12 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 /**
  * SectionFour — Measurable Results
  * Left: headline + three centered KPI counters (fade-in + count up)
- * Right: Laptop mockup (16:9) showing the Executive Assistant chat (no scrolling inside screen)
+ * Right: Larger laptop mockup (no fixed aspect ratio) with the Executive Assistant chat
  *
- * Visuals
- * - Section background: solid brand magenta (#752E4F)
- * - Subtle traveling black lines in the background for gentle motion (paused on reduced motion)
- * - In-screen accents use brand color tokens
- *
- * Notes:
- * - Phone removed
- * - Section slightly shorter vertically
- * - Both columns stretch to same height; laptop screen is true 16:9
- * - Chat fully fits inside the laptop screen without scrolling
+ * Updates per request:
+ * - Ignore 16:9; make the laptop a bit larger and align with the Measurable Results column
+ * - Chat fits entirely on screen without scrolling
+ * - Numbers and labels are center-aligned
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -66,7 +60,7 @@ export function SectionFour() {
         <section
             id="results"
             ref={sectionRef}
-            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[720px]"
+            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[700px]"
             aria-label="Measurable results"
         >
             {/* Traveling black lines layer (behind content) */}
@@ -118,12 +112,7 @@ export function SectionFour() {
                             )}
                             style={{ transitionDelay: animateIn ? "120ms" : "0ms" }}
                         >
-                            <StatNumber
-                                target={70}
-                                suffix="%"
-                                start={inView}
-                                reduceMotion={reduceMotion}
-                            />
+                            <StatNumber target={70} suffix="%" start={inView} reduceMotion={reduceMotion} />
                             <div className="text-subtitle mt-1">Faster Onboarding</div>
                         </li>
 
@@ -136,12 +125,7 @@ export function SectionFour() {
                             )}
                             style={{ transitionDelay: animateIn ? "240ms" : "0ms" }}
                         >
-                            <StatNumber
-                                target={100}
-                                suffix="%"
-                                start={inView}
-                                reduceMotion={reduceMotion}
-                            />
+                            <StatNumber target={100} suffix="%" start={inView} reduceMotion={reduceMotion} />
                             <div className="text-subtitle mt-1">Continuity Across Transitions</div>
                         </li>
 
@@ -155,12 +139,7 @@ export function SectionFour() {
                             style={{ transitionDelay: animateIn ? "360ms" : "0ms" }}
                         >
                             <div className="flex items-baseline gap-2">
-                                <StatNumber
-                                    target={24}
-                                    suffix="/7"
-                                    start={inView}
-                                    reduceMotion={reduceMotion}
-                                />
+                                <StatNumber target={24} suffix="/7" start={inView} reduceMotion={reduceMotion} />
                             </div>
                             <div className="text-subtitle mt-1">Access to expertise</div>
                         </li>
@@ -169,14 +148,11 @@ export function SectionFour() {
                     <div className="grow" />
                 </div>
 
-                {/* Right: Laptop mockup — true 16:9, chat fully fits with no scroll */}
+                {/* Right: Larger Laptop mockup — aligned height with left column, chat fits without scroll */}
                 <div className="relative w-full self-stretch flex">
-                    <div className="relative flex-1 min-w-[520px] max-w-[1200px] w-full mx-auto">
-                        {/* Screen with thin bezel */}
-                        <div
-                            className="relative mx-auto w-full rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden"
-                            style={{ aspectRatio: "16 / 9", minHeight: 360 }}
-                        >
+                    <div className="relative flex-1 w-full mx-auto flex flex-col justify-center">
+                        {/* Screen with thin bezel — larger, fills column height within min/max bounds */}
+                        <div className="relative mx-auto w-full max-w-[1100px] min-h-[520px] h-full max-h-[640px] rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden">
                             {/* Top brand hairline */}
                             <div className="absolute top-0 left-0 right-0 h-px bg-[rgb(var(--color-brand)/0.45)]" />
 
@@ -218,8 +194,8 @@ export function SectionFour() {
                                     </div>
                                 </div>
 
-                                {/* Conversation — fits in remaining area above input; hidden overflow to avoid scrollbars */}
-                                <div className="px-4 py-3 flex-1 overflow-hidden">
+                                {/* Conversation — fits fully; hidden overflow to avoid scrollbars */}
+                                <div className="px-4 py-4 flex-1 overflow-hidden">
                                     <div className="max-w-[86%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
                                         <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
                                             Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!
@@ -258,8 +234,8 @@ export function SectionFour() {
                             </div>
                         </div>
 
-                        {/* Laptop base */}
-                        <div className="mx-auto w-[96%] h-4 rounded-b-[16px] bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.2))] border-x border-b border-[rgb(255_255_255/0.12)] mt-2" />
+                        {/* Laptop base — overlap slightly so it doesn't affect column height */}
+                        <div className="mx-auto w-[96%] h-4 rounded-b-[16px] bg-[linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.2))] border-x border-b border-[rgb(255_255_255/0.12)] -mt-1" />
                         <div className="mx-auto w-[60%] h-1 rounded-full bg-[rgb(0_0_0/0.45)] mt-1" />
                     </div>
                 </div>
