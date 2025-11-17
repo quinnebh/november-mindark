@@ -4,15 +4,19 @@ import { Copy, RotateCcw, Send } from "lucide-react";
 
 /**
  * SectionFour — Measurable Results
- * Left: headline + three KPI counters (fade-in + count up)
- * Right: Laptop mockup (16:9) showing the Executive Assistant chat
+ * Left: headline + three centered KPI counters (fade-in + count up)
+ * Right: Laptop mockup (16:9) showing the Executive Assistant chat (no scrolling inside screen)
  *
  * Visuals
  * - Section background: solid brand magenta (#752E4F)
  * - Subtle traveling black lines in the background for gentle motion (paused on reduced motion)
- * - In-screen accents use brand color tokens: thin borders, rings, small glows, and primary CTA buttons
+ * - In-screen accents use brand color tokens
  *
- * Note: Phone removed per request.
+ * Notes:
+ * - Phone removed
+ * - Section slightly shorter vertically
+ * - Both columns stretch to same height; laptop screen is true 16:9
+ * - Chat fully fits inside the laptop screen without scrolling
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -62,7 +66,7 @@ export function SectionFour() {
         <section
             id="results"
             ref={sectionRef}
-            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[860px]"
+            className="section-anchor section-y relative overflow-hidden bg-[#752E4F] text-[rgb(255_255_255)] min-h-[720px]"
             aria-label="Measurable results"
         >
             {/* Traveling black lines layer (behind content) */}
@@ -89,91 +93,89 @@ export function SectionFour() {
                 ))}
             </div>
 
-            <div className="container-page relative z-10 grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] gap-10 xl:gap-14 items-center">
-                {/* Left: Headline + Stats (fade-in) */}
-                <div className="flex flex-col gap-6">
-                    <header
+            <div className="container-page relative z-10 grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] items-stretch gap-10 xl:gap-14">
+                {/* Left: Headline + centered Stats (fade-in) */}
+                <div className="flex flex-col gap-6 self-stretch h-full">
+                    <div
                         className={cn(
                             "grid gap-3 transition-all duration-700 ease-out will-change-transform",
                             animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                             reduceMotion && "transition-none opacity-100 translate-y-0"
                         )}
                     >
-                        <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+                        <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-center md:text-left">
                             Measurable Results
                         </h2>
-                    </header>
+                    </div>
 
                     <ul className="grid gap-4">
+                        {/* 70% Faster Onboarding */}
                         <li
                             className={cn(
-                                "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
+                                "card card--ghost p-5 rounded-[var(--radius-sm)] flex flex-col items-center text-center bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
                                 animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "120ms" : "0ms" }}
                         >
-                            <div className="flex flex-col">
-                                <span className="sr-only">Faster Onboarding</span>
-                                <StatNumber
-                                    target={70}
-                                    suffix="%"
-                                    label="Faster Onboarding"
-                                    start={inView}
-                                    reduceMotion={reduceMotion}
-                                />
-                            </div>
+                            <StatNumber
+                                target={70}
+                                suffix="%"
+                                start={inView}
+                                reduceMotion={reduceMotion}
+                            />
+                            <div className="text-subtitle mt-1">Faster Onboarding</div>
                         </li>
 
+                        {/* 100% Continuity */}
                         <li
                             className={cn(
-                                "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
+                                "card card--ghost p-5 rounded-[var(--radius-sm)] flex flex-col items-center text-center bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
                                 animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "240ms" : "0ms" }}
                         >
-                            <div className="flex flex-col">
-                                <span className="sr-only">Continuity Across Transitions</span>
-                                <StatNumber
-                                    target={100}
-                                    suffix="%"
-                                    label="Continuity Across Transitions"
-                                    start={inView}
-                                    reduceMotion={reduceMotion}
-                                />
-                            </div>
+                            <StatNumber
+                                target={100}
+                                suffix="%"
+                                start={inView}
+                                reduceMotion={reduceMotion}
+                            />
+                            <div className="text-subtitle mt-1">Continuity Across Transitions</div>
                         </li>
 
+                        {/* 24/7 Access to expertise */}
                         <li
                             className={cn(
-                                "card card--ghost p-4 rounded-[var(--radius-sm)] flex items-center justify-between bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
+                                "card card--ghost p-5 rounded-[var(--radius-sm)] flex flex-col items-center text-center bg-[rgb(0_0_0/0.12)] border border-[rgb(255_255_255/0.14)] transition-all duration-700 ease-out will-change-transform",
                                 animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
                                 reduceMotion && "transition-none opacity-100 translate-y-0"
                             )}
                             style={{ transitionDelay: animateIn ? "360ms" : "0ms" }}
                         >
                             <div className="flex items-baseline gap-2">
-                                <span className="sr-only">24/7 Access to expertise</span>
                                 <StatNumber
                                     target={24}
                                     suffix="/7"
-                                    label="Access to expertise"
                                     start={inView}
                                     reduceMotion={reduceMotion}
                                 />
                             </div>
+                            <div className="text-subtitle mt-1">Access to expertise</div>
                         </li>
                     </ul>
+
+                    <div className="grow" />
                 </div>
 
-                {/* Right: Laptop mockup — wider, true 16:9 aspect via CSS aspect-ratio */}
-                <div className="relative w-full">
+                {/* Right: Laptop mockup — true 16:9, chat fully fits with no scroll */}
+                <div className="relative w-full self-stretch flex">
                     <div className="relative flex-1 min-w-[520px] max-w-[1200px] w-full mx-auto">
                         {/* Screen with thin bezel */}
                         <div
                             className="relative mx-auto w-full rounded-[16px] bg-[rgb(12_12_12)] border border-[rgb(255_255_255/0.16)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] overflow-hidden"
-                            style={{ aspectRatio: "16 / 9", minHeight: 380 }}
+                            style={{ aspectRatio: "16 / 9", minHeight: 360 }}
                         >
                             {/* Top brand hairline */}
                             <div className="absolute top-0 left-0 right-0 h-px bg-[rgb(var(--color-brand)/0.45)]" />
@@ -181,81 +183,78 @@ export function SectionFour() {
                             {/* Tiny camera dot */}
                             <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[rgb(34_34_34)] ring-2 ring-[rgb(0_0_0/0.35)]"></div>
 
-                            {/* Laptop chat header */}
-                            <div className="flex items-center justify-between px-4 py-2.5 bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)]">
-                                <div className="flex items-center gap-3">
-                                    <img
-                                        src="/favicon.png"
-                                        alt="Echo avatar"
-                                        width={28}
-                                        height={28}
-                                        className="w-7 h-7 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
-                                    />
-                                    <div className="leading-tight">
-                                        <p className="text-[13px] font-medium">Executive Assistant</p>
-                                        <p className="text-[11px] text-[rgb(255_255_255/0.7)]">Echo</p>
+                            {/* Laptop chat app layout (no scrolling) */}
+                            <div className="absolute inset-0 flex flex-col">
+                                {/* Header */}
+                                <div className="flex items-center justify-between px-4 py-2.5 bg-[rgb(255_255_255/0.02)] border-b border-[rgb(var(--color-brand)/0.35)] shrink-0">
+                                    <div className="flex items-center gap-3">
+                                        <img
+                                            src="/favicon.png"
+                                            alt="Echo avatar"
+                                            width={28}
+                                            height={28}
+                                            className="w-7 h-7 rounded-full object-cover ring-1 ring-[rgb(var(--color-brand)/0.4)]"
+                                        />
+                                        <div className="leading-tight">
+                                            <p className="text-[13px] font-medium">Executive Assistant</p>
+                                            <p className="text-[11px] text-[rgb(255_255_255/0.7)]">Echo</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-[rgb(255_255_255/0.9)]">
+                                        <button
+                                            type="button"
+                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                            aria-label="Copy"
+                                        >
+                                            <Copy className="w-4 h-4" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
+                                            aria-label="Reset"
+                                        >
+                                            <RotateCcw className="w-4 h-4" />
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-1.5 text-[rgb(255_255_255/0.9)]">
-                                    <button
-                                        type="button"
-                                        className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
-                                        aria-label="Copy"
-                                    >
-                                        <Copy className="w-4 h-4" />
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="px-2 py-1 rounded-[8px] text-xs hover:bg-[rgb(var(--color-brand)/0.18)] focus-ring"
-                                        aria-label="Reset"
-                                    >
-                                        <RotateCcw className="w-4 h-4" />
-                                    </button>
-                                </div>
-                            </div>
 
-                            {/* Conversation area (space above input) */}
-                            <div className="absolute inset-x-0 top-[52px] bottom-[64px] px-4 py-3 overflow-auto">
-                                {/* Assistant bubble (brand-accent border + glow) */}
-                                <div className="max-w-[78%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
-                                    <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                        I’m coordinating across client initiatives to keep projects aligned.
-                                        Echoes preserve decision context, while the Playbook helps new teammates
-                                        ramp quickly.
+                                {/* Conversation — fits in remaining area above input; hidden overflow to avoid scrollbars */}
+                                <div className="px-4 py-3 flex-1 overflow-hidden">
+                                    <div className="max-w-[86%] p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                            Welcome! Lets get you onboarded. I interviewed you predecessor for insights and  prepared a personalized playbook to help you get started quickly!
+                                        </p>
+                                    </div>
+
+                                    <div className="max-w-[72%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
+                                        What is the most important think I need to know
+                                    </div>
+
+                                    <div className="max-w-[86%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
+                                        <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
+                                            The most important thing for your role as an Executive Assistant at MindArk is to create frictionless systems that support your teammates without getting in the way.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Input (fixed height) */}
+                                <div className="px-3 py-3 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)] shrink-0">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            readOnly
+                                            aria-label="Type a message"
+                                            placeholder="Ask the Echo… Shift+Enter for new line"
+                                            className="flex-1 input bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
+                                            value=""
+                                        />
+                                        <button type="button" className="btn btn--primary shrink-0" aria-label="Send">
+                                            <Send className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                    <p className="text-[11px] text-[rgb(255_255_255/0.65)] mt-1">
+                                        Sessions are saved to your account for this Echo.
                                     </p>
                                 </div>
-
-                                {/* User bubble (neutral) */}
-                                <div className="max-w-[70%] ml-auto mt-3 p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px]">
-                                    What’s the current status of the Bravespace rollout?
-                                </div>
-
-                                {/* Assistant bubble (brand-accent) */}
-                                <div className="max-w-[78%] mt-3 p-3 rounded-[12px] border border-[rgb(var(--color-brand)/0.45)] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] brand-glow">
-                                    <p className="text-[13px] leading-6 text-[rgb(255_255_255/0.92)]">
-                                        The training sessions are scheduled and materials are finalized.
-                                        I can share the checklist and contacts for approvals if needed.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Input row */}
-                            <div className="absolute left-0 right-0 bottom-0 px-3 py-3 bg-[rgb(0_0_0/0.35)] border-t border-[rgb(var(--color-brand)/0.35)]">
-                                <div className="flex items-center gap-2">
-                                    <input
-                                        readOnly
-                                        aria-label="Type a message"
-                                        placeholder="Ask the Echo… Shift+Enter for new line"
-                                        className="flex-1 input bg-[rgb(0_0_0/0.35)] border border-[rgb(var(--color-brand)/0.35)] placeholder:text-[rgb(255_255_255/0.65)] caret-[rgb(var(--color-brand))]"
-                                        value=""
-                                    />
-                                    <button type="button" className="btn btn--primary shrink-0" aria-label="Send">
-                                        <Send className="w-4 h-4" />
-                                    </button>
-                                </div>
-                                <p className="text-[11px] text-[rgb(255_255_255/0.65)] mt-1">
-                                    Sessions are saved to your account for this Echo.
-                                </p>
                             </div>
                         </div>
 
@@ -315,7 +314,7 @@ export function SectionFour() {
                 .ma-line-rev {
                     animation-name: ma-line-rev;
                     animation-timing-function: linear;
-                    animation-iteration-count: infinite.
+                    animation-iteration-count: infinite;
                 }
                 .ma-lines-paused .ma-line,
                 .ma-lines-paused .ma-line-rev {
@@ -327,21 +326,19 @@ export function SectionFour() {
 }
 
 /**
- * StatNumber — Animated counter for headline stats
+ * StatNumber — Animated counter for headline stats (centered)
  */
 function StatNumber({
     target,
     duration = 1300,
     start,
     suffix,
-    label,
     reduceMotion,
 }: {
     target: number;
     duration?: number;
     start: boolean;
     suffix?: string;
-    label?: string;
     reduceMotion?: boolean;
 }) {
     const [val, setVal] = useState(0);
@@ -366,12 +363,11 @@ function StatNumber({
     }, [start, target, duration, ease, reduceMotion]);
 
     return (
-        <div className="flex items-baseline gap-3" aria-live="polite">
+        <div className="flex items-center justify-center gap-2" aria-live="polite">
             <span className="text-4xl md:text-5xl font-extrabold leading-none">
                 {val}
                 {suffix || ""}
             </span>
-            {label && <span className="text-subtitle">{label}</span>}
         </div>
     );
 }
