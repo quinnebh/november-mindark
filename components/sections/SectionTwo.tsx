@@ -4,7 +4,7 @@ import { cn } from "@/lib/util";
 /**
  * SectionTwo — Metrics & Graphs with floating popups
  * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
- *   Labels: Junor, Middle, Senior
+ *   Labels: Junior, Middle, Senior
  * - Top-right popup: 42% gauge (knowledge in individuals)
  * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
  * - Popups use premium dark glass surfaces with subtle brand-accent borders to pop without harsh contrast.
@@ -242,20 +242,11 @@ function PopupCostRange({
 
                 {/* Horizontal bar chart */}
                 <div className="grid gap-3">
-                    {/* Axis labels */}
-                    <div className="flex items-center justify-between text-[11px] text-[rgb(var(--color-text-secondary))]">
-                        <span>0%</span>
-                        <span>100%</span>
-                        <span>200%</span>
-                        <span>300%</span>
-                        <span>400%</span>
-                    </div>
-
                     {/* Rows */}
                     <div className="grid gap-2">
-                        {/* Low (Junor) */}
-                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
-                            <div className="text-xs text-[rgb(var(--color-text-secondary))]">Junor</div>
+                        {/* Low (Junior) */}
+                        <div className="grid grid-cols-[72px_1fr] items-center gap-2">
+                            <div className="text-xs text-[rgb(var(--color-text-secondary))]">Junior</div>
                             <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
                                     <span className="w-px h-full bg-[rgb(255_255_255/0.12)]" />
@@ -272,11 +263,10 @@ function PopupCostRange({
                                     aria-hidden="true"
                                 />
                             </div>
-                            <div className="text-xs font-medium">{LOW}%</div>
                         </div>
 
                         {/* Medium */}
-                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
+                        <div className="grid grid-cols-[72px_1fr] items-center gap-2">
                             <div className="text-xs text-[rgb(var(--color-text-secondary))]">Middle</div>
                             <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
@@ -294,11 +284,10 @@ function PopupCostRange({
                                     aria-hidden="true"
                                 />
                             </div>
-                            <div className="text-xs font-medium">{MED}%</div>
                         </div>
 
                         {/* High */}
-                        <div className="grid grid-cols-[72px_1fr_auto] items-center gap-2">
+                        <div className="grid grid-cols-[72px_1fr] items-center gap-2">
                             <div className="text-xs text-[rgb(var(--color-text-secondary))]">Senior</div>
                             <div className="relative h-3 rounded-[8px] bg-[rgb(255_255_255/0.06)] overflow-hidden">
                                 <div className="pointer-events-none absolute inset-0 flex justify-between">
@@ -316,7 +305,6 @@ function PopupCostRange({
                                     aria-hidden="true"
                                 />
                             </div>
-                            <div className="text-xs font-medium">{HIGH}%</div>
                         </div>
                     </div>
 
