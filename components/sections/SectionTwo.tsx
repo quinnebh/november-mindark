@@ -3,16 +3,15 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionTwo — Metrics & Graphs with floating popups
- * - Sequenced animations (one after another for easier processing):
- *   1) Top-right Gauge (42%) — starts immediately
- *   2) Bottom-left Replacement Cost bars — starts after gauge finishes
- *   3) Bottom-right Turnover Cost — starts after replacement bars finish
- *
+ * - Animations start simultaneously when section enters viewport.
  * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
  *   Labels: Junior, Middle, Senior
  * - Top-right popup: 42% gauge (knowledge in individuals) with simplified title/subtitle
  * - Bottom-right popup: Estimated annual turnover cost viz — $2.5M for a 100-person firm at $50k avg salary
  * - Popups use premium dark glass surfaces with increased opacity for readability.
+ * - Responsive:
+ *   - On small screens: keep Gauge and Replacement Cost on the laptop (scaled), place Turnover Cost below laptop.
+ *   - On md+ screens: all three overlay the laptop.
  */
 export function SectionTwo() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -36,12 +35,10 @@ export function SectionTwo() {
         return () => io.disconnect();
     }, []);
 
-    // Sequenced delays (ms)
-    // Gauge anim ~1400ms + path ease; add gap for processing
+    // Simultaneous animation start (no sequencing delays)
     const GAUGE_DELAY = 0;
-    const COST_DELAY = 1800; // starts after gauge
-    // Replacement bars last bar finishes ~980ms after start; add gap
-    const TURNOVER_DELAY = 3400; // starts after replacement cost
+    const COST_DELAY = 0;
+    const TURNOVER_DELAY = 0;
 
     return (
         <section
@@ -60,53 +57,67 @@ export function SectionTwo() {
                     </p>
                 </header>
 
-                {/* Laptop + floating popups */}
+                {/* Laptop + floating popups (responsive placement) */}
                 <div className="relative w-full">
                     <div className="relative mx-auto w-full max-w-5xl">
                         <LaptopFrame>
                             <LaptopScreenVideo src="/videos/sectiontwo.mp4" />
                         </LaptopFrame>
 
-                        {/* Floating popups (desktop/tablet) */}
-                        <div className="hidden md:block">
-                            {/* Bottom-left: Replacement Cost horizontal bars (staggered) */}
-                            <PopupCostRange
-                                inView={inView}
-                                className={cn(
-                                    "absolute -left-6 lg:-left-10 bottom-[10%]",
-                                    "w-[280px] lg:w-[340px]"
-                                )}
-                                delay={COST_DELAY}
-                            />
+                        {/* Top-right: 42% gauge — stays on laptop on all sizes (scaled on small) */}
+                        <PopupGauge
+                            inView={inView}
+                            className={cn(
+                                "absolute z-10",
+                                // Mobile-first placement over screen
+                                "right-[3%] top-[4%]",
+                                // Desktop refinements
+                                "md:right-[6%] md:-top-8",
+                                // Size + scale so it fits on the screen on small
+                                "w-[200px] sm:w-[240px] md:w-[260px] lg:w-[300px]",
+                                "transform-gpu origin-top-right scale-[0.82] sm:scale-[0.9] md:scale-100"
+                            )}
+                            delay={GAUGE_DELAY}
+                        />
 
-                            {/* Top-right: 42% gauge */}
-                            <PopupGauge
-                                inView={inView}
-                                className={cn(
-                                    "absolute right-[6%] -top-8",
-                                    "w-[260px] lg:w-[300px]"
-                                )}
-                                delay={GAUGE_DELAY}
-                            />
+                        {/* Bottom-left: Replacement Cost — stays on laptop on all sizes (scaled on small) */}
+                        <PopupCostRange
+                            inView={inView}
+                            className={cn(
+                                "absolute z-10",
+                                // Mobile-first placement over screen
+                                "left-[3%] bottom-[7%]",
+                                // Desktop refinements
+                                "md:bottom-[10%] md:-left-6 lg:-left-10",
+                                // Size + scale
+                                "w-[210px] sm:w-[250px] md:w-[280px] lg:w-[340px]",
+                                "transform-gpu origin-bottom-left scale-[0.78] sm:scale-[0.9] md:scale-100"
+                            )}
+                            delay={COST_DELAY}
+                        />
 
-                            {/* Bottom-right: Annual turnover cost — $2.5M */}
-                            <PopupTurnoverCost
-                                inView={inView}
-                                className={cn(
-                                    "absolute right-0 bottom-[-18%] lg:bottom-[-10%]",
-                                    "w-[280px] lg:w-[340px]"
-                                )}
-                                delay={TURNOVER_DELAY}
-                            />
-                        </div>
+                        {/* Bottom-right: Annual turnover cost
+                           - Hidden on small (rendered below laptop instead)
+                           - On md+ it overlays the laptop as before */}
+                        <PopupTurnoverCost
+                            inView={inView}
+                            className={cn(
+                                "hidden md:block absolute z-10",
+                                "md:right-0 md:bottom-[-18%] lg:bottom-[-10%]",
+                                "w-[280px] lg:w-[340px]"
+                            )}
+                            delay={TURNOVER_DELAY}
+                        />
                     </div>
-                </div>
 
-                {/* Mobile fallback — keep the same animation order via delays */}
-                <div className="grid md:hidden grid-cols-1 gap-4">
-                    <PopupCostRange inView={inView} className="w-full" delay={COST_DELAY} />
-                    <PopupTurnoverCost inView={inView} className="w-full" delay={TURNOVER_DELAY} />
-                    <PopupGauge inView={inView} className="w-full" delay={GAUGE_DELAY} />
+                    {/* Small screens: place Turnover Cost below the laptop */}
+                    <div className="md:hidden mt-4 flex justify-center">
+                        <PopupTurnoverCost
+                            inView={inView}
+                            className={cn("w-[92%] max-w-[420px]")}
+                            delay={TURNOVER_DELAY}
+                        />
+                    </div>
                 </div>
             </div>
         </section>
