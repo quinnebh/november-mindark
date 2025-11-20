@@ -8,10 +8,8 @@ import { cn } from "@/lib/util";
  * - Grid backgrounds removed from visuals.
  * - Adds bold white section title: "The Echo System".
  * - Removes step index labels and "Story & Solutions" text from cards.
- * - Visuals now animate like GIFs:
- *   - Centralize: light flows from outer dots inward.
- *   - Interview: squares move quickly and obviously.
- *   - Activate: lines pulse outward.
+ * - Visuals animate like GIFs with refined motion.
+ * - Interview visual slowed slightly for subtlety.
  * Route anchor: /#section-three
  */
 export function SectionThree() {
@@ -227,7 +225,7 @@ function DiscoverVisual({ reducedMotion }: { reducedMotion: boolean }) {
 }
 
 function InterviewVisual({ reducedMotion }: { reducedMotion: boolean }) {
-    // Faster, more obvious square motion
+    // Slower, more subtle square motion (slightly reduced speed; same path)
     const squares = useMemo(() => [0, 1, 2, 3, 4].map((i) => 12 + i * 10), []);
     return (
         <div className="relative w-full h-full">
@@ -254,7 +252,9 @@ function InterviewVisual({ reducedMotion }: { reducedMotion: boolean }) {
                             style={{
                                 width: `${size + 90}px`,
                                 height: `${size + 56}px`,
-                                animation: `square-move ${1 + i * 0.15}s ease-in-out ${i * 0.06}s infinite alternate`,
+                                // Slightly slower and staggered for subtlety (was 1 + i*0.15s, delay i*0.06s)
+                                animation: `square-move ${1.5 + i * 0.2}s ease-in-out ${i * 0.08}s infinite alternate`,
+                                willChange: "transform, opacity",
                             }}
                         />
                     ))}
