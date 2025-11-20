@@ -8,16 +8,6 @@ export interface MainLayoutProps {
     children: React.ReactNode;
 }
 
-/**
- * Account options for the account/workspace switcher (exported but not used in header)
- * Replace with real data when available.
- */
-const ACCOUNT_OPTIONS = [
-    { id: "acme", name: "Acme Corp" },
-    { id: "northwind", name: "Northwind" },
-    { id: "personal", name: "Personal" },
-];
-
 export function MainLayout({ children }: MainLayoutProps) {
     const isFull = useIsInFullPageMode();
     const noMargins = useIsNoMarginMode();
@@ -40,29 +30,25 @@ export function MainLayout({ children }: MainLayoutProps) {
 }
 
 /**
- * MainNav — Sticky, glassy top navigation with:
- * - Logo + brand
- * - Primary CTA (Get a Demo) on the right
- *
- * Notes:
- * - Anchor nav links removed per request.
- * - Organization picker (account switcher) removed from header per request.
- * - Mobile hamburger/collapsible toggle removed to avoid the 3-line box on small screens.
+ * MainNav — Minimal, glassy top navigation:
+ * - Left: Logo + MindArk label (with a touch of extra right padding)
+ * - Right: Primary CTA only (mailto)
+ * - No anchor links, no org/account switcher, no mobile hamburger
  */
 export function MainNav() {
     return (
         <header className="sticky top-0 z-40">
             <div className="glass hairline backdrop-blur-md">
                 <div className="container-page flex items-center justify-between py-3 gap-3">
-                    {/* Left: Logo + brand */}
-                    <a href="/" className="flex items-center gap-2 focus-ring">
+                    {/* Left: Logo + brand (add a bit more right padding for balance) */}
+                    <a href="/" className="flex items-center gap-2 pr-3 focus-ring">
                         <Logo className="w-7 h-7" />
                         <span className="font-semibold tracking-tight">MindArk</span>
                     </a>
 
                     {/* Right: Primary CTA only */}
                     <div className="flex items-center gap-2">
-                        <a href="/#cta" className="inline-flex btn btn--primary">
+                        <a href="mailto:hello@mindark.ai" className="inline-flex btn btn--primary">
                             <span className="sr-only">Open demo request</span>
                             Get a Demo
                         </a>
@@ -74,8 +60,7 @@ export function MainNav() {
 }
 
 /**
- * AccountSwitcher — Exported for completeness and future use.
- * Not rendered in MainNav per current header requirements.
+ * AccountSwitcher — Exported for future use; not rendered in MainNav.
  */
 export function AccountSwitcher() {
     const [open, setOpen] = useState(false);
@@ -175,3 +160,9 @@ export function AccountSwitcher() {
         </div>
     );
 }
+
+const ACCOUNT_OPTIONS = [
+    { id: "acme", name: "Acme Corp" },
+    { id: "northwind", name: "Northwind" },
+    { id: "personal", name: "Personal" },
+];
