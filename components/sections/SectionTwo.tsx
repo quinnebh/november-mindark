@@ -3,7 +3,7 @@ import { cn } from "@/lib/util";
 
 /**
  * SectionTwo — Metrics & Graphs with floating popups
- * - Animations start simultaneously when section enters viewport.
+ * - Animations begin when each popup individually becomes visible (first time).
  * - Bottom-left popup: Replacement Cost horizontal bars (150%, 275%, 400%) with staggered animation
  *   Labels: Junior, Middle, Senior
  * - Top-right popup: 42% gauge (knowledge in individuals) with simplified title/subtitle
@@ -14,36 +14,9 @@ import { cn } from "@/lib/util";
  *   - On md+ screens: all three overlay the laptop.
  */
 export function SectionTwo() {
-    const sectionRef = useRef<HTMLElement | null>(null);
-    const [inView, setInView] = useState(false);
-
-    useEffect(() => {
-        if (!sectionRef.current) return;
-        const el = sectionRef.current;
-        const io = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((e) => {
-                    if (e.isIntersecting) {
-                        setInView(true);
-                        io.disconnect();
-                    }
-                });
-            },
-            { threshold: 0.25 }
-        );
-        io.observe(el);
-        return () => io.disconnect();
-    }, []);
-
-    // Simultaneous animation start (no sequencing delays)
-    const GAUGE_DELAY = 0;
-    const COST_DELAY = 0;
-    const TURNOVER_DELAY = 0;
-
     return (
         <section
             id="metrics"
-            ref={sectionRef as any}
             className={cn("section-anchor section-y relative overflow-hidden bg-section")}
         >
             <BackdropSweep />
@@ -66,7 +39,6 @@ export function SectionTwo() {
 
                         {/* Top-right: 42% gauge — stays on laptop on all sizes (scaled on small) */}
                         <PopupGauge
-                            inView={inView}
                             className={cn(
                                 "absolute z-10",
                                 // Mobile-first placement over screen
@@ -77,12 +49,10 @@ export function SectionTwo() {
                                 "w-[200px] sm:w-[240px] md:w-[260px] lg:w-[300px]",
                                 "transform-gpu origin-top-right scale-[0.82] sm:scale-[0.9] md:scale-100"
                             )}
-                            delay={GAUGE_DELAY}
                         />
 
                         {/* Bottom-left: Replacement Cost — stays on laptop on all sizes (scaled on small) */}
                         <PopupCostRange
-                            inView={inView}
                             className={cn(
                                 "absolute z-10",
                                 // Mobile-first placement over screen
@@ -93,30 +63,23 @@ export function SectionTwo() {
                                 "w-[210px] sm:w-[250px] md:w-[280px] lg:w-[340px]",
                                 "transform-gpu origin-bottom-left scale-[0.78] sm:scale-[0.9] md:scale-100"
                             )}
-                            delay={COST_DELAY}
                         />
 
                         {/* Bottom-right: Annual turnover cost
                            - Hidden on small (rendered below laptop instead)
                            - On md+ it overlays the laptop as before */}
                         <PopupTurnoverCost
-                            inView={inView}
                             className={cn(
                                 "hidden md:block absolute z-10",
                                 "md:right-0 md:bottom-[-18%] lg:bottom-[-10%]",
                                 "w-[280px] lg:w-[340px]"
                             )}
-                            delay={TURNOVER_DELAY}
                         />
                     </div>
 
                     {/* Small screens: place Turnover Cost below the laptop */}
                     <div className="md:hidden mt-4 flex justify-center">
-                        <PopupTurnoverCost
-                            inView={inView}
-                            className={cn("w-[92%] max-w-[420px]")}
-                            delay={TURNOVER_DELAY}
-                        />
+                        <PopupTurnoverCost className={cn("w-[92%] max-w-[420px]")} />
                     </div>
                 </div>
             </div>
@@ -136,6 +99,30 @@ function usePrefersReducedMotion() {
         return () => mq.removeEventListener?.("change", listener);
     }, []);
     return reduced;
+}
+
+/**
+ * useOnceInView — returns a ref and a boolean that becomes true once the element
+ * has entered the viewport (first time only).
+ */
+function useOnceInView<T extends Element>(options?: IntersectionObserverInit) {
+    const ref = useRef<T | null>(null);
+    const [entered, setEntered] = useState(false);
+
+    useEffect(() => {
+        if (!ref.current || entered) return;
+        const el = ref.current;
+        const io = new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) {
+                setEntered(true);
+                io.disconnect();
+            }
+        }, options ?? { threshold: 0.2 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, [entered, options]);
+
+    return [ref, entered] as const;
 }
 
 function BackdropSweep() {
@@ -213,11 +200,9 @@ function LaptopScreenVideo({ src }: { src: string }) {
 
 function PopupCostRange({
     className,
-    inView,
     delay = 0,
 }: {
     className?: string;
-    inView: boolean;
     delay?: number;
 }) {
     const prefersReducedMotion = usePrefersReducedMotion();
@@ -229,10 +214,12 @@ function PopupCostRange({
     const MED = 275;
     const HIGH = 400;
 
+    const [ref, entered] = useOnceInView<HTMLDivElement>({ threshold: 0.2 });
+
     // Staggered bar animations (low -> medium -> high)
-    const pLow = useProgress(inView, duration, delay + 0);
-    const pMed = useProgress(inView, duration, delay + 140);
-    const pHigh = useProgress(inView, duration, delay + 280);
+    const pLow = useProgress(entered, duration, delay + 0);
+    const pMed = useProgress(entered, duration, delay + 140);
+    const pHigh = useProgress(entered, duration, delay + 280);
 
     const wLow = (LOW / MAX) * 100 * pLow;
     const wMed = (MED / MAX) * 100 * pMed;
@@ -240,6 +227,7 @@ function PopupCostRange({
 
     return (
         <article
+            ref={ref}
             className={cn(
                 // Dark glass surface with subtle brand accent border
                 "rounded-[12px] glass-strong card card--accent brand-border",
@@ -247,7 +235,7 @@ function PopupCostRange({
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 className
             )}
@@ -346,22 +334,23 @@ function PopupCostRange({
 
 function PopupGauge({
     className,
-    inView,
     delay = 0,
 }: {
     className?: string;
-    inView: boolean;
     delay?: number;
 }) {
     const target = 42;
     const prefersReducedMotion = usePrefersReducedMotion();
-    const value = useCountUp(inView, target, prefersReducedMotion ? 0 : 1400, delay);
     const arcId = useId();
+
+    const [ref, entered] = useOnceInView<HTMLElement>({ threshold: 0.2 });
+
+    const value = useCountUp(entered, target, prefersReducedMotion ? 0 : 1400, delay);
 
     // Gauge geometry (semi-circle)
     const r = 64;
     const circumference = Math.PI * r;
-    const progress = (inView ? value : 0) / 100;
+    const progress = (entered ? value : 0) / 100;
     const dashOffset = useMemo(
         () => circumference * (1 - progress),
         [circumference, progress]
@@ -369,13 +358,14 @@ function PopupGauge({
 
     return (
         <article
+            ref={ref as any}
             className={cn(
                 "rounded-[12px] glass-strong card card--accent brand-border",
                 "bg-[rgb(255_255_255/0.075)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 className
             )}
@@ -450,11 +440,9 @@ function PopupGauge({
 
 function PopupTurnoverCost({
     className,
-    inView,
     delay = 0,
 }: {
     className?: string;
-    inView: boolean;
     delay?: number;
 }) {
     const prefersReducedMotion = usePrefersReducedMotion();
@@ -463,20 +451,23 @@ function PopupTurnoverCost({
     const MAX = 3_000_000; // $3.0M scale max for the bar
     const TARGET = 2_500_000; // $2.5M emphasized figure
 
-    const progress = useProgress(inView, duration, delay); // 0..1
+    const [ref, entered] = useOnceInView<HTMLDivElement>({ threshold: 0.2 });
+
+    const progress = useProgress(entered, duration, delay); // 0..1
     const fillPct = (TARGET / MAX) * 100 * progress;
 
-    const money = useCountUp(inView, TARGET, prefersReducedMotion ? 0 : 1200, delay + 150);
+    const money = useCountUp(entered, TARGET, prefersReducedMotion ? 0 : 1200, delay + 150);
 
     return (
         <article
+            ref={ref}
             className={cn(
                 "rounded-[12px] glass-strong card card--accent brand-border",
                 "bg-[rgb(255_255_255/0.075)] backdrop-blur-md border border-[rgb(255_255_255/0.08)]",
                 "shadow-[0_16px_44px_rgba(0,0,0,0.55)]",
                 "p-4 sm:p-5 text-[rgb(var(--color-text))]",
                 "will-change-transform will-change-opacity",
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
                 "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 className
             )}
