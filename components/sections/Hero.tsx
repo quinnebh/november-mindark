@@ -16,9 +16,13 @@ export function Hero() {
                             playsInline
                             src="/videos/hero.mp4"
                         />
-                        {/* Keep base overlay for readability */}
+                        {/* Base overlay for readability */}
                         <div className="hero-video__overlay pointer-events-none" />
-                        {/* Right third overlay: visible only on large screens to avoid covering video on mobile */}
+                        {/* Edge treatments (desktop only): ensure solid black on both sides */}
+                        <div
+                            aria-hidden="true"
+                            className="hidden lg:block absolute inset-y-0 left-0 w-1/4 bg-[rgb(0_0_0)] pointer-events-none"
+                        />
                         <div
                             aria-hidden="true"
                             className="hidden lg:block absolute inset-y-0 right-0 w-1/3 bg-[rgb(0_0_0)] pointer-events-none"
