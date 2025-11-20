@@ -18,10 +18,10 @@ export function Hero() {
                         />
                         {/* Keep base overlay for readability */}
                         <div className="hero-video__overlay pointer-events-none" />
-                        {/* Right third: force solid black to match panel */}
+                        {/* Right third overlay: visible only on large screens to avoid covering video on mobile */}
                         <div
                             aria-hidden="true"
-                            className="absolute inset-y-0 right-0 w-1/3 bg-[rgb(0_0_0)] pointer-events-none"
+                            className="hidden lg:block absolute inset-y-0 right-0 w-1/3 bg-[rgb(0_0_0)] pointer-events-none"
                         />
                     </div>
                 </div>
