@@ -1954,7 +1954,7 @@ export function MainNav() {
 
                     {/* Right: CTA + Account + Mobile Toggle */}
                     <div className="flex items-center gap-2">
-                        <a href="/#cta" className="hidden sm:inline-flex btn btn--primary">
+                        <a href="mailto:hello@mindark.ai" className="hidden sm:inline-flex btn btn--primary">
                             Get a Demo
                         </a>
 
@@ -2000,5 +2000,426 @@ export function MainNav() {
         </header>
     );
 }
+
+> user
+On smaller screens a small box appears on the right side of the header that is just 3 lines and has no functionality. Remove this box from the header on smaller screens.
+
+@time 2025-11-20T13:31:40+01:00
+@tokenUsage 17201 / 2918 / $0.025148750000000004
+@model gpt-5-2025-08-07
+> assistant
+import React, { useEffect, useRef, useState } from "react";
+import { Logo } from "@/components/Logo";
+import { cn } from "@/lib/util";
+import { useIsInFullPageMode, useIsNoMarginMode } from "@/lib/hooks";
+import {
+    Menu,
+    X,
+    ChevronDown,
+    Building2,
+    LogOut,
+    Plus,
+} from "lucide-react";
+
+export interface MainLayoutProps {
+    children: React.ReactNode;
+}
+
+/**
+ * Primary navigation items (anchor-based)
+ */
+const NAV_ITEMS: { label: string; href: `/#${string}` }[] = [
+    { label: "Hero", href: "/#hero" },
+    { label: "Features", href: "/#features" },
+    { label: "Echo", href: "/#echo" },
+    { label: "Playbook", href: "/#playbook" },
+    { label: "Metrics", href: "/#metrics" },
+    { label: "How It Works", href: "/#how-it-works" },
+    { label: "FAQ", href: "/#faq" },
+];
+
+/**
+ * Account options for the account/workspace switcher
+ * Replace with real data when available.
+ */
+const ACCOUNT_OPTIONS = [
+    { id: "acme", name: "Acme Corp" },
+    { id: "northwind", name: "Northwind" },
+    { id: "personal", name: "Personal" },
+];
+
+export function MainLayout({ children }: MainLayoutProps) {
+    const isFull = useIsInFullPageMode();
+    const noMargins = useIsNoMarginMode();
+
+    return (
+        <div
+            className={cn(
+                "min-h-dvh bg-page text-[rgb(var(--color-text))] antialiased",
+                isFull && "layout--fullpage",
+                noMargins && "layout--no-margins"
+            )}
+        \>
+            {!isFull && <MainNav />}
+
+            <main
+                className={cn(
+                    "w-full",
+                    noMargins ? "flex flex-col" : "container-page flex flex-col"
+                )}
+            \>
+                {children}
+            </main>
+        </div>
+    );
+}
+
+/**
+ * MainNav — Sticky, glassy top navigation with:
+ * - Logo
+ * - Anchor links
+ * - Get a Demo CTA
+ * - Account switcher
+ *
+ * Note: Mobile hamburger toggle removed per request (no small 3-line box on small screens).
+ */
+export function MainNav() {
+    return (
+        <header className="sticky top-0 z-40">
+            <div className="glass hairline backdrop-blur-md">
+                <div className="container-page flex items-center justify-between py-3 gap-3">
+                    {/* Left: Logo + brand */}
+                    <a href="/" className="flex items-center gap-2 focus-ring">
+                        <Logo className="w-7 h-7" />
+                        <span className="font-semibold tracking-tight">
+                            theMindArk.AI
+                        </span>
+                    </a>
+
+                    {/* Center: Desktop nav */}
+                    <nav className="hidden md:flex items-center gap-2">
+                        <ul className="flex items-center gap-1">
+                            {NAV_ITEMS.map((item) => (
+                                <li key={item.href}>
+                                    <a
+                                        href={item.href}
+                                        className="px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.04)] focus-ring"
+                                    \>
+                                        {item.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    {/* Right: CTA + Account switcher (no mobile hamburger) */}
+                    <div className="flex items-center gap-2">
+                        <a
+                            href="/#cta"
+                            className="hidden sm:inline-flex btn btn--primary"
+                        \>
+                            Get a Demo
+                        </a>
+                        <AccountSwitcher />
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
+
+/**
+ * AccountSwitcher — Minimal account/workspace switcher for the main nav.
+ * Uses a glass dropdown with focus management and keyboard escape.
+ */
+export function AccountSwitcher() {
+    const [open, setOpen] = useState(false);
+    const [active, setActive] = useState(ACCOUNT_OPTIONS[0]);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        const onClick = (e: MouseEvent) => {
+            if (!panelRef.current) return;
+            if (open && !panelRef.current.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
+        window.addEventListener("keydown", onKey);
+        window.addEventListener("click", onClick);
+        return () => {
+            window.removeEventListener("keydown", onKey);
+            window.removeEventListener("click", onClick);
+        };
+    }, [open]);
+
+    return (
+        <div className="relative" ref={panelRef}>
+            <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={open}
+                className={cn(
+                    "inline-flex items-center gap-2 px-2.5 py-2 rounded-[var(--radius-xs)]",
+                    "text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))]",
+                    "hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                )}
+                onClick={() => setOpen((v) => !v)}
+            \>
+                <Building2 className="w-4 h-4" />
+                <span className="max-w-[12ch] truncate">{active.name}</span>
+                <ChevronDown className="w-4 h-4 opacity-80" />
+            </button>
+
+            {open && (
+                <div
+                    role="menu"
+                    className="absolute right-0 mt-2 w-[220px] glass card p-2 rounded-[var(--radius-sm)] shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+                \>
+                    <div className="grid gap-1">
+                        {ACCOUNT_OPTIONS.map((acc) => {
+                            const isActive = acc.id === active.id;
+                            return (
+                                <button
+                                    key={acc.id}
+                                    role="menuitemradio"
+                                    aria-checked={isActive}
+                                    className={cn(
+                                        "w-full text-left px-3 py-2 rounded-[var(--radius-xs)] text-sm",
+                                        isActive
+                                            ? "bg-[rgb(255_255_255/0.06)]"
+                                            : "hover:bg-[rgb(255_255_255/0.05)]"
+                                    )}
+                                    onClick={() => {
+                                        setActive(acc);
+                                        setOpen(false);
+                                    }}
+                                \>
+                                    {acc.name}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="divider my-2" />
+
+                    <div className="grid gap-1">
+                        <a
+                            role="menuitem"
+                            href="/accounts/new"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <Plus className="w-4 h-4" />
+                            Create new workspace
+                        </a>
+                        <a
+                            role="menuitem"
+                            href="/logout"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <LogOut className="w-4 h-4" />
+                            Sign out
+                        </a>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+
+
+> user
+In the header, remove Hero, Features, Echo, Playbook, Metrics, How It Works, and FAQ from the navigation links. Keep only the "Get a Demo" button on the right side of the header. Also remove the organization picker on the right side of the header.
+
+Change the "theMindArk.AI" text next to the logo in the header to be "MindArk"
+
+@time 2025-11-20T13:34:27+01:00
+@tokenUsage 19048 / 3019 / $0.02758375
+@model gpt-5-2025-08-07
+> assistant
+import React, { useEffect, useRef, useState } from "react";
+import { Logo } from "@/components/Logo";
+import { cn } from "@/lib/util";
+import { useIsInFullPageMode, useIsNoMarginMode } from "@/lib/hooks";
+import { ChevronDown, Building2, LogOut, Plus } from "lucide-react";
+
+export interface MainLayoutProps {
+    children: React.ReactNode;
+}
+
+/**
+ * Account options for the account/workspace switcher (exported but not used in header)
+ * Replace with real data when available.
+ */
+const ACCOUNT_OPTIONS = [
+    { id: "acme", name: "Acme Corp" },
+    { id: "northwind", name: "Northwind" },
+    { id: "personal", name: "Personal" },
+];
+
+export function MainLayout({ children }: MainLayoutProps) {
+    const isFull = useIsInFullPageMode();
+    const noMargins = useIsNoMarginMode();
+
+    return (
+        <div
+            className={cn(
+                "min-h-dvh bg-page text-[rgb(var(--color-text))] antialiased",
+                isFull && "layout--fullpage",
+                noMargins && "layout--no-margins"
+            )}
+        \>
+            {!isFull && <MainNav />}
+
+            <main className={cn("w-full", noMargins ? "flex flex-col" : "container-page flex flex-col")}>
+                {children}
+            </main>
+        </div>
+    );
+}
+
+/**
+ * MainNav — Sticky, glassy top navigation with:
+ * - Logo + brand
+ * - Primary CTA (Get a Demo) on the right
+ *
+ * Notes:
+ * - Anchor nav links removed per request.
+ * - Organization picker (account switcher) removed from header per request.
+ * - Mobile hamburger/collapsible toggle removed to avoid the 3-line box on small screens.
+ */
+export function MainNav() {
+    return (
+        <header className="sticky top-0 z-40">
+            <div className="glass hairline backdrop-blur-md">
+                <div className="container-page flex items-center justify-between py-3 gap-3">
+                    {/* Left: Logo + brand */}
+                    <a href="/" className="flex items-center gap-2 focus-ring">
+                        <Logo className="w-7 h-7" />
+                        <span className="font-semibold tracking-tight">MindArk</span>
+                    </a>
+
+                    {/* Right: Primary CTA only */}
+                    <div className="flex items-center gap-2">
+                        <a href="/#cta" className="inline-flex btn btn--primary">
+                            <span className="sr-only">Open demo request</span>
+                            Get a Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
+
+/**
+ * AccountSwitcher — Exported for completeness and future use.
+ * Not rendered in MainNav per current header requirements.
+ */
+export function AccountSwitcher() {
+    const [open, setOpen] = useState(false);
+    const [active, setActive] = useState(ACCOUNT_OPTIONS[0]);
+    const panelRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        const onClick = (e: MouseEvent) => {
+            if (!panelRef.current) return;
+            if (open && !panelRef.current.contains(e.target as Node)) {
+                setOpen(false);
+            }
+        };
+        window.addEventListener("keydown", onKey);
+        window.addEventListener("click", onClick);
+        return () => {
+            window.removeEventListener("keydown", onKey);
+            window.removeEventListener("click", onClick);
+        };
+    }, [open]);
+
+    return (
+        <div className="relative" ref={panelRef}>
+            <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={open}
+                className={cn(
+                    "inline-flex items-center gap-2 px-2.5 py-2 rounded-[var(--radius-xs)]",
+                    "text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))]",
+                    "hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                )}
+                onClick={() => setOpen((v) => !v)}
+            \>
+                <Building2 className="w-4 h-4" />
+                <span className="max-w-[12ch] truncate">{active.name}</span>
+                <ChevronDown className="w-4 h-4 opacity-80" />
+            </button>
+
+            {open && (
+                <div
+                    role="menu"
+                    className="absolute right-0 mt-2 w-[220px] glass card p-2 rounded-[var(--radius-sm)] shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+                \>
+                    <div className="grid gap-1">
+                        {ACCOUNT_OPTIONS.map((acc) => {
+                            const isActive = acc.id === active.id;
+                            return (
+                                <button
+                                    key={acc.id}
+                                    role="menuitemradio"
+                                    aria-checked={isActive}
+                                    className={cn(
+                                        "w-full text-left px-3 py-2 rounded-[var(--radius-xs)] text-sm",
+                                        isActive
+                                            ? "bg-[rgb(255_255_255/0.06)]"
+                                            : "hover:bg-[rgb(255_255_255/0.05)]"
+                                    )}
+                                    onClick={() => {
+                                        setActive(acc);
+                                        setOpen(false);
+                                    }}
+                                \>
+                                    {acc.name}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="divider my-2" />
+
+                    <div className="grid gap-1">
+                        <a
+                            role="menuitem"
+                            href="/accounts/new"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <Plus className="w-4 h-4" />
+                            Create new workspace
+                        </a>
+                        <a
+                            role="menuitem"
+                            href="/logout"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        \>
+                            <LogOut className="w-4 h-4" />
+                            Sign out
+                        </a>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+
 
 > user
