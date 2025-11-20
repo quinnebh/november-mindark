@@ -7,12 +7,11 @@ import { Copy, RotateCcw, Send } from "lucide-react";
  * Left: headline + three centered KPI counters (fade-in + count up)
  * Right: Larger laptop mockup with the Executive Assistant chat (no fixed aspect ratio)
  *
- * Updates:
- * - Numbers and labels centered
- * - Laptop aligned with the left column; chat fits on screen (no scrolling)
- * - Typing effect for messages with a short delay between each
- * - Right-align the user question and add a question mark at the end
- * - User message bubble shrinks to content width (w-fit) while respecting a max width
+ * Current behavior:
+ * - User question bubble pre-sizes to its final width/height using an invisible sizer
+ *   and overlays a typing layer to avoid layout shift while typing.
+ * - Typing now progresses left-to-right inside the right-aligned bubble by ensuring
+ *   the text alignment within the bubble is left-aligned (text-left).
  */
 export function SectionFour() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -236,11 +235,19 @@ export function SectionFour() {
                                         </p>
                                     </div>
 
-                                    {/* User question (typing after welcome) — right aligned; bubble shrinks to text content */}
+                                    {/* User question (typing after welcome) — right aligned; bubble width reserved via invisible sizer */}
                                     {t1.done && (
                                         <div className="mt-3 flex justify-end">
-                                            <div className="w-fit max-w-[72%] p-3 rounded-[12px] bg-[rgb(255_255_255/0.08)] text-[13px] text-right">
-                                                <span>
+                                            <div className="relative w-fit max-w-[72%] rounded-[12px] bg-[rgb(255_255_255/0.08)] border border-[rgb(255_255_255/0.0)]">
+                                                {/* Sizer reserves final width/height so the bubble doesn't grow while typing */}
+                                                <span
+                                                    aria-hidden="true"
+                                                    className="block invisible p-3 text-left text-[13px] leading-6 whitespace-pre-wrap"
+                                                >
+                                                    {MSG_QUESTION}
+                                                </span>
+                                                {/* Positioned typing text overlay with left-aligned text for LTR typing */}
+                                                <span className="absolute left-3 right-3 top-3 text-left text-[13px] leading-6 whitespace-pre-wrap">
                                                     {t2.output}
                                                     {t2.typing && (
                                                         <span className="tw-caret tw-caret--light" aria-hidden="true" />
