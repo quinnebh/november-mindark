@@ -2,21 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/util";
 import { useIsInFullPageMode, useIsNoMarginMode } from "@/lib/hooks";
-import { Menu, X, ChevronDown, Building2, LogOut, Plus } from "lucide-react";
+import { ChevronDown, Building2, LogOut, Plus } from "lucide-react";
 
 export interface MainLayoutProps {
     children: React.ReactNode;
 }
 
 /**
- * Primary in-page navigation items (anchors)
+ * Account options for the account/workspace switcher (exported but not used in header)
+ * Replace with real data when available.
  */
-const NAV_ITEMS: { label: string; href: `/#${string}` }[] = [
+const ACCOUNT_OPTIONS = [
+    { id: "acme", name: "Acme Corp" },
+    { id: "northwind", name: "Northwind" },
+    { id: "personal", name: "Personal" },
 ];
-
-/**
- * Mock account/workspace options for the switcher
- */
 
 export function MainLayout({ children }: MainLayoutProps) {
     const isFull = useIsInFullPageMode();
@@ -40,15 +40,46 @@ export function MainLayout({ children }: MainLayoutProps) {
 }
 
 /**
- * MainNav — Glassy, sticky top navigation with:
- * - Logo and brand
- * - Anchor-based primary links
- * - Primary CTA (Get a Demo)
- * - Account switcher
- * - Mobile collapse (hamburger)
+ * MainNav — Sticky, glassy top navigation with:
+ * - Logo + brand
+ * - Primary CTA (Get a Demo) on the right
+ *
+ * Notes:
+ * - Anchor nav links removed per request.
+ * - Organization picker (account switcher) removed from header per request.
+ * - Mobile hamburger/collapsible toggle removed to avoid the 3-line box on small screens.
  */
 export function MainNav() {
+    return (
+        <header className="sticky top-0 z-40">
+            <div className="glass hairline backdrop-blur-md">
+                <div className="container-page flex items-center justify-between py-3 gap-3">
+                    {/* Left: Logo + brand */}
+                    <a href="/" className="flex items-center gap-2 focus-ring">
+                        <Logo className="w-7 h-7" />
+                        <span className="font-semibold tracking-tight">MindArk</span>
+                    </a>
+
+                    {/* Right: Primary CTA only */}
+                    <div className="flex items-center gap-2">
+                        <a href="/#cta" className="inline-flex btn btn--primary">
+                            <span className="sr-only">Open demo request</span>
+                            Get a Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+}
+
+/**
+ * AccountSwitcher — Exported for completeness and future use.
+ * Not rendered in MainNav per current header requirements.
+ */
+export function AccountSwitcher() {
     const [open, setOpen] = useState(false);
+    const [active, setActive] = useState(ACCOUNT_OPTIONS[0]);
     const panelRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -70,76 +101,77 @@ export function MainNav() {
     }, [open]);
 
     return (
-        <header className="sticky top-0 z-40">
-            <div className="glass hairline backdrop-blur-md">
-                <div className="container-page flex items-center justify-between py-3 gap-3">
-                    {/* Brand */}
-                    <a href="/" className="flex items-center gap-2 focus-ring">
-                        <Logo className="w-7 h-7" />
-                        <span className="font-semibold tracking-tight">MindArk</span>
-                    </a>
+        <div className="relative" ref={panelRef}>
+            <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={open}
+                className={cn(
+                    "inline-flex items-center gap-2 px-2.5 py-2 rounded-[var(--radius-xs)]",
+                    "text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))]",
+                    "hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                )}
+                onClick={() => setOpen((v) => !v)}
+            >
+                <Building2 className="w-4 h-4" />
+                <span className="max-w-[12ch] truncate">{active.name}</span>
+                <ChevronDown className="w-4 h-4 opacity-80" />
+            </button>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden md:flex items-center gap-2">
-                        <ul className="flex items-center gap-1">
-                            {NAV_ITEMS.map((item) => (
-                                <li key={item.href}>
-                                    <a
-                                        href={item.href}
-                                        className="px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.04)] focus-ring"
-                                    >
-                                        {item.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-
-                    {/* Right: CTA + Account + Mobile Toggle */}
-                    <div className="flex items-center gap-2">
-                        <a href="mailto:hello@mindark.ai" className="hidden sm:inline-flex btn btn--primary">
-                            Get a Demo
-                        </a>
-
-
-                        <button
-                            type="button"
-                            className="md:hidden inline-flex items-center justify-center p-2 rounded-[var(--radius-xs)] hover:bg-[rgb(255_255_255/0.06)] focus-ring"
-                            aria-label="Open navigation"
-                            aria-controls="mobile-nav"
-                            aria-expanded={open}
-                            onClick={() => setOpen((v) => !v)}
-                        >
-                            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Mobile Panel */}
+            {open && (
                 <div
-                    id="mobile-nav"
-                    ref={panelRef}
-                    className={cn("md:hidden border-t border-[rgb(255_255_255/0.06)]", open ? "block" : "hidden")}
+                    role="menu"
+                    className="absolute right-0 mt-2 w-[220px] glass card p-2 rounded-[var(--radius-sm)] shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
                 >
-                    <div className="container-page py-3">
-                        <nav className="flex flex-col gap-1">
-                            {NAV_ITEMS.map((item) => (
-                                <a
-                                    key={item.href}
-                                    href={item.href}
-                                    className="px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
-                                    onClick={() => setOpen(false)}
+                    <div className="grid gap-1">
+                        {ACCOUNT_OPTIONS.map((acc) => {
+                            const isActive = acc.id === active.id;
+                            return (
+                                <button
+                                    key={acc.id}
+                                    role="menuitemradio"
+                                    aria-checked={isActive}
+                                    className={cn(
+                                        "w-full text-left px-3 py-2 rounded-[var(--radius-xs)] text-sm",
+                                        isActive
+                                            ? "bg-[rgb(255_255_255/0.06)]"
+                                            : "hover:bg-[rgb(255_255_255/0.05)]"
+                                    )}
+                                    onClick={() => {
+                                        setActive(acc);
+                                        setOpen(false);
+                                    }}
                                 >
-                                    {item.label}
-                                </a>
-                            ))}
-                            <a href="/#cta" className="mt-2 btn btn--primary" onClick={() => setOpen(false)}>
-                                Get a Demo
-                            </a>
-                        </nav>
+                                    {acc.name}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="divider my-2" />
+
+                    <div className="grid gap-1">
+                        <a
+                            role="menuitem"
+                            href="/accounts/new"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        >
+                            <Plus className="w-4 h-4" />
+                            Create new workspace
+                        </a>
+                        <a
+                            role="menuitem"
+                            href="/logout"
+                            className="flex items-center gap-2 px-3 py-2 rounded-[var(--radius-xs)] text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text))] hover:bg-[rgb(255_255_255/0.05)] focus-ring"
+                            onClick={() => setOpen(false)}
+                        >
+                            <LogOut className="w-4 h-4" />
+                            Sign out
+                        </a>
                     </div>
                 </div>
-            </div>
-        </header>
+            )}
+        </div>
     );
 }
