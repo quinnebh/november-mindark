@@ -45,8 +45,6 @@ Component=struct(
 > target app-description
     context: array(
         {path: 'context/app.md' tag:'app-description'}
-        {path: 'context/screens/**.md' tag:'screen'}
-        {path: 'context/components/**.md' tag:'component'}
         {path: 'context/coding-rules.md' tag:'coding-rules'}
         {path: 'context/style.md' tag:'styling'}
         {path: '.editorconfig' tag:'editor-config'}
@@ -59,8 +57,7 @@ Component=struct(
     
     Include the following:
     - List of features
-    - List of screens with a description and route.
-      - Use the Screens section in the `app-description` tag to create the list of screens
+    - List of sections with a description and route.
     ===
 
 > target tailwinds
@@ -104,17 +101,6 @@ Component=struct(
     ===
 
 
-> target screen-list
-    context: array(
-        {path: 'context/screens/**.md' tag:'screen'}
-        {path: 'docs/app-description.md' tag:'app-description'}
-        {path: 'lib/schema.ts' tag: 'types'}
-    )
-    out: 'docs/screens.json'
-    outListType: Screen
-    ===
-    Create a list of screens
-    ===
 
 > target main-layout-description
     context: array(
@@ -123,7 +109,6 @@ Component=struct(
         {path: 'lib/schema.ts' tag: 'types'}
         {path: 'context/style.md' tag:'styling'}
         {path: 'docs/style-guide.md' tag:'style-guide'}
-        {path: 'docs/screens.json' tag:'all-screens'}
         {path: '.editorconfig' tag:'editor-config'}
     )
     out: 'docs/main-layout.md'
@@ -143,7 +128,6 @@ Component=struct(
 > target main-layout
     context: array(
         {path: 'docs/app-description.md' tag:'app-description'}
-        {path: 'docs/screens.json' tag:'all-screens'}
         {path: 'context/coding-rules.md' tag:'coding-rules'}
         {path: 'lib/schema.ts' tag: 'types'}
         {path: 'context/style.md' tag:'styling'}
@@ -160,131 +144,20 @@ Component=struct(
     The MainLayout should include collapsible navigation.
     ===
 
-> target component-list
-    context: array(
-        {path: 'docs/app-description.md' tag:'app-description'}
-        {path: 'docs/screens.json' tag:'all-screens'}
-        {path: 'context/coding-rules.md' tag:'coding-rules'}
-        {path: 'lib/schema.ts' tag: 'types'}
-        {path: '.editorconfig' tag:'editor-config'}
-        {path: 'context/components/*.md' tag:'components'}
-    )
-    outListType: Component
-    out: 'docs/components.json'
-    ===
-    Generate a list of components based on the `component` tags.
-    ===
 
-> target component-descriptions
-    context: array(
-        {path: 'docs/app-description.md' tag:'app-description'}
-        {path: 'docs/screens.json' tag:'all-screens'}
-        {path: 'context/coding-rules.md' tag:'coding-rules'}
-        {path: 'lib/schema.ts' tag: 'types'}
-        {path: 'context/style.md' tag:'styling'}
-        {path: 'docs/style-guide.md' tag:'style-guide'}
-        {path: '.editorconfig' tag:'editor-config'}
-    )
-    inList: 'docs/components.json'
-    inputTag: 'component'
-    outNameProp: 'name'
-    out: 'docs/components/*.md'
-    ===
-    Generate a detailed description of the component
-    ===
-
-> target screen-descriptions
+> target section-components
     context: array(
         {path: 'docs/app-description.md' tag:'app-description'}
         {path: 'context/coding-rules.md' tag:'coding-rules'}
-        {path: 'lib/schema.ts' tag: 'types'}
         {path: 'context/style.md' tag:'styling'}
         {path: 'docs/style-guide.md' tag:'style-guide'}
         {path: 'docs/main-layout.md' tag:'main-layout'}
-        {path: 'docs/screens.json' tag:'all-screens'}
-        {path: 'docs/components.json' tag:'components'}
+        {path: '.editorconfig' tag:'editor-config'}
+        'context/sections.convo'
     )
-    inList: 'docs/screens.json'
-    out: 'docs/screens/*.md'
-    outNameProp: 'route'
-    ===
-    Generate a detailed description of the screen in markdown format. The description should not
-    replicate functionally of the main-layout unless it is part of the main content of the screen.
-
-    The description should include the following sections:
-    - Name of screen
-    - Description
-    - The route of the screen
-    - Actions: List of actions the user should be able to preform
-    - Links: List of links to other routes. Should not include links in the main navigation of the app.
-
-    Example:
-    <example-screen-description>
-    # Screen Description
-    
-    Name: {Name of screen}
-    Route: {route}
-
-    ## Description
-    {Detailed Description}
-
-    ## Actions
-    {Bullet list of actions the user can preform on the screen}
-
-    ## Links
-    - profile: link to user profile
-    - profile/[profileId]: link to public profile
-    </example-screen-description>
-    ===
-
-> define
-screenContext = array(
-    {path: 'docs/app-description.md' tag:'app-description'}
-    {path: 'docs/screens.json' tag:'all-screens'}
-    {path: 'docs/components.json' tag:'components'}
-    {path: 'context/coding-rules.md' tag:'coding-rules'}
-    {path: 'lib/schema.ts' tag: 'types'}
-    {path: 'context/style.md' tag:'styling'}
-    {path: 'docs/style-guide.md' tag:'style-guide'}
-    {path: 'docs/main-layout.md' tag:'main-layout'}
-    {path: '.editorconfig' tag:'editor-config'}
-)
-
-> target components
-    context: screenContext
-    deps: 'component-descriptions'
-    in: 'docs/components/**.md'
-    inputTag:'component-description'
-    out: 'components/*.tsx'
-    ===
-    Generate a React component based on the `component-description`.
-    ===
-
-> target screens
-    context: screenContext
-    deps: array('screens-descriptions' 'components' )
-    in: 'docs/screens/**.md'
-    inputTag:'screen-description'
-    out: 'pages/*.tsx'
-    ===
-    Generate a NextJS page based on the `screen-description`.
-    ===
-
-
-
-> target tests
-    context: array(
-        {path: 'docs/app-description.md' tag:'app-description'}
-        {path: 'docs/screens.json' tag:'all-screens'}
-    )
-    deps: 'screens-descriptions'
-    in: 'docs/screens/**.md'
-    inputTag:'screen-description'
-    out: 'docs/screen-tests/*.md'
-    ===
-    Generate a simple set of tests to test all the features of the screens. The tests should be 
-    should be a smile bullet list of short sentences describing features to test.
-
-    The test should be able to be completed by a human in 10 minutes or less. Do not include more
-    than 25 bullet points.
-    ===
+    component: true
+    in: 'context/section-images/*.png'
+    out: 'components/sections/*.tsx'
+    ---
+    Generate a React section component based on the image
+    ---
